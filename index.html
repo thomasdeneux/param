@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Param : Declarative Python programming using Parameters" />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Param</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/ioam/param">View on GitHub</a>
+
+          <h1 id="project_title">Param</h1>
+          <h2 id="project_tagline">Declarative Python programming using Parameters</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/ioam/param/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/ioam/param/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h2>What is a Parameter?</h2>
+
+<p>A Parameter is a special type of Python attribute extended to have features such as type and range checking, dynamically generated values, documentation strings, default values, etc., each of which is inherited from parent classes if not specified in a subclass.</p>
+
+<div class="highlight">
+<pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">param</span><span class="o">,</span><span class="nn">random</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
+<span class="o">...</span>    <span class="n">a</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">doc</span><span class="o">=</span><span class="s">"Probability that..."</span><span class="p">)</span>
+<span class="o">...</span>    <span class="n">b</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="bp">False</span><span class="p">,</span><span class="n">doc</span><span class="o">=</span><span class="s">"Enable feature..."</span><span class="p">)</span>
+<span class="o">...</span> 
+<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+<span class="o">...</span>    <span class="n">b</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<span class="o">...</span> 
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">B</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">a</span>
+<span class="mf">0.37053399325641945</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">a</span>
+<span class="mf">0.64907392300071842</span>
+</pre>
+</div>
+
+
+<h4>Parameters provide optional range and type checking</h4>
+
+<div class="highlight">
+<pre><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">a</span><span class="o">=</span><span class="mi">5</span>
+<span class="p">[</span><span class="o">...</span><span class="p">]</span>
+<span class="ne">ValueError</span><span class="p">:</span> <span class="n">Parameter</span> <span class="s">'a'</span> <span class="n">must</span> <span class="n">be</span> <span class="n">at</span> <span class="n">most</span> <span class="mi">1</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">a</span><span class="o">=</span><span class="s">"0.5"</span>
+<span class="p">[</span><span class="o">...</span><span class="p">]</span>
+<span class="ne">ValueError</span><span class="p">:</span> <span class="n">Parameter</span> <span class="s">'a'</span> <span class="n">only</span> <span class="n">takes</span> <span class="n">numeric</span> <span class="n">values</span>
+</pre>
+</div>
+
+
+<h4>Parameters have docstrings</h4>
+
+<pre><code>&gt;&gt;&gt; help(x)
+[...]
+class B(A)
+[...]
+|  Data descriptors defined here:
+|  b
+|      Enable feature...
+[...]
+|  Data descriptors inherited from A:
+|  a
+|      Probability that...
+</code></pre>
+
+<h4>Param is lightweight</h4>
+
+<p>Param consists of two BSD-licensed Python files, with no dependencies outside of the standard library.</p>
+
+<h4>Parameters make GUI programming simpler</h4>
+
+<p>Parameters make it simple to generate GUIs. An interface for Tk already exists (<a href="http://ioam.github.com/paramtk/">http://ioam.github.com/paramtk/</a>), providing a property sheet that can automatically generate a GUI window for viewing and editing an object's Parameters.</p>
+
+<h2>Installation</h2>
+
+<p>Official releases of Param are available at <a href="http://pypi.python.org/pypi/param">http://pypi.python.org/pypi/param</a>, and can be installed via <code>pip install param</code> or <code>easy_install param</code> (or via <code>python setup.py install</code> of the source).</p>
+
+<h2>Documentation</h2>
+
+<p>Param is currently being moved to github. Meanwhile, documentation is available here:
+<a href="http://topographica.org/Reference_Manual/param-module.html">http://topographica.org/Reference_Manual/param-module.html</a></p>
+
+<h2>Support</h2>
+
+<p>Questions and comments are welcome at <a href="https://github.com/ioam/param/issues">https://github.com/ioam/param/issues</a>.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Param maintained by <a href="https://github.com/ioam">ioam</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
