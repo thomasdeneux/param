@@ -1,0 +1,18 @@
+***************
+param.tests
+***************
+
+.. inheritance-diagram:: param.tests
+
+Submodules
+==========
+* `param.tests.testparameterizedobject <param.tests.testparameterizedobject-module.html>`_
+* `param.tests.testversion <param.tests.testversion-module.html>`_
+
+
+Module
+======
+
+.. automodule:: param.tests
+   :members:
+   :show-inheritance:

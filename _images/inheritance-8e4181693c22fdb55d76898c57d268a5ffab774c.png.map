@@ -1,0 +1,11 @@
+<map id="inheritancece7b6403e7" name="inheritancece7b6403e7">
+<area shape="rect" id="node1" href="#param.parameterized.ParamOverrides" title="A dictionary that returns the attribute of a specified object if" alt="" coords="33,309,300,337"/>
+<area shape="rect" id="node2" href="#param.parameterized.Parameter" title="An attribute descriptor for declaring parameters." alt="" coords="51,258,283,286"/>
+<area shape="rect" id="node8" href="#param.parameterized.String" title="An attribute descriptor for declaring parameters." alt="" coords="431,258,633,286"/>
+<area shape="rect" id="node3" href="#param.parameterized.ParameterMetaclass" title="Metaclass allowing control over creation of Parameter classes." alt="" coords="19,207,315,235"/>
+<area shape="rect" id="node4" href="#param.parameterized.Parameterized" title="Base class for named objects that support Parameters and message" alt="" coords="37,157,296,185"/>
+<area shape="rect" id="node5" href="#param.parameterized.ParameterizedFunction" title="Acts like a Python function, but with arguments that are Parameters." alt="" coords="376,157,688,185"/>
+<area shape="rect" id="node7" href="#param.parameterized.ParameterizedMetaclass" title="The metaclass of Parameterized (and all its descendents)." alt="" coords="5,106,328,134"/>
+<area shape="rect" id="node10" href="#param.parameterized.bothmethod" title="&#39;optional @classmethod&#39;" alt="" coords="44,55,289,83"/>
+<area shape="rect" id="node11" href="#param.parameterized.overridable_property" title="The same as Python&#39;s &quot;property&quot; attribute, but allows the accessor" alt="" coords="17,5,316,33"/>
+</map>

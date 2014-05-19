@@ -1,0 +1,28 @@
+<map id="inheritance0c0d2b112e" name="inheritance0c0d2b112e">
+<area shape="rect" id="node1" href="#param.Array" title="Parameter whose value is a numpy array." alt="" coords="675,117,751,138"/>
+<area shape="rect" id="node2" href="#param.ClassSelector" title="Parameter whose value is an instance of the specified class." alt="" coords="506,117,622,138"/>
+<area shape="rect" id="node13" href="#param.Dict" title="Parameter whose value is a dictionary." alt="" coords="678,155,748,176"/>
+<area shape="rect" id="node4" href="#param.Boolean" title="Binary or tristate Boolean Parameter." alt="" coords="304,79,394,100"/>
+<area shape="rect" id="node5" href="param.parameterized-module.html#param.parameterized.Parameter" title="An attribute descriptor for declaring parameters." alt="" coords="14,211,187,232"/>
+<area shape="rect" id="node7" href="#param.Callable" title="Parameter holding a value that is a callable object, such as a function." alt="" coords="305,117,393,138"/>
+<area shape="rect" id="node9" href="#param.Selector" title="Parameter whose value must be chosen from a list of possibilities." alt="" coords="304,155,394,176"/>
+<area shape="rect" id="node11" href="#param.Composite" title="A Parameter that is a composite of a set of other attributes of the class." alt="" coords="298,192,400,213"/>
+<area shape="rect" id="node15" href="#param.Dynamic" title="Parameter whose value can be generated dynamically by a callable" alt="" coords="303,230,395,251"/>
+<area shape="rect" id="node18" href="#param.Path" title="Parameter that can be set to a string specifying the path of a file or folder." alt="" coords="313,268,385,289"/>
+<area shape="rect" id="node23" href="#param.List" title="Parameter whose value is a list of objects, usually of a specified type." alt="" coords="315,306,383,327"/>
+<area shape="rect" id="node33" href="#param.NumericTuple" title="A numeric tuple Parameter (e.g. (4.5,7.6,3)) with a fixed tuple length." alt="" coords="291,344,407,365"/>
+<area shape="rect" id="node35" href="#param.ObjectSelector" title="Parameter whose value must be one object from a list of possible objects." alt="" coords="503,155,625,176"/>
+<area shape="rect" id="node27" href="#param.Number" title="A numeric Dynamic Parameter, with a default value and optional bounds." alt="" coords="519,192,609,213"/>
+<area shape="rect" id="node17" href="#param.Filename" title="Parameter that can be set to a string specifying the path of a file." alt="" coords="517,230,611,251"/>
+<area shape="rect" id="node20" href="#param.Foldername" title="Parameter that can be set to a string specifying the path of a folder." alt="" coords="510,268,618,289"/>
+<area shape="rect" id="node22" href="#param.HookList" title="Parameter whose value is a list of callable objects." alt="" coords="518,306,610,327"/>
+<area shape="rect" id="node25" href="#param.Infinity" title="An instance of this class represents an infinite value. Unlike" alt="" coords="60,117,141,138"/>
+<area shape="rect" id="node26" href="#param.Integer" title="Numeric Parameter required to be an Integer" alt="" coords="672,192,755,213"/>
+<area shape="rect" id="node30" href="#param.Magnitude" title="Numeric Parameter required to be in the range [0.0&#45;1.0]." alt="" coords="664,230,763,251"/>
+<area shape="rect" id="node42" href="#param.XYCoordinates" title="A NumericTuple for an X,Y coordinate." alt="" coords="505,344,623,365"/>
+<area shape="rect" id="node39" href="#param.Time" title="A callable object returning a number for the current time." alt="" coords="312,3,386,24"/>
+<area shape="rect" id="node40" href="param.parameterized-module.html#param.parameterized.Parameterized" title="Base class for named objects that support Parameters and message" alt="" coords="4,22,197,43"/>
+<area shape="rect" id="node45" href="param.parameterized-module.html#param.parameterized.ParameterizedFunction" title="Acts like a Python function, but with arguments that are Parameters." alt="" coords="233,41,466,62"/>
+<area shape="rect" id="node44" href="#param.normalize_path" title="Convert a UNIX&#45;style path to the current OS&#39;s format," alt="" coords="502,22,626,43"/>
+<area shape="rect" id="node48" href="#param.resolve_path" title="Find the path to an existing file, searching the paths specified" alt="" coords="508,60,620,81"/>
+</map>

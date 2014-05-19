@@ -1,99 +1,237 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Param by ioam</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
-    <link rel="stylesheet" href="stylesheets/styles.css">
-    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Param &mdash; Param 1.1-devel documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.1-devel',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="_static/custom.js"></script>
+    <link rel="top" title="Param 1.1-devel documentation" href="#" /> 
   </head>
   <body>
-    <div class="wrapper">
-      <header>
-        <h1>Param</h1>
-        <p>Declarative Python programming using Parameters</p>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+<li><a href="#">Param Home</a></li>
+<li><a href="Reference_Manual/param-module.html">Reference Manual</a></li>
 
-        <p class="view"><a href="https://pypi.python.org/pypi/param#installation">Install from PyPI</a></p>
-        <p class="view"><a href="https://github.com/ioam/param">View the Project on GitHub <small>ioam/param</small></a></p>
 
-      </header>
-      <section>
-        <h2>What is a Parameter?</h2>
 
+
+
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="param">
+<h1>Param<a class="headerlink" href="#param" title="Permalink to this headline">¶</a></h1>
+<p>Param is a library providing Parameters: Python attributes extended to
+have features such as type and range checking, dynamically generated
+values, documentation strings, default values, etc., each of which is
+inherited from parent classes if not specified in a subclass.</p>
+<div class="section" id="what-is-a-parameter">
+<h2>What is a Parameter?<a class="headerlink" href="#what-is-a-parameter" title="Permalink to this headline">¶</a></h2>
 <p>A Parameter is a special type of Python attribute extended to have features such as type and range checking, dynamically generated values, documentation strings, default values, etc., each of which is inherited from parent classes if not specified in a subclass.</p>
-
-<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">param</span><span class="o">,</span><span class="nn">random</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
-<span class="o">...</span>    <span class="n">a</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">doc</span><span class="o">=</span><span class="s">"Probability that..."</span><span class="p">)</span>
-<span class="o">...</span>    <span class="n">b</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="bp">False</span><span class="p">,</span><span class="n">doc</span><span class="o">=</span><span class="s">"Enable feature..."</span><span class="p">)</span>
-<span class="o">...</span> 
-<span class="o">&gt;&gt;&gt;</span> <span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
-<span class="o">...</span>    <span class="n">b</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
-<span class="o">...</span> 
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span> <span class="o">=</span> <span class="n">B</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">a</span>
-<span class="mf">0.37053399325641945</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">a</span>
-<span class="mf">0.64907392300071842</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">param</span><span class="o">,</span><span class="nn">random</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="n">a</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">doc</span><span class="o">=</span><span class="s">&quot;Probability that...&quot;</span><span class="p">)</span>
+<span class="gp">... </span>   <span class="n">b</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="bp">False</span><span class="p">,</span><span class="n">doc</span><span class="o">=</span><span class="s">&quot;Enable feature...&quot;</span><span class="p">)</span>
 </pre></div>
-
-<h4>Parameters provide optional range and type checking</h4>
-
-<div class="highlight"><pre><span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">a</span><span class="o">=</span><span class="mi">5</span>
-<span class="p">[</span><span class="o">...</span><span class="p">]</span>
-<span class="ne">ValueError</span><span class="p">:</span> <span class="n">Parameter</span> <span class="s">'a'</span> <span class="n">must</span> <span class="n">be</span> <span class="n">at</span> <span class="n">most</span> <span class="mi">1</span>
-<span class="o">&gt;&gt;&gt;</span> <span class="n">x</span><span class="o">.</span><span class="n">a</span><span class="o">=</span><span class="s">"0.5"</span>
-<span class="p">[</span><span class="o">...</span><span class="p">]</span>
-<span class="ne">ValueError</span><span class="p">:</span> <span class="n">Parameter</span> <span class="s">'a'</span> <span class="n">only</span> <span class="n">takes</span> <span class="n">numeric</span> <span class="n">values</span>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="n">b</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
 </pre></div>
-
-<h4>Parameters have docstrings</h4>
-
-<pre><code>&gt;&gt;&gt; help(x)
-[...]
-class B(A)
-[...]
-|  Data descriptors defined here:
-|  b
-|      Enable feature...
-[...]
-|  Data descriptors inherited from A:
-|  a
-|      Probability that...
-</code></pre>
-
-<h4>Param is lightweight</h4>
-
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">B</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">a</span>
+<span class="go">0.37053399325641945</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">a</span>
+<span class="go">0.64907392300071842</span>
+</pre></div>
+</div>
+<div class="section" id="parameters-provide-optional-range-and-type-checking">
+<h3>Parameters provide optional range and type checking<a class="headerlink" href="#parameters-provide-optional-range-and-type-checking" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">a</span><span class="o">=</span><span class="mi">5</span>
+<span class="go">[...]</span>
+<span class="go">ValueError: Parameter &#39;a&#39; must be at most 1</span>
+</pre></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">a</span><span class="o">=</span><span class="s">&quot;0.5&quot;</span>
+<span class="go">[...]</span>
+<span class="go">ValueError: Parameter &#39;a&#39; only takes numeric values</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="parameters-have-docstrings">
+<h3>Parameters have docstrings<a class="headerlink" href="#parameters-have-docstrings" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">help</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="go">[...]</span>
+<span class="go">class B(A)</span>
+<span class="go">[...]</span>
+<span class="go">   Data descriptors defined here:</span>
+<span class="go">   b</span>
+<span class="go">       Enable feature...</span>
+<span class="go">[...]</span>
+<span class="go">   Data descriptors inherited from A:</span>
+<span class="go">   a</span>
+<span class="go">       Probability that...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="param-is-lightweight">
+<h3>Param is lightweight<a class="headerlink" href="#param-is-lightweight" title="Permalink to this headline">¶</a></h3>
 <p>Param consists of two BSD-licensed Python files, with no dependencies outside of the standard library.</p>
+</div>
+<div class="section" id="parameters-make-gui-programming-simpler">
+<h3>Parameters make GUI programming simpler<a class="headerlink" href="#parameters-make-gui-programming-simpler" title="Permalink to this headline">¶</a></h3>
+<p>Parameters make it simple to generate GUIs. An interface for Tk already exists (<a class="reference external" href="http://ioam.github.com/paramtk/">ParamTk</a>), providing a property sheet that can automatically generate a GUI window for viewing and editing an object&#8217;s Parameters.</p>
+</div>
+</div>
+<div class="section" id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
+<p>Official releases of Param are available at <a class="reference external" href="http://pypi.python.org/pypi/param">PyPI</a>, and can be installed via <cite>pip install param</cite> or <cite>easy_install param</cite> (or via <cite>python setup.py install</cite> of the source).</p>
+<p>More recent changes can be obtained by cloning the <a class="reference external" href="http://github.com/ioam/param">git repository</a>.</p>
+<p><a class="reference external" href="https://travis-ci.org/ioam/param"><img alt="BuildStatus" src="https://travis-ci.org/ioam/param.svg?branch=master" /></a></p>
+</div>
+<div class="section" id="release-notes">
+<h2>Release Notes<a class="headerlink" href="#release-notes" title="Permalink to this headline">¶</a></h2>
+<p>Notable additions, or changes that may require users to alter code,
+are listed below.</p>
+<ul class="simple">
+<li>Added support for Python 3 (thanks to Marco Elver).</li>
+<li>Dropped support for Python 2.5.</li>
+</ul>
+<p>A full list of changes since the previous release is available
+<a class="reference external" href="https://github.com/ioam/param/compare/v1.1.0...v1.2.0">on GitHub</a>.</p>
+<ul class="simple">
+<li>Switched to Python&#8217;s own logging module.</li>
+<li>Improved support for time when using Dynamic parameters.</li>
+<li>Optional extension for IPython users.</li>
+</ul>
+<p>A full list of changes since the previous release is available
+<a class="reference external" href="https://github.com/ioam/param/compare/v1.0.0...v1.1.0">on GitHub</a>.</p>
+<ul class="simple">
+<li>First standalone release. Param was originally developed as part of
+<a class="reference external" href="http://ioam.github.io/topographica/">Topographica</a>, and has been
+in heavy usage as part of that project since 2005.</li>
+</ul>
+</div>
+<div class="section" id="support">
+<h2>Support<a class="headerlink" href="#support" title="Permalink to this headline">¶</a></h2>
+<p>Questions and comments are welcome at <a class="reference external" href="https://github.com/ioam/param/issues">https://github.com/ioam/param/issues</a>.</p>
+</div>
+</div>
 
-<h4>Parameters make GUI programming simpler</h4>
 
-<p>Parameters make it simple to generate GUIs. An interface for Tk already exists (<a href="http://ioam.github.com/paramtk/">http://ioam.github.com/paramtk/</a>), providing a property sheet that can automatically generate a GUI window for viewing and editing an object's Parameters.</p>
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div align="center"><h1>Param</h1></div>
+<ul class="global-toc">
+<li><a href="#">Home</a></li>
+<li><a href="Reference_Manual/param-module.html">Reference Manual</a></li>
+<li><a href="http://github.com/ioam/param">Github Source Code</a></li>
+<li><a href="site_map.html">Site Map</a></li>
+</ul>
+<h3><a href="#">Table Of Contents</a></h3>
+<ul>
+<li><a class="reference internal" href="#">Param</a><ul>
+<li><a class="reference internal" href="#what-is-a-parameter">What is a Parameter?</a><ul>
+<li><a class="reference internal" href="#parameters-provide-optional-range-and-type-checking">Parameters provide optional range and type checking</a></li>
+<li><a class="reference internal" href="#parameters-have-docstrings">Parameters have docstrings</a></li>
+<li><a class="reference internal" href="#param-is-lightweight">Param is lightweight</a></li>
+<li><a class="reference internal" href="#parameters-make-gui-programming-simpler">Parameters make GUI programming simpler</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#release-notes">Release Notes</a></li>
+<li><a class="reference internal" href="#support">Support</a></li>
+</ul>
+</li>
+</ul>
 
-<h2>Installation</h2>
 
-<p>Official releases of Param are available at <a href="http://pypi.python.org/pypi/param">PyPi</a>, and can be installed via <code>pip install --user param</code> or <code>easy_install param</code>.  More recent changes can be obtained by cloning the <a href="https://github.com/ioam/param">git repository</a>.</p>
+<h3>This Page</h3>
+<ul class="this-page-menu">
+	<li><a	href="https://github.com/ioam/param/edit/master/doc/index.rst" rel="nofollow">Edit on GitHub</a></li>
+</ul>
 
-<h2>Reference Manual</h2>
-
-<p>Comprehensive reference generated from the source code:<br>
-<a href="http://ioam.github.io/topographica/Reference_Manual/param-module.html">Reference Manual</a></p>
-
-<h2>Support</h2>
-
-<p>Questions and comments are welcome at <a href="https://github.com/ioam/param/issues">https://github.com/ioam/param/issues</a>.</p>
-      </section>
-      <footer>
-        <p>This project is maintained by <a href="https://github.com/ioam">ioam</a></p>
-        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
-      </footer>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
     </div>
-    <script src="javascripts/scale.fix.js"></script>
-    
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+<li><a href="#">Param Home</a></li>
+<li><a href="Reference_Manual/param-module.html">Reference Manual</a></li>
+
+
+
+
+
+
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, IOAM.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
   </body>
 </html>

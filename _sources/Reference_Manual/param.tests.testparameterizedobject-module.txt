@@ -1,0 +1,14 @@
+***************
+param.tests.testparameterizedobject
+***************
+
+.. inheritance-diagram:: param.tests.testparameterizedobject
+
+
+
+Module
+======
+
+.. automodule:: param.tests.testparameterizedobject
+   :members:
+   :show-inheritance:
