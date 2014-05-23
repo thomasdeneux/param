@@ -27,7 +27,7 @@
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../_static/custom.js"></script>
     <link rel="top" title="Param 1.1-devel documentation" href="../../index.html" />
-    <link rel="up" title="param" href="../param.html" /> 
+    <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -40,15 +40,14 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
 <li><a href="../../index.html">Param Home</a></li>
-<li><a href="../../Reference_Manual/param-module.html">Reference Manual</a></li>
+<li><a href="../../Reference_Manual/param.html">Reference Manual</a></li>
 
 
 <li><ul class="parents">
 
 
 
-          <li><a href="../index.html" >Module code</a> &raquo;</li>
-          <li><a href="../param.html" accesskey="U">param</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li>
 
 </ul></li>
 
@@ -93,7 +92,7 @@
 
 <span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">subprocess</span>
 
-<div class="viewcode-block" id="Version"><a class="viewcode-back" href="../../Reference_Manual/param.version-module.html#param.version.Version">[docs]</a><span class="k">class</span> <span class="nc">Version</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Version"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.version.Version">[docs]</a><span class="k">class</span> <span class="nc">Version</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A simple, approach to Python package versioning that supports PyPI</span>
 <span class="sd">    releases and additional information when working with git version</span>
@@ -137,27 +136,27 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_dirty</span> <span class="o">=</span> <span class="bp">False</span>
 
     <span class="nd">@property</span>
-<div class="viewcode-block" id="Version.release"><a class="viewcode-back" href="../../Reference_Manual/param.version-module.html#param.version.Version.release">[docs]</a>    <span class="k">def</span> <span class="nf">release</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Version.release"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.version.Version.release">[docs]</a>    <span class="k">def</span> <span class="nf">release</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="s">&quot;Return the release tuple&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fetch</span><span class="p">()</span><span class="o">.</span><span class="n">_release</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="Version.commit"><a class="viewcode-back" href="../../Reference_Manual/param.version-module.html#param.version.Version.commit">[docs]</a>    <span class="k">def</span> <span class="nf">commit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Version.commit"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.version.Version.commit">[docs]</a>    <span class="k">def</span> <span class="nf">commit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="s">&quot;The short git SHA&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fetch</span><span class="p">()</span><span class="o">.</span><span class="n">_commit</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="Version.commit_count"><a class="viewcode-back" href="../../Reference_Manual/param.version-module.html#param.version.Version.commit_count">[docs]</a>    <span class="k">def</span> <span class="nf">commit_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Version.commit_count"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.version.Version.commit_count">[docs]</a>    <span class="k">def</span> <span class="nf">commit_count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="s">&quot;Return the number of commits since the last release&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fetch</span><span class="p">()</span><span class="o">.</span><span class="n">_commit_count</span>
 </div>
     <span class="nd">@property</span>
-<div class="viewcode-block" id="Version.dirty"><a class="viewcode-back" href="../../Reference_Manual/param.version-module.html#param.version.Version.dirty">[docs]</a>    <span class="k">def</span> <span class="nf">dirty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Version.dirty"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.version.Version.dirty">[docs]</a>    <span class="k">def</span> <span class="nf">dirty</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="s">&quot;True if there are uncommited changes, False otherwise&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fetch</span><span class="p">()</span><span class="o">.</span><span class="n">_dirty</span>
 
 </div>
-<div class="viewcode-block" id="Version.fetch"><a class="viewcode-back" href="../../Reference_Manual/param.version-module.html#param.version.Version.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Version.fetch"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.version.Version.fetch">[docs]</a>    <span class="k">def</span> <span class="nf">fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns a tuple of the major version together with the</span>
 <span class="sd">        appropriate SHA and dirty bit (for development version only).</span>
@@ -234,7 +233,7 @@
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">release</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">commit_count</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">release</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">commit_count</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="Version.verify"><a class="viewcode-back" href="../../Reference_Manual/param.version-module.html#param.version.Version.verify">[docs]</a>    <span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Version.verify"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.version.Version.verify">[docs]</a>    <span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Check that the version information is consistent with git before</span>
 <span class="sd">        doing a release. Should be called from setup.py before releasing</span>
@@ -261,7 +260,7 @@
 <div align="center"><h1>Param</h1></div>
 <ul class="global-toc">
 <li><a href="../../index.html">Home</a></li>
-<li><a href="../../Reference_Manual/param-module.html">Reference Manual</a></li>
+<li><a href="../../Reference_Manual/param.html">Reference Manual</a></li>
 <li><a href="http://github.com/ioam/param">Github Source Code</a></li>
 <li><a href="../../site_map.html">Site Map</a></li>
 </ul>
@@ -300,7 +299,7 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
 <li><a href="../../index.html">Param Home</a></li>
-<li><a href="../../Reference_Manual/param-module.html">Reference Manual</a></li>
+<li><a href="../../Reference_Manual/param.html">Reference Manual</a></li>
 
 
 <li><ul class="parents">
@@ -308,7 +307,6 @@
 
 
           <li><a href="../index.html" >Module code</a> &raquo;</li>
-          <li><a href="../param.html" >param</a> &raquo;</li>
 
 </ul></li>
 

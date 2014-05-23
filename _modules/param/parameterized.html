@@ -27,7 +27,7 @@
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../_static/custom.js"></script>
     <link rel="top" title="Param 1.1-devel documentation" href="../../index.html" />
-    <link rel="up" title="param" href="../param.html" /> 
+    <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -40,15 +40,14 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
 <li><a href="../../index.html">Param Home</a></li>
-<li><a href="../../Reference_Manual/param-module.html">Reference Manual</a></li>
+<li><a href="../../Reference_Manual/param.html">Reference Manual</a></li>
 
 
 <li><ul class="parents">
 
 
 
-          <li><a href="../index.html" >Module code</a> &raquo;</li>
-          <li><a href="../param.html" accesskey="U">param</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li>
 
 </ul></li>
 
@@ -101,7 +100,7 @@
 
 
 <span class="kn">import</span> <span class="nn">inspect</span>
-<div class="viewcode-block" id="classlist"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.classlist">[docs]</a><span class="k">def</span> <span class="nf">classlist</span><span class="p">(</span><span class="n">class_</span><span class="p">):</span>
+<div class="viewcode-block" id="classlist"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.classlist">[docs]</a><span class="k">def</span> <span class="nf">classlist</span><span class="p">(</span><span class="n">class_</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return a list of the class hierarchy above (and including) the given class.</span>
 
@@ -110,7 +109,7 @@
     <span class="k">return</span> <span class="n">inspect</span><span class="o">.</span><span class="n">getmro</span><span class="p">(</span><span class="n">class_</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
 </div>
-<div class="viewcode-block" id="descendents"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.descendents">[docs]</a><span class="k">def</span> <span class="nf">descendents</span><span class="p">(</span><span class="n">class_</span><span class="p">):</span>
+<div class="viewcode-block" id="descendents"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.descendents">[docs]</a><span class="k">def</span> <span class="nf">descendents</span><span class="p">(</span><span class="n">class_</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return a list of the class hierarchy below (and including) the given class.</span>
 
@@ -129,7 +128,7 @@
     <span class="k">return</span> <span class="n">out</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
 
 </div>
-<div class="viewcode-block" id="get_all_slots"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.get_all_slots">[docs]</a><span class="k">def</span> <span class="nf">get_all_slots</span><span class="p">(</span><span class="n">class_</span><span class="p">):</span>
+<div class="viewcode-block" id="get_all_slots"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.get_all_slots">[docs]</a><span class="k">def</span> <span class="nf">get_all_slots</span><span class="p">(</span><span class="n">class_</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return a list of slot names for slots defined in class_ and its</span>
 <span class="sd">    superclasses.</span>
@@ -145,7 +144,7 @@
     <span class="k">return</span> <span class="n">all_slots</span>
 
 </div>
-<div class="viewcode-block" id="get_occupied_slots"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.get_occupied_slots">[docs]</a><span class="k">def</span> <span class="nf">get_occupied_slots</span><span class="p">(</span><span class="n">instance</span><span class="p">):</span>
+<div class="viewcode-block" id="get_occupied_slots"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.get_occupied_slots">[docs]</a><span class="k">def</span> <span class="nf">get_occupied_slots</span><span class="p">(</span><span class="n">instance</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return a list of slots for which values have been set.</span>
 
@@ -157,7 +156,7 @@
             <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">instance</span><span class="p">,</span><span class="n">slot</span><span class="p">)]</span>
 
 </div>
-<div class="viewcode-block" id="all_equal"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.all_equal">[docs]</a><span class="k">def</span> <span class="nf">all_equal</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span><span class="n">arg2</span><span class="p">):</span>
+<div class="viewcode-block" id="all_equal"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.all_equal">[docs]</a><span class="k">def</span> <span class="nf">all_equal</span><span class="p">(</span><span class="n">arg1</span><span class="p">,</span><span class="n">arg2</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return a single boolean for arg1==arg2, even for numpy arrays</span>
 <span class="sd">    using element-wise comparison.</span>
@@ -185,7 +184,7 @@
 <span class="c"># (https://docs.python.org/3/reference/datamodel.html#customizing-class-creation)</span>
 <span class="c">#</span>
 <span class="c"># Code from six (https://bitbucket.org/gutworth/six; version 1.4.1).</span></div>
-<div class="viewcode-block" id="add_metaclass"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.add_metaclass">[docs]</a><span class="k">def</span> <span class="nf">add_metaclass</span><span class="p">(</span><span class="n">metaclass</span><span class="p">):</span>
+<div class="viewcode-block" id="add_metaclass"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.add_metaclass">[docs]</a><span class="k">def</span> <span class="nf">add_metaclass</span><span class="p">(</span><span class="n">metaclass</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Class decorator for creating a class with a metaclass.&quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">wrapper</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="n">orig_vars</span> <span class="o">=</span> <span class="n">cls</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
@@ -197,7 +196,7 @@
     <span class="k">return</span> <span class="n">wrapper</span>
 
 </div>
-<div class="viewcode-block" id="bothmethod"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.bothmethod">[docs]</a><span class="k">class</span> <span class="nc">bothmethod</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span> <span class="c"># pylint: disable-msg=R0903</span>
+<div class="viewcode-block" id="bothmethod"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.bothmethod">[docs]</a><span class="k">class</span> <span class="nc">bothmethod</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span> <span class="c"># pylint: disable-msg=R0903</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    &#39;optional @classmethod&#39;</span>
 
@@ -221,7 +220,7 @@
             <span class="k">return</span> <span class="n">wraps</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">)(</span><span class="n">partial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">func</span><span class="p">,</span> <span class="n">obj</span><span class="p">))</span>
 
 </div>
-<div class="viewcode-block" id="ParameterMetaclass"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.ParameterMetaclass">[docs]</a><span class="k">class</span> <span class="nc">ParameterMetaclass</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+<div class="viewcode-block" id="ParameterMetaclass"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.ParameterMetaclass">[docs]</a><span class="k">class</span> <span class="nc">ParameterMetaclass</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Metaclass allowing control over creation of Parameter classes.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -266,7 +265,7 @@
 <span class="c"># allow things like checking a Parameter is owned by a</span>
 <span class="c"># Parameterized). I have some vague ideas about what to do.</span></div>
 <span class="nd">@add_metaclass</span><span class="p">(</span><span class="n">ParameterMetaclass</span><span class="p">)</span>
-<div class="viewcode-block" id="Parameter"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.Parameter">[docs]</a><span class="k">class</span> <span class="nc">Parameter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameter"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameter">[docs]</a><span class="k">class</span> <span class="nc">Parameter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An attribute descriptor for declaring parameters.</span>
 
@@ -545,7 +544,7 @@
 
 
 <span class="c"># Define one particular type of Parameter that is used in this file</span></div>
-<div class="viewcode-block" id="String"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.String">[docs]</a><span class="k">class</span> <span class="nc">String</span><span class="p">(</span><span class="n">Parameter</span><span class="p">):</span>
+<div class="viewcode-block" id="String"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.String">[docs]</a><span class="k">class</span> <span class="nc">String</span><span class="p">(</span><span class="n">Parameter</span><span class="p">):</span>
     <span class="n">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;allow_None&#39;</span><span class="p">]</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">,</span><span class="n">allow_None</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="o">**</span><span class="n">params</span><span class="p">):</span>
@@ -561,7 +560,7 @@
 
 
 </div>
-<div class="viewcode-block" id="ParameterizedMetaclass"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.ParameterizedMetaclass">[docs]</a><span class="k">class</span> <span class="nc">ParameterizedMetaclass</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+<div class="viewcode-block" id="ParameterizedMetaclass"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.ParameterizedMetaclass">[docs]</a><span class="k">class</span> <span class="nc">ParameterizedMetaclass</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The metaclass of Parameterized (and all its descendents).</span>
 
@@ -758,7 +757,7 @@
                     <span class="nb">setattr</span><span class="p">(</span><span class="n">param</span><span class="p">,</span><span class="n">slot</span><span class="p">,</span><span class="n">new_value</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="ParameterizedMetaclass.get_param_descriptor"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.ParameterizedMetaclass.get_param_descriptor">[docs]</a>    <span class="k">def</span> <span class="nf">get_param_descriptor</span><span class="p">(</span><span class="n">mcs</span><span class="p">,</span><span class="n">param_name</span><span class="p">):</span>
+<div class="viewcode-block" id="ParameterizedMetaclass.get_param_descriptor"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.ParameterizedMetaclass.get_param_descriptor">[docs]</a>    <span class="k">def</span> <span class="nf">get_param_descriptor</span><span class="p">(</span><span class="n">mcs</span><span class="p">,</span><span class="n">param_name</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Goes up the class hierarchy (starting from the current class)</span>
 <span class="sd">        looking for a Parameter class attribute param_name. As soon as</span>
@@ -788,7 +787,7 @@
 <span class="c"># Also, do we need an option to return repr without path, if desired?</span>
 <span class="c"># E.g. to get &#39;pre_plot_hooks()&#39; instead of</span>
 <span class="c"># &#39;topo.command.analysis.pre_plot_hooks()&#39; in the gui?</span>
-<div class="viewcode-block" id="script_repr"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.script_repr">[docs]</a><span class="k">def</span> <span class="nf">script_repr</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="n">imports</span><span class="p">,</span><span class="n">prefix</span><span class="p">,</span><span class="n">settings</span><span class="p">):</span>
+<div class="viewcode-block" id="script_repr"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.script_repr">[docs]</a><span class="k">def</span> <span class="nf">script_repr</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="n">imports</span><span class="p">,</span><span class="n">prefix</span><span class="p">,</span><span class="n">settings</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Variant of repr() designed for generating a runnable script.</span>
 
@@ -862,7 +861,7 @@
 <span class="n">dbprint_prefix</span><span class="o">=</span><span class="bp">None</span>
 
 
-<div class="viewcode-block" id="as_uninitialized"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.as_uninitialized">[docs]</a><span class="k">def</span> <span class="nf">as_uninitialized</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+<div class="viewcode-block" id="as_uninitialized"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.as_uninitialized">[docs]</a><span class="k">def</span> <span class="nf">as_uninitialized</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Decorator: call fn with the parameterized_instance&#39;s</span>
 <span class="sd">    initialization flag set to False, then revert the flag.</span>
@@ -881,7 +880,7 @@
 
 </div>
 <span class="nd">@add_metaclass</span><span class="p">(</span><span class="n">ParameterizedMetaclass</span><span class="p">)</span>
-<div class="viewcode-block" id="Parameterized"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.Parameterized">[docs]</a><span class="k">class</span> <span class="nc">Parameterized</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameterized"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized">[docs]</a><span class="k">class</span> <span class="nc">Parameterized</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Base class for named objects that support Parameters and message</span>
 <span class="sd">    formatting.</span>
@@ -973,7 +972,7 @@
 
 
     <span class="nd">@bothmethod</span>
-<div class="viewcode-block" id="Parameterized.set_param"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.Parameterized.set_param">[docs]</a>    <span class="k">def</span> <span class="nf">set_param</span><span class="p">(</span><span class="n">self_or_cls</span><span class="p">,</span><span class="n">param_name</span><span class="p">,</span><span class="n">val</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameterized.set_param"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.set_param">[docs]</a>    <span class="k">def</span> <span class="nf">set_param</span><span class="p">(</span><span class="n">self_or_cls</span><span class="p">,</span><span class="n">param_name</span><span class="p">,</span><span class="n">val</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Sets the value of param_name to val, after checking that param_name</span>
 <span class="sd">        is a parameter of this object.</span>
@@ -1002,7 +1001,7 @@
     <span class="c"># @bothmethod, but that complicates inheritance in cases where we</span>
     <span class="c"># already have a state_push() method. I need to decide what to do</span>
     <span class="c"># about that. (isinstance(g,Parameterized) below is used to exclude classes.)</span></div>
-<div class="viewcode-block" id="Parameterized.state_push"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.Parameterized.state_push">[docs]</a>    <span class="k">def</span> <span class="nf">state_push</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameterized.state_push"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.state_push">[docs]</a>    <span class="k">def</span> <span class="nf">state_push</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Save this instance&#39;s state.</span>
 
@@ -1026,7 +1025,7 @@
             <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="s">&#39;state_push&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">g</span><span class="p">,</span><span class="n">Parameterized</span><span class="p">):</span>
                 <span class="n">g</span><span class="o">.</span><span class="n">state_push</span><span class="p">()</span>
 </div>
-<div class="viewcode-block" id="Parameterized.state_pop"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.Parameterized.state_pop">[docs]</a>    <span class="k">def</span> <span class="nf">state_pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameterized.state_pop"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.state_pop">[docs]</a>    <span class="k">def</span> <span class="nf">state_pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Restore the most recently saved state.</span>
 
@@ -1042,7 +1041,7 @@
 
 </div>
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Parameterized.set_default"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.Parameterized.set_default">[docs]</a>    <span class="k">def</span> <span class="nf">set_default</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span><span class="n">param_name</span><span class="p">,</span><span class="n">value</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameterized.set_default"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.set_default">[docs]</a>    <span class="k">def</span> <span class="nf">set_default</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span><span class="n">param_name</span><span class="p">,</span><span class="n">value</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set the default value of param_name.</span>
 
@@ -1052,7 +1051,7 @@
 
 </div>
     <span class="nd">@bothmethod</span>
-<div class="viewcode-block" id="Parameterized.set_dynamic_time_fn"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.Parameterized.set_dynamic_time_fn">[docs]</a>    <span class="k">def</span> <span class="nf">set_dynamic_time_fn</span><span class="p">(</span><span class="n">self_or_cls</span><span class="p">,</span><span class="n">time_fn</span><span class="p">,</span><span class="n">sublistattr</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameterized.set_dynamic_time_fn"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.set_dynamic_time_fn">[docs]</a>    <span class="k">def</span> <span class="nf">set_dynamic_time_fn</span><span class="p">(</span><span class="n">self_or_cls</span><span class="p">,</span><span class="n">time_fn</span><span class="p">,</span><span class="n">sublistattr</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Set time_fn for all Dynamic Parameters of this class or</span>
 <span class="sd">        instance object that are currently being dynamically</span>
@@ -1122,7 +1121,7 @@
 
 
 
-<div class="viewcode-block" id="Parameterized.script_repr"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.Parameterized.script_repr">[docs]</a>    <span class="k">def</span> <span class="nf">script_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">imports</span><span class="o">=</span><span class="p">[],</span><span class="n">prefix</span><span class="o">=</span><span class="s">&quot;    &quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameterized.script_repr"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.script_repr">[docs]</a>    <span class="k">def</span> <span class="nf">script_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">imports</span><span class="o">=</span><span class="p">[],</span><span class="n">prefix</span><span class="o">=</span><span class="s">&quot;    &quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Variant of __repr__ designed for generating a runnable script.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -1193,7 +1192,7 @@
 
             <span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="s">&quot;</span><span class="si">%s%s</span><span class="s">: </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">prefix</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="n">s</span><span class="p">))</span>
 
-<div class="viewcode-block" id="Parameterized.warning"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.Parameterized.warning">[docs]</a>    <span class="k">def</span> <span class="nf">warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameterized.warning"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.warning">[docs]</a>    <span class="k">def</span> <span class="nf">warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Print the arguments as a warning, unless module variable</span>
 <span class="sd">        warnings_as_exceptions is True, then raise an Exception</span>
@@ -1207,15 +1206,15 @@
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s">&quot;Warning:&quot;</span><span class="p">,]</span><span class="o">+</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">args</span><span class="p">]))</span>
 
 </div>
-<div class="viewcode-block" id="Parameterized.message"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.Parameterized.message">[docs]</a>    <span class="k">def</span> <span class="nf">message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameterized.message"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.message">[docs]</a>    <span class="k">def</span> <span class="nf">message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Print the arguments as a message.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__db_print</span><span class="p">(</span><span class="n">INFO</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="Parameterized.verbose"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.Parameterized.verbose">[docs]</a>    <span class="k">def</span> <span class="nf">verbose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameterized.verbose"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.verbose">[docs]</a>    <span class="k">def</span> <span class="nf">verbose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Print the arguments as a verbose message.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__db_print</span><span class="p">(</span><span class="n">VERBOSE</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
 </div>
-<div class="viewcode-block" id="Parameterized.debug"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.Parameterized.debug">[docs]</a>    <span class="k">def</span> <span class="nf">debug</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameterized.debug"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.debug">[docs]</a>    <span class="k">def</span> <span class="nf">debug</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Print the arguments as a debugging statement.&quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__db_print</span><span class="p">(</span><span class="n">DEBUG</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">)</span>
 
@@ -1274,7 +1273,7 @@
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">val</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="Parameterized.get_param_values"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.Parameterized.get_param_values">[docs]</a>    <span class="k">def</span> <span class="nf">get_param_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">onlychanged</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameterized.get_param_values"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.get_param_values">[docs]</a>    <span class="k">def</span> <span class="nf">get_param_values</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">onlychanged</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a list of name,value pairs for all Parameters of this</span>
 <span class="sd">        object.</span>
@@ -1304,7 +1303,7 @@
     <span class="c"># would show up in lissom_oo_or because separated composite uses</span>
     <span class="c"># this method.</span></div>
     <span class="nd">@bothmethod</span>
-<div class="viewcode-block" id="Parameterized.force_new_dynamic_value"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.Parameterized.force_new_dynamic_value">[docs]</a>    <span class="k">def</span> <span class="nf">force_new_dynamic_value</span><span class="p">(</span><span class="n">cls_or_slf</span><span class="p">,</span><span class="n">name</span><span class="p">):</span> <span class="c"># pylint: disable-msg=E0213</span>
+<div class="viewcode-block" id="Parameterized.force_new_dynamic_value"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.force_new_dynamic_value">[docs]</a>    <span class="k">def</span> <span class="nf">force_new_dynamic_value</span><span class="p">(</span><span class="n">cls_or_slf</span><span class="p">,</span><span class="n">name</span><span class="p">):</span> <span class="c"># pylint: disable-msg=E0213</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Force a new value to be generated for the dynamic attribute</span>
 <span class="sd">        name, and return it.</span>
@@ -1330,7 +1329,7 @@
 
 </div>
     <span class="nd">@bothmethod</span>
-<div class="viewcode-block" id="Parameterized.get_value_generator"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.Parameterized.get_value_generator">[docs]</a>    <span class="k">def</span> <span class="nf">get_value_generator</span><span class="p">(</span><span class="n">cls_or_slf</span><span class="p">,</span><span class="n">name</span><span class="p">):</span> <span class="c"># pylint: disable-msg=E0213</span>
+<div class="viewcode-block" id="Parameterized.get_value_generator"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.get_value_generator">[docs]</a>    <span class="k">def</span> <span class="nf">get_value_generator</span><span class="p">(</span><span class="n">cls_or_slf</span><span class="p">,</span><span class="n">name</span><span class="p">):</span> <span class="c"># pylint: disable-msg=E0213</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the value or value-generating object of the named</span>
 <span class="sd">        attribute.</span>
@@ -1366,7 +1365,7 @@
 
 </div>
     <span class="nd">@bothmethod</span>
-<div class="viewcode-block" id="Parameterized.inspect_value"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.Parameterized.inspect_value">[docs]</a>    <span class="k">def</span> <span class="nf">inspect_value</span><span class="p">(</span><span class="n">cls_or_slf</span><span class="p">,</span><span class="n">name</span><span class="p">):</span> <span class="c"># pylint: disable-msg=E0213</span>
+<div class="viewcode-block" id="Parameterized.inspect_value"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.inspect_value">[docs]</a>    <span class="k">def</span> <span class="nf">inspect_value</span><span class="p">(</span><span class="n">cls_or_slf</span><span class="p">,</span><span class="n">name</span><span class="p">):</span> <span class="c"># pylint: disable-msg=E0213</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the current value of the named attribute without modifying it.</span>
 
@@ -1391,7 +1390,7 @@
 
 
 </div>
-<div class="viewcode-block" id="Parameterized.print_param_values"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.Parameterized.print_param_values">[docs]</a>    <span class="k">def</span> <span class="nf">print_param_values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameterized.print_param_values"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.print_param_values">[docs]</a>    <span class="k">def</span> <span class="nf">print_param_values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Print the values of all this object&#39;s Parameters.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span><span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_param_values</span><span class="p">():</span>
             <span class="k">print</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">.</span><span class="si">%s</span><span class="s"> = </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">val</span><span class="p">))</span>
@@ -1432,7 +1431,7 @@
 
 
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Parameterized.params"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.Parameterized.params">[docs]</a>    <span class="k">def</span> <span class="nf">params</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span><span class="n">parameter_name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameterized.params"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.params">[docs]</a>    <span class="k">def</span> <span class="nf">params</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span><span class="n">parameter_name</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the Parameters of this class as the</span>
 <span class="sd">        dictionary {name: parameter_object}</span>
@@ -1466,14 +1465,14 @@
 
 </div>
     <span class="nd">@classmethod</span>
-<div class="viewcode-block" id="Parameterized.print_param_defaults"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.Parameterized.print_param_defaults">[docs]</a>    <span class="k">def</span> <span class="nf">print_param_defaults</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameterized.print_param_defaults"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.print_param_defaults">[docs]</a>    <span class="k">def</span> <span class="nf">print_param_defaults</span><span class="p">(</span><span class="n">cls</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Print the default values of all cls&#39;s Parameters.&quot;&quot;&quot;</span>
         <span class="k">for</span> <span class="n">key</span><span class="p">,</span><span class="n">val</span> <span class="ow">in</span> <span class="n">cls</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="n">Parameter</span><span class="p">):</span>
                 <span class="k">print</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">__name__</span><span class="o">+</span><span class="s">&#39;.&#39;</span><span class="o">+</span><span class="n">key</span><span class="p">,</span> <span class="s">&#39;=&#39;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">val</span><span class="o">.</span><span class="n">default</span><span class="p">))</span>
 
 </div>
-<div class="viewcode-block" id="Parameterized.defaults"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.Parameterized.defaults">[docs]</a>    <span class="k">def</span> <span class="nf">defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameterized.defaults"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.defaults">[docs]</a>    <span class="k">def</span> <span class="nf">defaults</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return {parameter_name:parameter.default} for all non-constant</span>
 <span class="sd">        Parameters.</span>
@@ -1539,7 +1538,7 @@
 
 
 </div></div>
-<div class="viewcode-block" id="print_all_param_defaults"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.print_all_param_defaults">[docs]</a><span class="k">def</span> <span class="nf">print_all_param_defaults</span><span class="p">():</span>
+<div class="viewcode-block" id="print_all_param_defaults"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.print_all_param_defaults">[docs]</a><span class="k">def</span> <span class="nf">print_all_param_defaults</span><span class="p">():</span>
     <span class="sd">&quot;&quot;&quot;Print the default values for all imported Parameters.&quot;&quot;&quot;</span>
     <span class="k">print</span><span class="p">(</span><span class="s">&quot;_______________________________________________________________________________&quot;</span><span class="p">)</span>
     <span class="k">print</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
@@ -1558,7 +1557,7 @@
 <span class="c"># dictionary. This might allow us to use a decorator to simplify using</span>
 <span class="c"># ParamOverrides (if that does indeed make them simpler to use).</span>
 <span class="c"># http://docs.python.org/whatsnew/2.6.html</span></div>
-<div class="viewcode-block" id="ParamOverrides"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.ParamOverrides">[docs]</a><span class="k">class</span> <span class="nc">ParamOverrides</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
+<div class="viewcode-block" id="ParamOverrides"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.ParamOverrides">[docs]</a><span class="k">class</span> <span class="nc">ParamOverrides</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A dictionary that returns the attribute of a specified object if</span>
 <span class="sd">    that attribute is not present in itself.</span>
@@ -1596,7 +1595,7 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_check_params</span><span class="p">(</span><span class="n">dict_</span><span class="p">)</span>
 
-<div class="viewcode-block" id="ParamOverrides.extra_keywords"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.ParamOverrides.extra_keywords">[docs]</a>    <span class="k">def</span> <span class="nf">extra_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="ParamOverrides.extra_keywords"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.ParamOverrides.extra_keywords">[docs]</a>    <span class="k">def</span> <span class="nf">extra_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return a dictionary containing items from the originally</span>
 <span class="sd">        supplied dict_ whose names are not parameters of the</span>
@@ -1658,7 +1657,7 @@
     <span class="k">return</span> <span class="n">Parameterized</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="ParameterizedFunction"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.ParameterizedFunction">[docs]</a><span class="k">class</span> <span class="nc">ParameterizedFunction</span><span class="p">(</span><span class="n">Parameterized</span><span class="p">):</span>
+<div class="viewcode-block" id="ParameterizedFunction"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.ParameterizedFunction">[docs]</a><span class="k">class</span> <span class="nc">ParameterizedFunction</span><span class="p">(</span><span class="n">Parameterized</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Acts like a Python function, but with arguments that are Parameters.</span>
 
@@ -1676,7 +1675,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="o">+</span><span class="s">&quot;()&quot;</span>
 
     <span class="nd">@bothmethod</span>
-<div class="viewcode-block" id="ParameterizedFunction.instance"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.ParameterizedFunction.instance">[docs]</a>    <span class="k">def</span> <span class="nf">instance</span><span class="p">(</span><span class="n">self_or_cls</span><span class="p">,</span><span class="o">**</span><span class="n">params</span><span class="p">):</span>
+<div class="viewcode-block" id="ParameterizedFunction.instance"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.ParameterizedFunction.instance">[docs]</a>    <span class="k">def</span> <span class="nf">instance</span><span class="p">(</span><span class="n">self_or_cls</span><span class="p">,</span><span class="o">**</span><span class="n">params</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return an instance of this class, copying parameters from any</span>
 <span class="sd">        existing instance provided.</span>
@@ -1714,7 +1713,7 @@
         <span class="c"># __main__. Pretty obscure aspect of pickle.py, or a bug?</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">_new_parameterized</span><span class="p">,(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">,),</span><span class="n">state</span><span class="p">)</span>
 
-<div class="viewcode-block" id="ParameterizedFunction.script_repr"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.ParameterizedFunction.script_repr">[docs]</a>    <span class="k">def</span> <span class="nf">script_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">imports</span><span class="o">=</span><span class="p">[],</span><span class="n">prefix</span><span class="o">=</span><span class="s">&quot;    &quot;</span><span class="p">):</span>
+<div class="viewcode-block" id="ParameterizedFunction.script_repr"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.ParameterizedFunction.script_repr">[docs]</a>    <span class="k">def</span> <span class="nf">script_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">imports</span><span class="o">=</span><span class="p">[],</span><span class="n">prefix</span><span class="o">=</span><span class="s">&quot;    &quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Same as Parameterized.script_repr, except that X.classname(Y</span>
 <span class="sd">        is replaced with X.classname.instance(Y</span>
@@ -1735,7 +1734,7 @@
 
 <span class="c"># Renamed &amp; documented version of OProperty from</span>
 <span class="c"># infinitesque.net/articles/2005/enhancing%20Python&#39;s%20property.xhtml</span></div></div>
-<div class="viewcode-block" id="overridable_property"><a class="viewcode-back" href="../../Reference_Manual/param.parameterized-module.html#param.parameterized.overridable_property">[docs]</a><span class="k">class</span> <span class="nc">overridable_property</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="overridable_property"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.overridable_property">[docs]</a><span class="k">class</span> <span class="nc">overridable_property</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The same as Python&#39;s &quot;property&quot; attribute, but allows the accessor</span>
 <span class="sd">    methods to be overridden in subclasses.</span>
@@ -1786,7 +1785,7 @@
 <div align="center"><h1>Param</h1></div>
 <ul class="global-toc">
 <li><a href="../../index.html">Home</a></li>
-<li><a href="../../Reference_Manual/param-module.html">Reference Manual</a></li>
+<li><a href="../../Reference_Manual/param.html">Reference Manual</a></li>
 <li><a href="http://github.com/ioam/param">Github Source Code</a></li>
 <li><a href="../../site_map.html">Site Map</a></li>
 </ul>
@@ -1825,7 +1824,7 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
 <li><a href="../../index.html">Param Home</a></li>
-<li><a href="../../Reference_Manual/param-module.html">Reference Manual</a></li>
+<li><a href="../../Reference_Manual/param.html">Reference Manual</a></li>
 
 
 <li><ul class="parents">
@@ -1833,7 +1832,6 @@
 
 
           <li><a href="../index.html" >Module code</a> &raquo;</li>
-          <li><a href="../param.html" >param</a> &raquo;</li>
 
 </ul></li>
 

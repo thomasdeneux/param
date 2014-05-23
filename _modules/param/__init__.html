@@ -6,48 +6,48 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>param &mdash; Param 1.1-devel documentation</title>
+    <title>param.__init__ &mdash; Param 1.1-devel documentation</title>
     
-    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
     
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
-        URL_ROOT:    '../',
+        URL_ROOT:    '../../',
         VERSION:     '1.1-devel',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
       };
     </script>
-    <script type="text/javascript" src="../_static/jquery.js"></script>
-    <script type="text/javascript" src="../_static/underscore.js"></script>
-    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="../../_static/jquery.js"></script>
+    <script type="text/javascript" src="../../_static/underscore.js"></script>
+    <script type="text/javascript" src="../../_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/javascript" src="../_static/custom.js"></script>
-    <link rel="top" title="Param 1.1-devel documentation" href="../index.html" />
-    <link rel="up" title="Module code" href="index.html" /> 
+    <script type="text/javascript" src="../../_static/custom.js"></script>
+    <link rel="top" title="Param 1.1-devel documentation" href="../../index.html" />
+    <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
     <div class="related">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
+          <a href="../../genindex.html" title="General Index"
              accesskey="I">index</a></li>
         <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
+          <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-<li><a href="../index.html">Param Home</a></li>
-<li><a href="../Reference_Manual/param-module.html">Reference Manual</a></li>
+<li><a href="../../index.html">Param Home</a></li>
+<li><a href="../../Reference_Manual/param.html">Reference Manual</a></li>
 
 
 <li><ul class="parents">
 
 
 
-          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li>
 
 </ul></li>
 
@@ -60,7 +60,7 @@
         <div class="bodywrapper">
           <div class="body">
             
-  <h1>Source code for param</h1><div class="highlight"><pre>
+  <h1>Source code for param.__init__</h1><div class="highlight"><pre>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">Parameters are a kind of class attribute allowing special behavior,</span>
 <span class="sd">including dynamically generated parameter values, documentation</span>
@@ -97,7 +97,7 @@
 <span class="n">random_seed</span> <span class="o">=</span> <span class="mi">42</span>
 
 
-<div class="viewcode-block" id="produce_value"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.produce_value">[docs]</a><span class="k">def</span> <span class="nf">produce_value</span><span class="p">(</span><span class="n">value_obj</span><span class="p">):</span>
+<div class="viewcode-block" id="produce_value"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.produce_value">[docs]</a><span class="k">def</span> <span class="nf">produce_value</span><span class="p">(</span><span class="n">value_obj</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A helper function that produces an actual parameter from a stored</span>
 <span class="sd">    object: if the object is callable, call it, otherwise return the</span>
@@ -109,7 +109,7 @@
         <span class="k">return</span> <span class="n">value_obj</span>
 
 </div>
-<div class="viewcode-block" id="Infinity"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.Infinity">[docs]</a><span class="k">class</span> <span class="nc">Infinity</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="Infinity"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.Infinity">[docs]</a><span class="k">class</span> <span class="nc">Infinity</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    An instance of this class represents an infinite value. Unlike</span>
 <span class="sd">    Python&#39;s float(&#39;inf&#39;) value, this object can be safely compared</span>
@@ -137,7 +137,7 @@
 
 
 </div>
-<div class="viewcode-block" id="Time"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.Time">[docs]</a><span class="k">class</span> <span class="nc">Time</span><span class="p">(</span><span class="n">Parameterized</span><span class="p">):</span>
+<div class="viewcode-block" id="Time"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.Time">[docs]</a><span class="k">class</span> <span class="nc">Time</span><span class="p">(</span><span class="n">Parameterized</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A callable object returning a number for the current time.</span>
 
@@ -311,6 +311,10 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span>
 
 
+    <span class="k">def</span> <span class="nf">advance</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+        <span class="bp">self</span> <span class="o">+=</span> <span class="n">val</span>
+
+
     <span class="k">def</span> <span class="nf">__iadd__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_time</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_type</span><span class="p">(</span><span class="n">other</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
@@ -342,7 +346,7 @@
 
 
 </div>
-<div class="viewcode-block" id="Dynamic"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.Dynamic">[docs]</a><span class="k">class</span> <span class="nc">Dynamic</span><span class="p">(</span><span class="n">Parameter</span><span class="p">):</span>
+<div class="viewcode-block" id="Dynamic"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.Dynamic">[docs]</a><span class="k">class</span> <span class="nc">Dynamic</span><span class="p">(</span><span class="n">Parameter</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameter whose value can be generated dynamically by a callable</span>
 <span class="sd">    object.</span>
@@ -519,7 +523,7 @@
 
 
 
-<div class="viewcode-block" id="Number"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.Number">[docs]</a><span class="k">class</span> <span class="nc">Number</span><span class="p">(</span><span class="n">Dynamic</span><span class="p">):</span>
+<div class="viewcode-block" id="Number"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.Number">[docs]</a><span class="k">class</span> <span class="nc">Number</span><span class="p">(</span><span class="n">Dynamic</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A numeric Dynamic Parameter, with a default value and optional bounds.</span>
 
@@ -738,7 +742,7 @@
 
 
 </div>
-<div class="viewcode-block" id="Integer"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.Integer">[docs]</a><span class="k">class</span> <span class="nc">Integer</span><span class="p">(</span><span class="n">Number</span><span class="p">):</span>
+<div class="viewcode-block" id="Integer"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.Integer">[docs]</a><span class="k">class</span> <span class="nc">Integer</span><span class="p">(</span><span class="n">Number</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Numeric Parameter required to be an Integer&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">_check_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">val</span><span class="p">):</span>
@@ -752,7 +756,7 @@
 
 
 </div>
-<div class="viewcode-block" id="Magnitude"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.Magnitude">[docs]</a><span class="k">class</span> <span class="nc">Magnitude</span><span class="p">(</span><span class="n">Number</span><span class="p">):</span>
+<div class="viewcode-block" id="Magnitude"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.Magnitude">[docs]</a><span class="k">class</span> <span class="nc">Magnitude</span><span class="p">(</span><span class="n">Number</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Numeric Parameter required to be in the range [0.0-1.0].&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span><span class="n">softbounds</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="o">**</span><span class="n">params</span><span class="p">):</span>
@@ -761,7 +765,7 @@
 
 
 <span class="c"># JAB: Should this and other Parameters below be a Dynamic instead?</span></div>
-<div class="viewcode-block" id="Boolean"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.Boolean">[docs]</a><span class="k">class</span> <span class="nc">Boolean</span><span class="p">(</span><span class="n">Parameter</span><span class="p">):</span>
+<div class="viewcode-block" id="Boolean"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.Boolean">[docs]</a><span class="k">class</span> <span class="nc">Boolean</span><span class="p">(</span><span class="n">Parameter</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Binary or tristate Boolean Parameter.&quot;&quot;&quot;</span>
 
     <span class="n">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;bounds&#39;</span><span class="p">,</span><span class="s">&#39;allow_None&#39;</span><span class="p">]</span>
@@ -792,7 +796,7 @@
 
 
 </div>
-<div class="viewcode-block" id="NumericTuple"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.NumericTuple">[docs]</a><span class="k">class</span> <span class="nc">NumericTuple</span><span class="p">(</span><span class="n">Parameter</span><span class="p">):</span>
+<div class="viewcode-block" id="NumericTuple"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.NumericTuple">[docs]</a><span class="k">class</span> <span class="nc">NumericTuple</span><span class="p">(</span><span class="n">Parameter</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A numeric tuple Parameter (e.g. (4.5,7.6,3)) with a fixed tuple length.&quot;&quot;&quot;</span>
 
     <span class="n">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;length&#39;</span><span class="p">]</span>
@@ -829,7 +833,7 @@
 
 
 </div>
-<div class="viewcode-block" id="XYCoordinates"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.XYCoordinates">[docs]</a><span class="k">class</span> <span class="nc">XYCoordinates</span><span class="p">(</span><span class="n">NumericTuple</span><span class="p">):</span>
+<div class="viewcode-block" id="XYCoordinates"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.XYCoordinates">[docs]</a><span class="k">class</span> <span class="nc">XYCoordinates</span><span class="p">(</span><span class="n">NumericTuple</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;A NumericTuple for an X,Y coordinate.&quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">0.0</span><span class="p">),</span><span class="o">**</span><span class="n">params</span><span class="p">):</span>
@@ -837,7 +841,7 @@
 
 
 </div>
-<div class="viewcode-block" id="Callable"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.Callable">[docs]</a><span class="k">class</span> <span class="nc">Callable</span><span class="p">(</span><span class="n">Parameter</span><span class="p">):</span>
+<div class="viewcode-block" id="Callable"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.Callable">[docs]</a><span class="k">class</span> <span class="nc">Callable</span><span class="p">(</span><span class="n">Parameter</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameter holding a value that is a callable object, such as a function.</span>
 
@@ -866,7 +870,7 @@
 
 
 <span class="c"># CEBALERT: this should be a method of ClassSelector.</span>
-<div class="viewcode-block" id="concrete_descendents"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.concrete_descendents">[docs]</a><span class="k">def</span> <span class="nf">concrete_descendents</span><span class="p">(</span><span class="n">parentclass</span><span class="p">):</span>
+<div class="viewcode-block" id="concrete_descendents"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.concrete_descendents">[docs]</a><span class="k">def</span> <span class="nf">concrete_descendents</span><span class="p">(</span><span class="n">parentclass</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return a dictionary containing all subclasses of the specified</span>
 <span class="sd">    parentclass, including the parentclass.  Only classes that are</span>
@@ -881,7 +885,7 @@
 
 
 </div>
-<div class="viewcode-block" id="Composite"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.Composite">[docs]</a><span class="k">class</span> <span class="nc">Composite</span><span class="p">(</span><span class="n">Parameter</span><span class="p">):</span>
+<div class="viewcode-block" id="Composite"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.Composite">[docs]</a><span class="k">class</span> <span class="nc">Composite</span><span class="p">(</span><span class="n">Parameter</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A Parameter that is a composite of a set of other attributes of the class.</span>
 
@@ -924,7 +928,7 @@
                 <span class="nb">setattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">v</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="Selector"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.Selector">[docs]</a><span class="k">class</span> <span class="nc">Selector</span><span class="p">(</span><span class="n">Parameter</span><span class="p">):</span>
+<div class="viewcode-block" id="Selector"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.Selector">[docs]</a><span class="k">class</span> <span class="nc">Selector</span><span class="p">(</span><span class="n">Parameter</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameter whose value must be chosen from a list of possibilities.</span>
 
@@ -937,7 +941,7 @@
         <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s">&quot;get_range() must be implemented in subclasses.&quot;</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="ObjectSelector"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.ObjectSelector">[docs]</a><span class="k">class</span> <span class="nc">ObjectSelector</span><span class="p">(</span><span class="n">Selector</span><span class="p">):</span>
+<div class="viewcode-block" id="ObjectSelector"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.ObjectSelector">[docs]</a><span class="k">class</span> <span class="nc">ObjectSelector</span><span class="p">(</span><span class="n">Selector</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameter whose value must be one object from a list of possible objects.</span>
 
@@ -1036,7 +1040,7 @@
         <span class="k">return</span> <span class="n">d</span>
 
 </div>
-<div class="viewcode-block" id="ClassSelector"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.ClassSelector">[docs]</a><span class="k">class</span> <span class="nc">ClassSelector</span><span class="p">(</span><span class="n">Selector</span><span class="p">):</span>
+<div class="viewcode-block" id="ClassSelector"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.ClassSelector">[docs]</a><span class="k">class</span> <span class="nc">ClassSelector</span><span class="p">(</span><span class="n">Selector</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Parameter whose value is an instance of the specified class.&quot;&quot;&quot;</span>
 
     <span class="n">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;class_&#39;</span><span class="p">,</span><span class="s">&#39;allow_None&#39;</span><span class="p">]</span>
@@ -1077,7 +1081,7 @@
         <span class="k">return</span> <span class="n">d</span>
 
 </div>
-<div class="viewcode-block" id="List"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.List">[docs]</a><span class="k">class</span> <span class="nc">List</span><span class="p">(</span><span class="n">Parameter</span><span class="p">):</span>
+<div class="viewcode-block" id="List"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.List">[docs]</a><span class="k">class</span> <span class="nc">List</span><span class="p">(</span><span class="n">Parameter</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameter whose value is a list of objects, usually of a specified type.</span>
 
@@ -1134,7 +1138,7 @@
 
 
 </div>
-<div class="viewcode-block" id="HookList"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.HookList">[docs]</a><span class="k">class</span> <span class="nc">HookList</span><span class="p">(</span><span class="n">List</span><span class="p">):</span>
+<div class="viewcode-block" id="HookList"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.HookList">[docs]</a><span class="k">class</span> <span class="nc">HookList</span><span class="p">(</span><span class="n">List</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameter whose value is a list of callable objects.</span>
 
@@ -1150,7 +1154,7 @@
 
 
 </div>
-<div class="viewcode-block" id="Dict"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.Dict">[docs]</a><span class="k">class</span> <span class="nc">Dict</span><span class="p">(</span><span class="n">ClassSelector</span><span class="p">):</span>
+<div class="viewcode-block" id="Dict"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.Dict">[docs]</a><span class="k">class</span> <span class="nc">Dict</span><span class="p">(</span><span class="n">ClassSelector</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameter whose value is a dictionary.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1158,7 +1162,7 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">Dict</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="nb">dict</span><span class="p">,</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="Array"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.Array">[docs]</a><span class="k">class</span> <span class="nc">Array</span><span class="p">(</span><span class="n">ClassSelector</span><span class="p">):</span>
+<div class="viewcode-block" id="Array"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.Array">[docs]</a><span class="k">class</span> <span class="nc">Array</span><span class="p">(</span><span class="n">ClassSelector</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameter whose value is a numpy array.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -1175,7 +1179,7 @@
 <span class="c">#   - use resolve_folder_path() for paths to existing folders to be read,</span>
 <span class="c">#     and normalize_path() for paths to new files to be written.</span>
 </div>
-<div class="viewcode-block" id="resolve_path"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.resolve_path">[docs]</a><span class="k">class</span> <span class="nc">resolve_path</span><span class="p">(</span><span class="n">ParameterizedFunction</span><span class="p">):</span>
+<div class="viewcode-block" id="resolve_path"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.resolve_path">[docs]</a><span class="k">class</span> <span class="nc">resolve_path</span><span class="p">(</span><span class="n">ParameterizedFunction</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Find the path to an existing file, searching the paths specified</span>
 <span class="sd">    in the search_paths parameter if the filename is not absolute, and</span>
@@ -1237,7 +1241,7 @@
             <span class="k">raise</span> <span class="ne">IOError</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">path</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="s">&quot; was not found in the following place(s): &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">paths_tried</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;.&quot;</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="normalize_path"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.normalize_path">[docs]</a><span class="k">class</span> <span class="nc">normalize_path</span><span class="p">(</span><span class="n">ParameterizedFunction</span><span class="p">):</span>
+<div class="viewcode-block" id="normalize_path"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.normalize_path">[docs]</a><span class="k">class</span> <span class="nc">normalize_path</span><span class="p">(</span><span class="n">ParameterizedFunction</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert a UNIX-style path to the current OS&#39;s format,</span>
 <span class="sd">    typically for creating a new file or directory.</span>
@@ -1263,7 +1267,7 @@
 
 
 </div>
-<div class="viewcode-block" id="Path"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.Path">[docs]</a><span class="k">class</span> <span class="nc">Path</span><span class="p">(</span><span class="n">Parameter</span><span class="p">):</span>
+<div class="viewcode-block" id="Path"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.Path">[docs]</a><span class="k">class</span> <span class="nc">Path</span><span class="p">(</span><span class="n">Parameter</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameter that can be set to a string specifying the path of a file or folder.</span>
 
@@ -1327,7 +1331,7 @@
 
 
 </div>
-<div class="viewcode-block" id="Filename"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.Filename">[docs]</a><span class="k">class</span> <span class="nc">Filename</span><span class="p">(</span><span class="n">Path</span><span class="p">):</span>
+<div class="viewcode-block" id="Filename"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.Filename">[docs]</a><span class="k">class</span> <span class="nc">Filename</span><span class="p">(</span><span class="n">Path</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameter that can be set to a string specifying the path of a file.</span>
 
@@ -1351,7 +1355,7 @@
             <span class="k">return</span> <span class="n">resolve_path</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">path_to_file</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
 </div>
-<div class="viewcode-block" id="Foldername"><a class="viewcode-back" href="../Reference_Manual/param-module.html#param.Foldername">[docs]</a><span class="k">class</span> <span class="nc">Foldername</span><span class="p">(</span><span class="n">Path</span><span class="p">):</span>
+<div class="viewcode-block" id="Foldername"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.Foldername">[docs]</a><span class="k">class</span> <span class="nc">Foldername</span><span class="p">(</span><span class="n">Path</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameter that can be set to a string specifying the path of a folder.</span>
 
@@ -1382,22 +1386,22 @@
         <div class="sphinxsidebarwrapper">
 <div align="center"><h1>Param</h1></div>
 <ul class="global-toc">
-<li><a href="../index.html">Home</a></li>
-<li><a href="../Reference_Manual/param-module.html">Reference Manual</a></li>
+<li><a href="../../index.html">Home</a></li>
+<li><a href="../../Reference_Manual/param.html">Reference Manual</a></li>
 <li><a href="http://github.com/ioam/param">Github Source Code</a></li>
-<li><a href="../site_map.html">Site Map</a></li>
+<li><a href="../../site_map.html">Site Map</a></li>
 </ul>
-<h3><a href="../index.html">Table Of Contents</a></h3>
+<h3><a href="../../index.html">Table Of Contents</a></h3>
 
 
 <h3>This Page</h3>
 <ul class="this-page-menu">
-	<li><a	href="https://github.com/ioam/param/edit/master/doc/_modules/param.rst" rel="nofollow">Edit on GitHub</a></li>
+	<li><a	href="https://github.com/ioam/param/edit/master/doc/_modules/param/__init__.rst" rel="nofollow">Edit on GitHub</a></li>
 </ul>
 
 <div id="searchbox" style="display: none">
   <h3>Quick search</h3>
-    <form class="search" action="../search.html" method="get">
+    <form class="search" action="../../search.html" method="get">
       <input type="text" name="q" />
       <input type="submit" value="Go" />
       <input type="hidden" name="check_keywords" value="yes" />
@@ -1416,20 +1420,20 @@
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
-          <a href="../genindex.html" title="General Index"
+          <a href="../../genindex.html" title="General Index"
              >index</a></li>
         <li class="right" >
-          <a href="../py-modindex.html" title="Python Module Index"
+          <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
-<li><a href="../index.html">Param Home</a></li>
-<li><a href="../Reference_Manual/param-module.html">Reference Manual</a></li>
+<li><a href="../../index.html">Param Home</a></li>
+<li><a href="../../Reference_Manual/param.html">Reference Manual</a></li>
 
 
 <li><ul class="parents">
 
 
 
-          <li><a href="index.html" >Module code</a> &raquo;</li>
+          <li><a href="../index.html" >Module code</a> &raquo;</li>
 
 </ul></li>
 

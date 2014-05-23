@@ -27,7 +27,7 @@
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../_static/custom.js"></script>
     <link rel="top" title="Param 1.1-devel documentation" href="../../index.html" />
-    <link rel="up" title="param" href="../param.html" /> 
+    <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
     <div class="related">
@@ -40,15 +40,14 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
 <li><a href="../../index.html">Param Home</a></li>
-<li><a href="../../Reference_Manual/param-module.html">Reference Manual</a></li>
+<li><a href="../../Reference_Manual/param.html">Reference Manual</a></li>
 
 
 <li><ul class="parents">
 
 
 
-          <li><a href="../index.html" >Module code</a> &raquo;</li>
-          <li><a href="../param.html" accesskey="U">param</a> &raquo;</li>
+          <li><a href="../index.html" accesskey="U">Module code</a> &raquo;</li>
 
 </ul></li>
 
@@ -85,8 +84,14 @@
 
 <span class="kn">import</span> <span class="nn">textwrap</span>
 <span class="kn">import</span> <span class="nn">param</span>
-<span class="kn">from</span> <span class="nn">IPython.core.magic</span> <span class="kn">import</span> <span class="n">Magics</span><span class="p">,</span> <span class="n">magics_class</span><span class="p">,</span> <span class="n">line_magic</span>
-<span class="kn">from</span> <span class="nn">IPython.core</span> <span class="kn">import</span> <span class="n">page</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">IPython.core.magic</span> <span class="kn">import</span> <span class="n">Magics</span><span class="p">,</span> <span class="n">magics_class</span><span class="p">,</span> <span class="n">line_magic</span>
+    <span class="kn">from</span> <span class="nn">IPython.core</span> <span class="kn">import</span> <span class="n">page</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">nose.plugins.skip</span> <span class="kn">import</span> <span class="n">SkipTest</span>
+    <span class="k">raise</span> <span class="n">SkipTest</span><span class="p">(</span><span class="s">&quot;IPython extension requires IPython &gt;= 0.13&quot;</span><span class="p">)</span>
+
 
 <span class="c"># Whether to generate warnings when misformatted docstrings are found</span>
 <span class="n">WARN_MISFORMATTED_DOCSTRINGS</span> <span class="o">=</span> <span class="bp">False</span>
@@ -99,7 +104,7 @@
 
 
 
-<div class="viewcode-block" id="ParamPager"><a class="viewcode-back" href="../../Reference_Manual/param.ipython-module.html#param.ipython.ParamPager">[docs]</a><span class="k">class</span> <span class="nc">ParamPager</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<div class="viewcode-block" id="ParamPager"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.ipython.ParamPager">[docs]</a><span class="k">class</span> <span class="nc">ParamPager</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Callable class that displays information about the supplied</span>
 <span class="sd">    parameterized object or class in the IPython pager.</span>
@@ -329,7 +334,7 @@
 
 </div>
 <span class="nd">@magics_class</span>
-<div class="viewcode-block" id="ParamMagics"><a class="viewcode-back" href="../../Reference_Manual/param.ipython-module.html#param.ipython.ParamMagics">[docs]</a><span class="k">class</span> <span class="nc">ParamMagics</span><span class="p">(</span><span class="n">Magics</span><span class="p">):</span>
+<div class="viewcode-block" id="ParamMagics"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.ipython.ParamMagics">[docs]</a><span class="k">class</span> <span class="nc">ParamMagics</span><span class="p">(</span><span class="n">Magics</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Implements the %params line magic used to inspect the parameters</span>
 <span class="sd">    of a parameterized class or object.</span>
@@ -340,7 +345,7 @@
 
 
     <span class="nd">@line_magic</span>
-<div class="viewcode-block" id="ParamMagics.params"><a class="viewcode-back" href="../../Reference_Manual/param.ipython-module.html#param.ipython.ParamMagics.params">[docs]</a>    <span class="k">def</span> <span class="nf">params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter_s</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+<div class="viewcode-block" id="ParamMagics.params"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.ipython.ParamMagics.params">[docs]</a>    <span class="k">def</span> <span class="nf">params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">parameter_s</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">namespaces</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        The %params line magic accepts a single argument which is a</span>
 <span class="sd">        handle on the parameterized object to be inspected. If the</span>
@@ -385,7 +390,7 @@
 <div align="center"><h1>Param</h1></div>
 <ul class="global-toc">
 <li><a href="../../index.html">Home</a></li>
-<li><a href="../../Reference_Manual/param-module.html">Reference Manual</a></li>
+<li><a href="../../Reference_Manual/param.html">Reference Manual</a></li>
 <li><a href="http://github.com/ioam/param">Github Source Code</a></li>
 <li><a href="../../site_map.html">Site Map</a></li>
 </ul>
@@ -424,7 +429,7 @@
           <a href="../../py-modindex.html" title="Python Module Index"
              >modules</a> |</li>
 <li><a href="../../index.html">Param Home</a></li>
-<li><a href="../../Reference_Manual/param-module.html">Reference Manual</a></li>
+<li><a href="../../Reference_Manual/param.html">Reference Manual</a></li>
 
 
 <li><ul class="parents">
@@ -432,7 +437,6 @@
 
 
           <li><a href="../index.html" >Module code</a> &raquo;</li>
-          <li><a href="../param.html" >param</a> &raquo;</li>
 
 </ul></li>
 

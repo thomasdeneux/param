@@ -1,5 +1,0 @@
-<map id="inheritance88cfc8a99f" name="inheritance88cfc8a99f">
-<area shape="rect" id="node1" href="param.parameterized-module.html#param.parameterized.Parameterized" title="Base class for named objects that support Parameters and message" alt="" coords="3,115,167,133"/>
-<area shape="rect" id="node2" href="param.parameterized-module.html#param.parameterized.ParameterizedFunction" title="Acts like a Python function, but with arguments that are Parameters." alt="" coords="237,67,435,85"/>
-<area shape="rect" id="node13" title="A class whose instances are single test cases." alt="" coords="33,19,138,37"/>
-</map>

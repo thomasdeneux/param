@@ -1,0 +1,1852 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>param.param Package &mdash; Param 1.1-devel documentation</title>
+    
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.1-devel',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="../_static/custom.js"></script>
+    <link rel="top" title="Param 1.1-devel documentation" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+<li><a href="../index.html">Param Home</a></li>
+<li><a href="#">Reference Manual</a></li>
+
+
+
+
+
+
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="param-param-package">
+<h1>param.param Package<a class="headerlink" href="#param-param-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="param-package">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">param</span></tt> Package<a class="headerlink" href="#param-package" title="Permalink to this headline">¶</a></h2>
+<p class="graphviz">
+<img src="../_images/inheritance-2b5ad0eacb8199cc8a96530dc61c423ebce3df29.png" alt="Inheritance diagram of param.__init__" usemap="#inheritance6ce4706456" class="inheritance"/>
+<map id="inheritance6ce4706456" name="inheritance6ce4706456">
+<area shape="rect" id="node1" href="#param.__init__.Array" title="Parameter whose value is a numpy array." alt="" coords="649,106,753,125"/>
+<area shape="rect" id="node2" href="#param.__init__.ClassSelector" title="Parameter whose value is an instance of the specified class." alt="" coords="461,106,600,125"/>
+<area shape="rect" id="node13" href="#param.__init__.Dict" title="Parameter whose value is a dictionary." alt="" coords="652,141,750,160"/>
+<area shape="rect" id="node4" href="#param.__init__.Boolean" title="Binary or tristate Boolean Parameter." alt="" coords="260,72,376,91"/>
+<area shape="rect" id="node5" href="#param.parameterized.Parameter" title="An attribute descriptor for declaring parameters." alt="" coords="13,192,170,211"/>
+<area shape="rect" id="node7" href="#param.__init__.Callable" title="Parameter holding a value that is a callable object, such as a function." alt="" coords="261,106,375,125"/>
+<area shape="rect" id="node9" href="#param.__init__.Selector" title="Parameter whose value must be chosen from a list of possibilities." alt="" coords="260,141,376,160"/>
+<area shape="rect" id="node11" href="#param.__init__.Composite" title="A Parameter that is a composite of a set of other attributes of the class." alt="" coords="254,175,381,194"/>
+<area shape="rect" id="node15" href="#param.__init__.Dynamic" title="Parameter whose value can be generated dynamically by a callable" alt="" coords="259,210,377,229"/>
+<area shape="rect" id="node18" href="#param.__init__.Path" title="Parameter that can be set to a string specifying the path of a file or folder." alt="" coords="268,244,368,263"/>
+<area shape="rect" id="node23" href="#param.__init__.List" title="Parameter whose value is a list of objects, usually of a specified type." alt="" coords="270,278,366,298"/>
+<area shape="rect" id="node33" href="#param.__init__.NumericTuple" title="A numeric tuple Parameter (e.g. (4.5,7.6,3)) with a fixed tuple length." alt="" coords="248,313,388,332"/>
+<area shape="rect" id="node35" href="#param.__init__.ObjectSelector" title="Parameter whose value must be one object from a list of possible objects." alt="" coords="458,141,603,160"/>
+<area shape="rect" id="node27" href="#param.__init__.Number" title="A numeric Dynamic Parameter, with a default value and optional bounds." alt="" coords="473,175,589,194"/>
+<area shape="rect" id="node17" href="#param.__init__.Filename" title="Parameter that can be set to a string specifying the path of a file." alt="" coords="471,210,590,229"/>
+<area shape="rect" id="node20" href="#param.__init__.Foldername" title="Parameter that can be set to a string specifying the path of a folder." alt="" coords="465,244,597,263"/>
+<area shape="rect" id="node22" href="#param.__init__.HookList" title="Parameter whose value is a list of callable objects." alt="" coords="472,278,590,298"/>
+<area shape="rect" id="node25" href="#param.__init__.Infinity" title="An instance of this class represents an infinite value. Unlike" alt="" coords="37,106,146,125"/>
+<area shape="rect" id="node26" href="#param.__init__.Integer" title="Numeric Parameter required to be an Integer" alt="" coords="646,175,756,194"/>
+<area shape="rect" id="node30" href="#param.__init__.Magnitude" title="Numeric Parameter required to be in the range [0.0&#45;1.0]." alt="" coords="638,210,764,229"/>
+<area shape="rect" id="node42" href="#param.__init__.XYCoordinates" title="A NumericTuple for an X,Y coordinate." alt="" coords="459,313,602,332"/>
+<area shape="rect" id="node39" href="#param.__init__.Time" title="A callable object returning a number for the current time." alt="" coords="267,3,369,22"/>
+<area shape="rect" id="node40" href="#param.parameterized.Parameterized" title="Base class for named objects that support Parameters and message" alt="" coords="4,20,179,39"/>
+<area shape="rect" id="node45" href="#param.parameterized.ParameterizedFunction" title="Acts like a Python function, but with arguments that are Parameters." alt="" coords="212,38,424,57"/>
+<area shape="rect" id="node44" href="#param.__init__.normalize_path" title="Convert a UNIX&#45;style path to the current OS&#39;s format," alt="" coords="456,20,605,39"/>
+<area shape="rect" id="node47" href="#param.__init__.resolve_path" title="Find the path to an existing file, searching the paths specified" alt="" coords="463,55,599,74"/>
+</map>
+</p>
+<span class="target" id="module-param.__init__"></span><p>Parameters are a kind of class attribute allowing special behavior,
+including dynamically generated parameter values, documentation
+strings, constant and read-only parameters, and type or range checking
+at assignment time.</p>
+<p>Potentially useful for any large Python program that needs
+user-modifiable object attributes; see the parameterized.Parameter and
+parameterized.Parameterized classes for more information.</p>
+<p>This file contains subclasses of Parameter, implementing specific
+parameter types (e.g. Number).</p>
+<dl class="attribute">
+<dt id="param.__init__.Array">
+<tt class="descclassname">param.__init__.</tt><tt class="descname">Array</tt><a class="reference internal" href="../_modules/param/__init__.html#Array"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.Array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameter whose value is a numpy array.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.Boolean">
+<tt class="descclassname">param.__init__.</tt><tt class="descname">Boolean</tt><a class="reference internal" href="../_modules/param/__init__.html#Boolean"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.Boolean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Binary or tristate Boolean Parameter.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.Callable">
+<tt class="descclassname">param.__init__.</tt><tt class="descname">Callable</tt><a class="reference internal" href="../_modules/param/__init__.html#Callable"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.Callable" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameter holding a value that is a callable object, such as a function.</p>
+<p>A keyword argument instantiate=True should be provided when a
+function object is used that might have state.  On the other hand,
+regular standalone functions cannot be deepcopied as of Python
+2.4, so instantiate must be False for those values.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.ClassSelector">
+<tt class="descclassname">param.__init__.</tt><tt class="descname">ClassSelector</tt><a class="reference internal" href="../_modules/param/__init__.html#ClassSelector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.ClassSelector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameter whose value is an instance of the specified class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.Composite">
+<tt class="descclassname">param.__init__.</tt><tt class="descname">Composite</tt><a class="reference internal" href="../_modules/param/__init__.html#Composite"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.Composite" title="Permalink to this definition">¶</a></dt>
+<dd><p>A Parameter that is a composite of a set of other attributes of the class.</p>
+<p>The constructor argument &#8216;attribs&#8217; takes a list of attribute
+names, which may or may not be Parameters.  Getting the parameter
+returns a list of the values of the constituents of the composite,
+in the order specified.  Likewise, setting the parameter takes a
+sequence of values and sets the value of the constituent
+attributes.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.Dict">
+<tt class="descclassname">param.__init__.</tt><tt class="descname">Dict</tt><a class="reference internal" href="../_modules/param/__init__.html#Dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.Dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameter whose value is a dictionary.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.Dynamic">
+<tt class="descclassname">param.__init__.</tt><tt class="descname">Dynamic</tt><a class="reference internal" href="../_modules/param/__init__.html#Dynamic"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.Dynamic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameter whose value can be generated dynamically by a callable
+object.</p>
+<p>If a Parameter is declared as Dynamic, it can be set a callable
+object (such as a function or callable class), and getting the
+parameter&#8217;s value will call that callable.</p>
+<p>Note that at present, the callable object must allow attributes
+to be set on itself.</p>
+<p>[Python 2.4 limitation: the callable object must be an instance of a
+callable class, rather than a named function or a lambda function,
+otherwise the object will not be picklable or deepcopyable.]</p>
+<p>If set as time_dependent, setting the Dynamic.time_fn allows the
+production of dynamic values to be controlled: a new value will be
+produced only if the current value of time_fn is different from
+what it was the last time the parameter value was requested.</p>
+<p>By default, the Dynamic parameters are not time_dependent so that
+new values are generated on every call regardless of the time. The
+default time_fn used when time_dependent is a single Time instance
+that allows general manipulations of time. It may be set to some
+other callable as required so long as a number is returned on each
+call.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.Filename">
+<tt class="descclassname">param.__init__.</tt><tt class="descname">Filename</tt><a class="reference internal" href="../_modules/param/__init__.html#Filename"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.Filename" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameter that can be set to a string specifying the path of a file.</p>
+<p>The string should be specified in UNIX style, but it will be
+returned in the format of the user&#8217;s operating system.</p>
+<p>The specified path can be absolute, or relative to either:</p>
+<ul class="simple">
+<li>any of the paths specified in the search_paths attribute (if
+search_paths is not None);</li>
+</ul>
+<p>or</p>
+<ul class="simple">
+<li>any of the paths searched by resolve_path() (if search_paths
+is None).</li>
+</ul>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.Foldername">
+<tt class="descclassname">param.__init__.</tt><tt class="descname">Foldername</tt><a class="reference internal" href="../_modules/param/__init__.html#Foldername"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.Foldername" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameter that can be set to a string specifying the path of a folder.</p>
+<p>The string should be specified in UNIX style, but it will be
+returned in the format of the user&#8217;s operating system.</p>
+<p>The specified path can be absolute, or relative to either:</p>
+<ul class="simple">
+<li>any of the paths specified in the search_paths attribute (if
+search_paths is not None);</li>
+</ul>
+<p>or</p>
+<ul class="simple">
+<li>any of the paths searched by resolve_dir_path() (if search_paths
+is None).</li>
+</ul>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.HookList">
+<tt class="descclassname">param.__init__.</tt><tt class="descname">HookList</tt><a class="reference internal" href="../_modules/param/__init__.html#HookList"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.HookList" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameter whose value is a list of callable objects.</p>
+<p>This type of List Parameter is typically used to provide a place
+for users to register a set of commands to be called at a
+specified place in some sequence of processing steps.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="param.__init__.Infinity">
+<em class="property">class </em><tt class="descclassname">param.__init__.</tt><tt class="descname">Infinity</tt><a class="reference internal" href="../_modules/param/__init__.html#Infinity"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.Infinity" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>An instance of this class represents an infinite value. Unlike
+Python&#8217;s float(&#8216;inf&#8217;) value, this object can be safely compared
+with gmpy numeric types across different gmpy versions.</p>
+<p>All operators on Infinity() return Infinity(), apart from the
+comparison and equality operators. Equality works by checking
+whether the two objects are both instances of this class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.Integer">
+<tt class="descclassname">param.__init__.</tt><tt class="descname">Integer</tt><a class="reference internal" href="../_modules/param/__init__.html#Integer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.Integer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Numeric Parameter required to be an Integer</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.List">
+<tt class="descclassname">param.__init__.</tt><tt class="descname">List</tt><a class="reference internal" href="../_modules/param/__init__.html#List"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.List" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameter whose value is a list of objects, usually of a specified type.</p>
+<p>The bounds allow a minimum and/or maximum length of
+list to be enforced.  If the class is non-None, all
+items in the list are checked to be of that type.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.Magnitude">
+<tt class="descclassname">param.__init__.</tt><tt class="descname">Magnitude</tt><a class="reference internal" href="../_modules/param/__init__.html#Magnitude"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.Magnitude" title="Permalink to this definition">¶</a></dt>
+<dd><p>Numeric Parameter required to be in the range [0.0-1.0].</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.Number">
+<tt class="descclassname">param.__init__.</tt><tt class="descname">Number</tt><a class="reference internal" href="../_modules/param/__init__.html#Number"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.Number" title="Permalink to this definition">¶</a></dt>
+<dd><p>A numeric Dynamic Parameter, with a default value and optional bounds.</p>
+<p>There are two types of bounds: <tt class="docutils literal"><span class="pre">bounds</span></tt> and
+<tt class="docutils literal"><span class="pre">softbounds</span></tt>.  <tt class="docutils literal"><span class="pre">bounds</span></tt> are hard bounds: the parameter must
+have a value within the specified range.  The default bounds are
+(None,None), meaning there are actually no hard bounds.  One or
+both bounds can be set by specifying a value
+(e.g. bounds=(None,10) means there is no lower bound, and an upper
+bound of 10). Bounds are inclusive by default, but exclusivity
+can be specified for each bound by setting inclusive_bounds
+(e.g. inclusive_bounds=(True,False) specifies an exclusive upper
+bound).</p>
+<p>Number is also a type of Dynamic parameter, so its value
+can be set to a callable to get a dynamically generated
+number (see Dynamic).</p>
+<p>When not being dynamically generated, bounds are checked when a
+Number is created or set. Using a default value outside the hard
+bounds, or one that is not numeric, results in an exception. When
+being dynamically generated, bounds are checked when a the value
+of a Number is requested. A generated value that is not numeric,
+or is outside the hard bounds, results in an exception.</p>
+<p>As a special case, if allow_None=True (which is true by default if
+the parameter has a default of None when declared) then a value
+of None is also allowed.</p>
+<p>A separate function set_in_bounds() is provided that will
+silently crop the given value into the legal range, for use
+in, for instance, a GUI.</p>
+<p><tt class="docutils literal"><span class="pre">softbounds</span></tt> are present to indicate the typical range of
+the parameter, but are not enforced. Setting the soft bounds
+allows, for instance, a GUI to know what values to display on
+sliders for the Number.</p>
+<dl class="docutils">
+<dt>Example of creating a Number::</dt>
+<dd>AB = Number(default=0.5, bounds=(None,10), softbounds=(0,1), doc=&#8217;Distance from A to B.&#8217;)</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.NumericTuple">
+<tt class="descclassname">param.__init__.</tt><tt class="descname">NumericTuple</tt><a class="reference internal" href="../_modules/param/__init__.html#NumericTuple"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.NumericTuple" title="Permalink to this definition">¶</a></dt>
+<dd><p>A numeric tuple Parameter (e.g. (4.5,7.6,3)) with a fixed tuple length.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.ObjectSelector">
+<tt class="descclassname">param.__init__.</tt><tt class="descname">ObjectSelector</tt><a class="reference internal" href="../_modules/param/__init__.html#ObjectSelector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.ObjectSelector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameter whose value must be one object from a list of possible objects.</p>
+<p>check_on_set restricts the value to be among the current list of
+objects. By default, if objects are initially supplied,
+check_on_set is True, whereas if no objects are initially
+supplied, check_on_set is False. This can be overridden by
+explicitly specifying check_on_set initially.</p>
+<p>If check_on_set is True (either because objects are supplied
+initially, or because it is explicitly specified), the default
+(initial) value must be among the list of objects (unless the
+default value is None).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.Path">
+<tt class="descclassname">param.__init__.</tt><tt class="descname">Path</tt><a class="reference internal" href="../_modules/param/__init__.html#Path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.Path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameter that can be set to a string specifying the path of a file or folder.</p>
+<p>The string should be specified in UNIX style, but it will be
+returned in the format of the user&#8217;s operating system. Please use
+the Filename or Foldername classes if you require discrimination
+between the two possibilities.</p>
+<p>The specified path can be absolute, or relative to either:</p>
+<ul class="simple">
+<li>any of the paths specified in the search_paths attribute (if
+search_paths is not None);</li>
+</ul>
+<p>or</p>
+<ul class="simple">
+<li>any of the paths searched by resolve_path() (if search_paths
+is None).</li>
+</ul>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.Selector">
+<tt class="descclassname">param.__init__.</tt><tt class="descname">Selector</tt><a class="reference internal" href="../_modules/param/__init__.html#Selector"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.Selector" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameter whose value must be chosen from a list of possibilities.</p>
+<p>Subclasses must implement get_range().</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="param.__init__.Time">
+<em class="property">class </em><tt class="descclassname">param.__init__.</tt><tt class="descname">Time</tt><big>(</big><em>**params</em><big>)</big><a class="reference internal" href="../_modules/param/__init__.html#Time"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.Time" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#param.parameterized.Parameterized" title="param.parameterized.Parameterized"><tt class="xref py py-class docutils literal"><span class="pre">param.parameterized.Parameterized</span></tt></a></p>
+<p>A callable object returning a number for the current time.</p>
+<p>Here &#8216;time&#8217; is an abstract concept that can be interpreted in any
+useful way.  For instance, in a simulation, it would be the
+current simulation time, while in a turn-taking game it could be
+the number of moves so far.  The key intended usage is to allow
+independent Parameterized objects with Dynamic parameters to
+remain consistent with a global reference.</p>
+<p>The time datatype (time_type) is configurable, but should
+typically be an exact numeric type like an integer or a rational,
+so that small floating-point errors do not accumulate as time is
+incremented repeatedly.</p>
+<p>When used as a context manager using the &#8216;with&#8217; statement
+(implemented by the __enter__ and __exit__ special methods), entry
+into a context pushes the state of the Time object, allowing the
+effect of changes to the time value to be explored by setting,
+incrementing or decrementing time as desired. This allows the
+state of time-dependent objects to be modified temporarily as a
+function of time, within the context&#8217;s block. For instance, you
+could use the context manager to &#8220;see into the future&#8221; to collect
+data over multiple times, without affecting the global time state
+once exiting the context. Of course, you need to be careful not to
+do anything while in context that would affect the lasting state
+of your other objects, if you want things to return to their
+starting state when exiting the context.</p>
+<p>The starting time value of a new Time object is 0, converted to
+the chosen time type. Here is an illustration of how time can be
+manipulated using a Time object:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">time</span> <span class="o">=</span> <span class="n">Time</span><span class="p">(</span><span class="n">until</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span> <span class="n">timestep</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s">&#39;The initial time is </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">time</span><span class="p">()</span>
+<span class="go">&#39;The initial time is 0&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s">&#39;Setting the time to </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">time</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="go">&#39;Setting the time to 5&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">time</span> <span class="o">+=</span> <span class="mi">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s">&#39;After incrementing by 5, the time is </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">time</span><span class="p">()</span>
+<span class="go">&#39;After incrementing by 5, the time is 10&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">with</span> <span class="n">time</span> <span class="k">as</span> <span class="n">t</span><span class="p">:</span>  <span class="c"># Entering a context</span>
+<span class="gp">... </span>    <span class="s">&#39;Time before iteration: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">t</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="s">&#39;Iteration: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">[</span><span class="n">val</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="n">t</span><span class="p">]</span>
+<span class="gp">... </span>    <span class="s">&#39;Time after iteration: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">t</span><span class="p">()</span>
+<span class="gp">... </span>    <span class="n">t</span> <span class="o">+=</span> <span class="mi">2</span>
+<span class="gp">... </span>    <span class="s">&#39;The until parameter may be exceeded outside iteration: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">t</span><span class="p">()</span>
+<span class="go">&#39;Time before iteration: 10&#39;</span>
+<span class="go">&#39;Iteration: [10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20]&#39;</span>
+<span class="go">&#39;Time after iteration: 20&#39;</span>
+<span class="go">&#39;The until parameter may be exceeded outside iteration: 22&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="s">&#39;After exiting the context the time is back to </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">time</span><span class="p">()</span>
+<span class="go">&#39;After exiting the context the time is back to 10&#39;</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="param.__init__.Time.debug">
+<tt class="descname">debug</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#param.__init__.Time.debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the arguments as a debugging statement.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.Time.defaults">
+<tt class="descname">defaults</tt><big>(</big><big>)</big><a class="headerlink" href="#param.__init__.Time.defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return {parameter_name:parameter.default} for all non-constant
+Parameters.</p>
+<p>Note that a Parameter for which instantiate==True has its default
+instantiated.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.Time.force_new_dynamic_value">
+<tt class="descname">force_new_dynamic_value</tt><em class="property"> = &lt;functools.partial object at 0x39d7418&gt;</em><a class="headerlink" href="#param.__init__.Time.force_new_dynamic_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.Time.get_param_values">
+<tt class="descname">get_param_values</tt><big>(</big><em>onlychanged=False</em><big>)</big><a class="headerlink" href="#param.__init__.Time.get_param_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of name,value pairs for all Parameters of this
+object.</p>
+<p>If onlychanged is True, will only return values that are not
+equal to the default value.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.Time.get_value_generator">
+<tt class="descname">get_value_generator</tt><em class="property"> = &lt;functools.partial object at 0x39d73c0&gt;</em><a class="headerlink" href="#param.__init__.Time.get_value_generator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.Time.inspect_value">
+<tt class="descname">inspect_value</tt><em class="property"> = &lt;functools.partial object at 0x39d74c8&gt;</em><a class="headerlink" href="#param.__init__.Time.inspect_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.Time.message">
+<tt class="descname">message</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#param.__init__.Time.message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the arguments as a message.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="param.__init__.Time.params">
+<em class="property">classmethod </em><tt class="descname">params</tt><big>(</big><em>parameter_name=None</em><big>)</big><a class="headerlink" href="#param.__init__.Time.params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the Parameters of this class as the
+dictionary {name: parameter_object}</p>
+<p>Includes Parameters from this class and its
+superclasses.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="param.__init__.Time.print_param_defaults">
+<em class="property">classmethod </em><tt class="descname">print_param_defaults</tt><big>(</big><big>)</big><a class="headerlink" href="#param.__init__.Time.print_param_defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the default values of all cls&#8217;s Parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.Time.print_param_values">
+<tt class="descname">print_param_values</tt><big>(</big><big>)</big><a class="headerlink" href="#param.__init__.Time.print_param_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the values of all this object&#8217;s Parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.Time.script_repr">
+<tt class="descname">script_repr</tt><big>(</big><em>imports=</em>, <span class="optional">[</span><span class="optional">]</span><em>prefix='    '</em><big>)</big><a class="headerlink" href="#param.__init__.Time.script_repr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Variant of __repr__ designed for generating a runnable script.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="param.__init__.Time.set_default">
+<em class="property">classmethod </em><tt class="descname">set_default</tt><big>(</big><em>param_name</em>, <em>value</em><big>)</big><a class="headerlink" href="#param.__init__.Time.set_default" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the default value of param_name.</p>
+<p>Equivalent to setting param_name on the class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.Time.set_dynamic_time_fn">
+<tt class="descname">set_dynamic_time_fn</tt><em class="property"> = &lt;functools.partial object at 0x39d7470&gt;</em><a class="headerlink" href="#param.__init__.Time.set_dynamic_time_fn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.Time.set_param">
+<tt class="descname">set_param</tt><em class="property"> = &lt;functools.partial object at 0x39d75d0&gt;</em><a class="headerlink" href="#param.__init__.Time.set_param" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.Time.state_pop">
+<tt class="descname">state_pop</tt><big>(</big><big>)</big><a class="headerlink" href="#param.__init__.Time.state_pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restore the most recently saved state.</p>
+<p>See state_push() for more details.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.Time.state_push">
+<tt class="descname">state_push</tt><big>(</big><big>)</big><a class="headerlink" href="#param.__init__.Time.state_push" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save this instance&#8217;s state.</p>
+<p>For Parameterized instances, this includes the state of
+dynamically generated values.</p>
+<p>Subclasses that maintain short-term state should additionally
+save and restore that state using state_push() and
+state_pop().</p>
+<p>Generally, this method is used by operations that need to test
+something without permanently altering the objects&#8217; state.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.Time.time_type">
+<tt class="descname">time_type</tt><a class="headerlink" href="#param.__init__.Time.time_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <tt class="xref py py-class docutils literal"><span class="pre">int</span></tt></p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.Time.verbose">
+<tt class="descname">verbose</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#param.__init__.Time.verbose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the arguments as a verbose message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.Time.warning">
+<tt class="descname">warning</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#param.__init__.Time.warning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the arguments as a warning, unless module variable
+warnings_as_exceptions is True, then raise an Exception
+containing the arguments.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.XYCoordinates">
+<tt class="descclassname">param.__init__.</tt><tt class="descname">XYCoordinates</tt><a class="reference internal" href="../_modules/param/__init__.html#XYCoordinates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.XYCoordinates" title="Permalink to this definition">¶</a></dt>
+<dd><p>A NumericTuple for an X,Y coordinate.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="param.__init__.concrete_descendents">
+<tt class="descclassname">param.__init__.</tt><tt class="descname">concrete_descendents</tt><big>(</big><em>parentclass</em><big>)</big><a class="reference internal" href="../_modules/param/__init__.html#concrete_descendents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.concrete_descendents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dictionary containing all subclasses of the specified
+parentclass, including the parentclass.  Only classes that are
+defined in scripts that have been run or modules that have been
+imported are included, so the caller will usually first do <tt class="docutils literal"><span class="pre">from</span>
+<span class="pre">package</span> <span class="pre">import</span> <span class="pre">*</span></tt>.</p>
+<p>Only non-abstract classes will be included.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="param.__init__.main">
+<tt class="descclassname">param.__init__.</tt><tt class="descname">main</tt><em class="property"> = Parameterized(name='main')</em><a class="headerlink" href="#param.__init__.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Top-level object to allow messaging not tied to a particular
+Parameterized object, as in &#8216;param.main.warning(&#8220;Invalid option&#8221;)&#8217;.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="param.__init__.normalize_path">
+<em class="property">class </em><tt class="descclassname">param.__init__.</tt><tt class="descname">normalize_path</tt><big>(</big><em>**params</em><big>)</big><a class="reference internal" href="../_modules/param/__init__.html#normalize_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.normalize_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#param.parameterized.ParameterizedFunction" title="param.parameterized.ParameterizedFunction"><tt class="xref py py-class docutils literal"><span class="pre">param.parameterized.ParameterizedFunction</span></tt></a></p>
+<p>Convert a UNIX-style path to the current OS&#8217;s format,
+typically for creating a new file or directory.</p>
+<p>If the path is not already absolute, it will be made absolute
+(using the prefix parameter).</p>
+<p>Should do the same as Python&#8217;s os.path.abspath(), except using
+prefix rather than os.getcwd).</p>
+<dl class="method">
+<dt id="param.__init__.normalize_path.debug">
+<tt class="descname">debug</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#param.__init__.normalize_path.debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the arguments as a debugging statement.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.normalize_path.defaults">
+<tt class="descname">defaults</tt><big>(</big><big>)</big><a class="headerlink" href="#param.__init__.normalize_path.defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return {parameter_name:parameter.default} for all non-constant
+Parameters.</p>
+<p>Note that a Parameter for which instantiate==True has its default
+instantiated.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.normalize_path.force_new_dynamic_value">
+<tt class="descname">force_new_dynamic_value</tt><em class="property"> = &lt;functools.partial object at 0x39d7368&gt;</em><a class="headerlink" href="#param.__init__.normalize_path.force_new_dynamic_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.normalize_path.get_param_values">
+<tt class="descname">get_param_values</tt><big>(</big><em>onlychanged=False</em><big>)</big><a class="headerlink" href="#param.__init__.normalize_path.get_param_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of name,value pairs for all Parameters of this
+object.</p>
+<p>If onlychanged is True, will only return values that are not
+equal to the default value.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.normalize_path.get_value_generator">
+<tt class="descname">get_value_generator</tt><em class="property"> = &lt;functools.partial object at 0x39d7310&gt;</em><a class="headerlink" href="#param.__init__.normalize_path.get_value_generator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.normalize_path.inspect_value">
+<tt class="descname">inspect_value</tt><em class="property"> = &lt;functools.partial object at 0x39d7520&gt;</em><a class="headerlink" href="#param.__init__.normalize_path.inspect_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.normalize_path.instance">
+<tt class="descname">instance</tt><em class="property"> = &lt;functools.partial object at 0x39d7628&gt;</em><a class="headerlink" href="#param.__init__.normalize_path.instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.normalize_path.message">
+<tt class="descname">message</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#param.__init__.normalize_path.message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the arguments as a message.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="param.__init__.normalize_path.params">
+<em class="property">classmethod </em><tt class="descname">params</tt><big>(</big><em>parameter_name=None</em><big>)</big><a class="headerlink" href="#param.__init__.normalize_path.params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the Parameters of this class as the
+dictionary {name: parameter_object}</p>
+<p>Includes Parameters from this class and its
+superclasses.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="param.__init__.normalize_path.print_param_defaults">
+<em class="property">classmethod </em><tt class="descname">print_param_defaults</tt><big>(</big><big>)</big><a class="headerlink" href="#param.__init__.normalize_path.print_param_defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the default values of all cls&#8217;s Parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.normalize_path.print_param_values">
+<tt class="descname">print_param_values</tt><big>(</big><big>)</big><a class="headerlink" href="#param.__init__.normalize_path.print_param_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the values of all this object&#8217;s Parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.normalize_path.script_repr">
+<tt class="descname">script_repr</tt><big>(</big><em>imports=</em>, <span class="optional">[</span><span class="optional">]</span><em>prefix='    '</em><big>)</big><a class="headerlink" href="#param.__init__.normalize_path.script_repr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as Parameterized.script_repr, except that X.classname(Y
+is replaced with X.classname.instance(Y</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="param.__init__.normalize_path.set_default">
+<em class="property">classmethod </em><tt class="descname">set_default</tt><big>(</big><em>param_name</em>, <em>value</em><big>)</big><a class="headerlink" href="#param.__init__.normalize_path.set_default" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the default value of param_name.</p>
+<p>Equivalent to setting param_name on the class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.normalize_path.set_dynamic_time_fn">
+<tt class="descname">set_dynamic_time_fn</tt><em class="property"> = &lt;functools.partial object at 0x39d74c8&gt;</em><a class="headerlink" href="#param.__init__.normalize_path.set_dynamic_time_fn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.normalize_path.set_param">
+<tt class="descname">set_param</tt><em class="property"> = &lt;functools.partial object at 0x39d7680&gt;</em><a class="headerlink" href="#param.__init__.normalize_path.set_param" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.normalize_path.state_pop">
+<tt class="descname">state_pop</tt><big>(</big><big>)</big><a class="headerlink" href="#param.__init__.normalize_path.state_pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restore the most recently saved state.</p>
+<p>See state_push() for more details.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.normalize_path.state_push">
+<tt class="descname">state_push</tt><big>(</big><big>)</big><a class="headerlink" href="#param.__init__.normalize_path.state_push" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save this instance&#8217;s state.</p>
+<p>For Parameterized instances, this includes the state of
+dynamically generated values.</p>
+<p>Subclasses that maintain short-term state should additionally
+save and restore that state using state_push() and
+state_pop().</p>
+<p>Generally, this method is used by operations that need to test
+something without permanently altering the objects&#8217; state.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.normalize_path.verbose">
+<tt class="descname">verbose</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#param.__init__.normalize_path.verbose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the arguments as a verbose message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.normalize_path.warning">
+<tt class="descname">warning</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#param.__init__.normalize_path.warning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the arguments as a warning, unless module variable
+warnings_as_exceptions is True, then raise an Exception
+containing the arguments.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="param.__init__.produce_value">
+<tt class="descclassname">param.__init__.</tt><tt class="descname">produce_value</tt><big>(</big><em>value_obj</em><big>)</big><a class="reference internal" href="../_modules/param/__init__.html#produce_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.produce_value" title="Permalink to this definition">¶</a></dt>
+<dd><p>A helper function that produces an actual parameter from a stored
+object: if the object is callable, call it, otherwise return the
+object.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="param.__init__.resolve_path">
+<em class="property">class </em><tt class="descclassname">param.__init__.</tt><tt class="descname">resolve_path</tt><big>(</big><em>**params</em><big>)</big><a class="reference internal" href="../_modules/param/__init__.html#resolve_path"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.__init__.resolve_path" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#param.parameterized.ParameterizedFunction" title="param.parameterized.ParameterizedFunction"><tt class="xref py py-class docutils literal"><span class="pre">param.parameterized.ParameterizedFunction</span></tt></a></p>
+<p>Find the path to an existing file, searching the paths specified
+in the search_paths parameter if the filename is not absolute, and
+converting a UNIX-style path to the current OS&#8217;s format if
+necessary.</p>
+<p>To turn a supplied relative path into an absolute one, the path is
+appended to paths in the search_paths parameter, in order, until
+the file is found.</p>
+<p>An IOError is raised if the file is not found.</p>
+<p>Similar to Python&#8217;s os.path.abspath(), except more search paths
+than just os.getcwd() can be used, and the file must exist.</p>
+<dl class="method">
+<dt id="param.__init__.resolve_path.debug">
+<tt class="descname">debug</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#param.__init__.resolve_path.debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the arguments as a debugging statement.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.resolve_path.defaults">
+<tt class="descname">defaults</tt><big>(</big><big>)</big><a class="headerlink" href="#param.__init__.resolve_path.defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return {parameter_name:parameter.default} for all non-constant
+Parameters.</p>
+<p>Note that a Parameter for which instantiate==True has its default
+instantiated.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.resolve_path.force_new_dynamic_value">
+<tt class="descname">force_new_dynamic_value</tt><em class="property"> = &lt;functools.partial object at 0x39d7470&gt;</em><a class="headerlink" href="#param.__init__.resolve_path.force_new_dynamic_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.resolve_path.get_param_values">
+<tt class="descname">get_param_values</tt><big>(</big><em>onlychanged=False</em><big>)</big><a class="headerlink" href="#param.__init__.resolve_path.get_param_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of name,value pairs for all Parameters of this
+object.</p>
+<p>If onlychanged is True, will only return values that are not
+equal to the default value.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.resolve_path.get_value_generator">
+<tt class="descname">get_value_generator</tt><em class="property"> = &lt;functools.partial object at 0x39d7310&gt;</em><a class="headerlink" href="#param.__init__.resolve_path.get_value_generator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.resolve_path.inspect_value">
+<tt class="descname">inspect_value</tt><em class="property"> = &lt;functools.partial object at 0x39d7208&gt;</em><a class="headerlink" href="#param.__init__.resolve_path.inspect_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.resolve_path.instance">
+<tt class="descname">instance</tt><em class="property"> = &lt;functools.partial object at 0x39d7260&gt;</em><a class="headerlink" href="#param.__init__.resolve_path.instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.resolve_path.message">
+<tt class="descname">message</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#param.__init__.resolve_path.message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the arguments as a message.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="param.__init__.resolve_path.params">
+<em class="property">classmethod </em><tt class="descname">params</tt><big>(</big><em>parameter_name=None</em><big>)</big><a class="headerlink" href="#param.__init__.resolve_path.params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the Parameters of this class as the
+dictionary {name: parameter_object}</p>
+<p>Includes Parameters from this class and its
+superclasses.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="param.__init__.resolve_path.print_param_defaults">
+<em class="property">classmethod </em><tt class="descname">print_param_defaults</tt><big>(</big><big>)</big><a class="headerlink" href="#param.__init__.resolve_path.print_param_defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the default values of all cls&#8217;s Parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.resolve_path.print_param_values">
+<tt class="descname">print_param_values</tt><big>(</big><big>)</big><a class="headerlink" href="#param.__init__.resolve_path.print_param_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the values of all this object&#8217;s Parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.resolve_path.script_repr">
+<tt class="descname">script_repr</tt><big>(</big><em>imports=</em>, <span class="optional">[</span><span class="optional">]</span><em>prefix='    '</em><big>)</big><a class="headerlink" href="#param.__init__.resolve_path.script_repr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as Parameterized.script_repr, except that X.classname(Y
+is replaced with X.classname.instance(Y</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="param.__init__.resolve_path.set_default">
+<em class="property">classmethod </em><tt class="descname">set_default</tt><big>(</big><em>param_name</em>, <em>value</em><big>)</big><a class="headerlink" href="#param.__init__.resolve_path.set_default" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the default value of param_name.</p>
+<p>Equivalent to setting param_name on the class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.resolve_path.set_dynamic_time_fn">
+<tt class="descname">set_dynamic_time_fn</tt><em class="property"> = &lt;functools.partial object at 0x39d75d0&gt;</em><a class="headerlink" href="#param.__init__.resolve_path.set_dynamic_time_fn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="param.__init__.resolve_path.set_param">
+<tt class="descname">set_param</tt><em class="property"> = &lt;functools.partial object at 0x39d76d8&gt;</em><a class="headerlink" href="#param.__init__.resolve_path.set_param" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.resolve_path.state_pop">
+<tt class="descname">state_pop</tt><big>(</big><big>)</big><a class="headerlink" href="#param.__init__.resolve_path.state_pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restore the most recently saved state.</p>
+<p>See state_push() for more details.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.resolve_path.state_push">
+<tt class="descname">state_push</tt><big>(</big><big>)</big><a class="headerlink" href="#param.__init__.resolve_path.state_push" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save this instance&#8217;s state.</p>
+<p>For Parameterized instances, this includes the state of
+dynamically generated values.</p>
+<p>Subclasses that maintain short-term state should additionally
+save and restore that state using state_push() and
+state_pop().</p>
+<p>Generally, this method is used by operations that need to test
+something without permanently altering the objects&#8217; state.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.resolve_path.verbose">
+<tt class="descname">verbose</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#param.__init__.resolve_path.verbose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the arguments as a verbose message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.__init__.resolve_path.warning">
+<tt class="descname">warning</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#param.__init__.resolve_path.warning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the arguments as a warning, unless module variable
+warnings_as_exceptions is True, then raise an Exception
+containing the arguments.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="ipython-module">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">ipython</span></tt> Module<a class="headerlink" href="#ipython-module" title="Permalink to this headline">¶</a></h2>
+<p class="graphviz">
+<img src="../_images/inheritance-38a0e68bc4cc176cb686d156be25f5eec44c5ebf.png" alt="Inheritance diagram of param.ipython" usemap="#inheritance6c9d819611" class="inheritance"/>
+<map id="inheritance6c9d819611" name="inheritance6c9d819611">
+<area shape="rect" id="node1" title="Base class for implementing magic functions." alt="" coords="8,55,200,83"/>
+<area shape="rect" id="node2" href="#param.ipython.ParamMagics" title="Implements the %params line magic used to inspect the parameters" alt="" coords="252,55,455,83"/>
+<area shape="rect" id="node4" href="#param.ipython.ParamPager" title="Callable class that displays information about the supplied" alt="" coords="7,5,201,33"/>
+</map>
+</p>
+<span class="target" id="module-param.ipython"></span><p>Optional IPython extension for working with Parameters.</p>
+<p>This extension offers extended but completely optional functionality
+for IPython users.  From within IPython, it may be loaded using:</p>
+<p>%load_ext param.ipython</p>
+<p>This will register the %params line magic to allow easy inspection of
+all the parameters defined on a parameterized class or object:</p>
+<p>%params &lt;parameterized class or object&gt;</p>
+<p>All parameters of the class or object will be listed in the IPython
+pager together with all their corresponding attributes and
+docstrings. Note that the class or object to be inspected must already
+exist in the active namespace.</p>
+<dl class="class">
+<dt id="param.ipython.ParamMagics">
+<em class="property">class </em><tt class="descclassname">param.ipython.</tt><tt class="descname">ParamMagics</tt><big>(</big><em>*args</em>, <em>**kwargs</em><big>)</big><a class="reference internal" href="../_modules/param/ipython.html#ParamMagics"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.ipython.ParamMagics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">IPython.core.magic.Magics</span></tt></p>
+<p>Implements the %params line magic used to inspect the parameters
+of a parameterized class or object.</p>
+<dl class="method">
+<dt id="param.ipython.ParamMagics.arg_err">
+<tt class="descname">arg_err</tt><big>(</big><em>func</em><big>)</big><a class="headerlink" href="#param.ipython.ParamMagics.arg_err" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print docstring if incorrect arguments were passed</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.ipython.ParamMagics.default_option">
+<tt class="descname">default_option</tt><big>(</big><em>fn</em>, <em>optstr</em><big>)</big><a class="headerlink" href="#param.ipython.ParamMagics.default_option" title="Permalink to this definition">¶</a></dt>
+<dd><p>Make an entry in the options_table for fn, with value optstr</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.ipython.ParamMagics.format_latex">
+<tt class="descname">format_latex</tt><big>(</big><em>strng</em><big>)</big><a class="headerlink" href="#param.ipython.ParamMagics.format_latex" title="Permalink to this definition">¶</a></dt>
+<dd><p>Format a string for latex inclusion.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.ipython.ParamMagics.params">
+<tt class="descname">params</tt><big>(</big><em>parameter_s=''</em>, <em>namespaces=None</em><big>)</big><a class="reference internal" href="../_modules/param/ipython.html#ParamMagics.params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.ipython.ParamMagics.params" title="Permalink to this definition">¶</a></dt>
+<dd><p>The %params line magic accepts a single argument which is a
+handle on the parameterized object to be inspected. If the
+object can be found in the active namespace, information about
+the object&#8217;s parameters is displayed in the IPython pager.</p>
+<p>Usage: %params &lt;parameterized class or object&gt;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.ipython.ParamMagics.parse_options">
+<tt class="descname">parse_options</tt><big>(</big><em>arg_str</em>, <em>opt_str</em>, <em>*long_opts</em>, <em>**kw</em><big>)</big><a class="headerlink" href="#param.ipython.ParamMagics.parse_options" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parse options passed to an argument string.</p>
+<p>The interface is similar to that of getopt(), but it returns back a
+Struct with the options as keys and the stripped argument string still
+as a string.</p>
+<p>arg_str is quoted as a true sys.argv vector by using shlex.split.
+This allows us to easily expand variables, glob files, quote
+arguments, etc.</p>
+<dl class="docutils">
+<dt>Options:</dt>
+<dd><p class="first">-mode: default &#8216;string&#8217;. If given as &#8216;list&#8217;, the argument string is
+returned as a list (split on whitespace) instead of a string.</p>
+<p>-list_all: put all option values in lists. Normally only options
+appearing more than once are put in a list.</p>
+<p class="last">-posix (True): whether to split the input line in POSIX mode or not,
+as per the conventions outlined in the shlex module from the
+standard library.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="param.ipython.ParamPager">
+<em class="property">class </em><tt class="descclassname">param.ipython.</tt><tt class="descname">ParamPager</tt><a class="reference internal" href="../_modules/param/ipython.html#ParamPager"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.ipython.ParamPager" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Callable class that displays information about the supplied
+parameterized object or class in the IPython pager.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="parameterized-module">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">parameterized</span></tt> Module<a class="headerlink" href="#parameterized-module" title="Permalink to this headline">¶</a></h2>
+<p class="graphviz">
+<img src="../_images/inheritance-8e4181693c22fdb55d76898c57d268a5ffab774c.png" alt="Inheritance diagram of param.parameterized" usemap="#inheritancece7b6403e7" class="inheritance"/>
+<map id="inheritancece7b6403e7" name="inheritancece7b6403e7">
+<area shape="rect" id="node1" href="#param.parameterized.ParamOverrides" title="A dictionary that returns the attribute of a specified object if" alt="" coords="33,309,300,337"/>
+<area shape="rect" id="node2" href="#param.parameterized.Parameter" title="An attribute descriptor for declaring parameters." alt="" coords="51,258,283,286"/>
+<area shape="rect" id="node8" href="#param.parameterized.String" title="An attribute descriptor for declaring parameters." alt="" coords="431,258,633,286"/>
+<area shape="rect" id="node3" href="#param.parameterized.ParameterMetaclass" title="Metaclass allowing control over creation of Parameter classes." alt="" coords="19,207,315,235"/>
+<area shape="rect" id="node4" href="#param.parameterized.Parameterized" title="Base class for named objects that support Parameters and message" alt="" coords="37,157,296,185"/>
+<area shape="rect" id="node5" href="#param.parameterized.ParameterizedFunction" title="Acts like a Python function, but with arguments that are Parameters." alt="" coords="376,157,688,185"/>
+<area shape="rect" id="node7" href="#param.parameterized.ParameterizedMetaclass" title="The metaclass of Parameterized (and all its descendents)." alt="" coords="5,106,328,134"/>
+<area shape="rect" id="node10" href="#param.parameterized.bothmethod" title="&#39;optional @classmethod&#39;" alt="" coords="44,55,289,83"/>
+<area shape="rect" id="node11" href="#param.parameterized.overridable_property" title="The same as Python&#39;s &quot;property&quot; attribute, but allows the accessor" alt="" coords="17,5,316,33"/>
+</map>
+</p>
+<span class="target" id="module-param.parameterized"></span><p>Generic support for objects with full-featured Parameters and
+messaging.</p>
+<dl class="class">
+<dt id="param.parameterized.ParamOverrides">
+<em class="property">class </em><tt class="descclassname">param.parameterized.</tt><tt class="descname">ParamOverrides</tt><big>(</big><em>overridden</em>, <em>dict_</em>, <em>allow_extra_keywords=False</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#ParamOverrides"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.ParamOverrides" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="http://docs.python.org/library/stdtypes.html#dict" title="(in Python v2.7)"><tt class="xref py py-class docutils literal"><span class="pre">dict</span></tt></a></p>
+<p>A dictionary that returns the attribute of a specified object if
+that attribute is not present in itself.</p>
+<p>Used to override the parameters of an object.</p>
+<dl class="method">
+<dt id="param.parameterized.ParamOverrides.clear">
+<tt class="descname">clear</tt><big>(</big><big>)</big> &rarr; None.  Remove all items from D.<a class="headerlink" href="#param.parameterized.ParamOverrides.clear" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParamOverrides.copy">
+<tt class="descname">copy</tt><big>(</big><big>)</big> &rarr; a shallow copy of D<a class="headerlink" href="#param.parameterized.ParamOverrides.copy" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParamOverrides.extra_keywords">
+<tt class="descname">extra_keywords</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#ParamOverrides.extra_keywords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.ParamOverrides.extra_keywords" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a dictionary containing items from the originally
+supplied <a href="#id1"><span class="problematic" id="id2">dict_</span></a> whose names are not parameters of the
+overridden object.</p>
+</dd></dl>
+
+<dl class="staticmethod">
+<dt id="param.parameterized.ParamOverrides.fromkeys">
+<em class="property">static </em><tt class="descname">fromkeys</tt><big>(</big><em>S</em><span class="optional">[</span>, <em>v</em><span class="optional">]</span><big>)</big> &rarr; New dict with keys from S and values equal to v.<a class="headerlink" href="#param.parameterized.ParamOverrides.fromkeys" title="Permalink to this definition">¶</a></dt>
+<dd><p>v defaults to None.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParamOverrides.get">
+<tt class="descname">get</tt><big>(</big><em>k</em><span class="optional">[</span>, <em>d</em><span class="optional">]</span><big>)</big> &rarr; D[k] if k in D, else d.  d defaults to None.<a class="headerlink" href="#param.parameterized.ParamOverrides.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParamOverrides.has_key">
+<tt class="descname">has_key</tt><big>(</big><em>k</em><big>)</big> &rarr; True if D has a key k, else False<a class="headerlink" href="#param.parameterized.ParamOverrides.has_key" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParamOverrides.items">
+<tt class="descname">items</tt><big>(</big><big>)</big> &rarr; list of D's (key, value) pairs, as 2-tuples<a class="headerlink" href="#param.parameterized.ParamOverrides.items" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParamOverrides.iteritems">
+<tt class="descname">iteritems</tt><big>(</big><big>)</big> &rarr; an iterator over the (key, value) items of D<a class="headerlink" href="#param.parameterized.ParamOverrides.iteritems" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParamOverrides.iterkeys">
+<tt class="descname">iterkeys</tt><big>(</big><big>)</big> &rarr; an iterator over the keys of D<a class="headerlink" href="#param.parameterized.ParamOverrides.iterkeys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParamOverrides.itervalues">
+<tt class="descname">itervalues</tt><big>(</big><big>)</big> &rarr; an iterator over the values of D<a class="headerlink" href="#param.parameterized.ParamOverrides.itervalues" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParamOverrides.keys">
+<tt class="descname">keys</tt><big>(</big><big>)</big> &rarr; list of D's keys<a class="headerlink" href="#param.parameterized.ParamOverrides.keys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParamOverrides.pop">
+<tt class="descname">pop</tt><big>(</big><em>k</em><span class="optional">[</span>, <em>d</em><span class="optional">]</span><big>)</big> &rarr; v, remove specified key and return the corresponding value.<a class="headerlink" href="#param.parameterized.ParamOverrides.pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>If key is not found, d is returned if given, otherwise KeyError is raised</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParamOverrides.popitem">
+<tt class="descname">popitem</tt><big>(</big><big>)</big> &rarr; (k, v), remove and return some (key, value) pair as a<a class="headerlink" href="#param.parameterized.ParamOverrides.popitem" title="Permalink to this definition">¶</a></dt>
+<dd><p>2-tuple; but raise KeyError if D is empty.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParamOverrides.setdefault">
+<tt class="descname">setdefault</tt><big>(</big><em>k</em><span class="optional">[</span>, <em>d</em><span class="optional">]</span><big>)</big> &rarr; D.get(k,d), also set D[k]=d if k not in D<a class="headerlink" href="#param.parameterized.ParamOverrides.setdefault" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParamOverrides.update">
+<tt class="descname">update</tt><big>(</big><span class="optional">[</span><em>E</em>, <span class="optional">]</span><em>**F</em><big>)</big> &rarr; None.  Update D from dict/iterable E and F.<a class="headerlink" href="#param.parameterized.ParamOverrides.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>If E present and has a .keys() method, does:     for k in E: D[k] = E[k]
+If E present and lacks .keys() method, does:     for (k, v) in E: D[k] = v
+In either case, this is followed by: for k in F: D[k] = F[k]</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParamOverrides.values">
+<tt class="descname">values</tt><big>(</big><big>)</big> &rarr; list of D's values<a class="headerlink" href="#param.parameterized.ParamOverrides.values" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParamOverrides.viewitems">
+<tt class="descname">viewitems</tt><big>(</big><big>)</big> &rarr; a set-like object providing a view on D's items<a class="headerlink" href="#param.parameterized.ParamOverrides.viewitems" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParamOverrides.viewkeys">
+<tt class="descname">viewkeys</tt><big>(</big><big>)</big> &rarr; a set-like object providing a view on D's keys<a class="headerlink" href="#param.parameterized.ParamOverrides.viewkeys" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParamOverrides.viewvalues">
+<tt class="descname">viewvalues</tt><big>(</big><big>)</big> &rarr; an object providing a view on D's values<a class="headerlink" href="#param.parameterized.ParamOverrides.viewvalues" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.parameterized.Parameter">
+<tt class="descclassname">param.parameterized.</tt><tt class="descname">Parameter</tt><a class="reference internal" href="../_modules/param/parameterized.html#Parameter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameter" title="Permalink to this definition">¶</a></dt>
+<dd><p>An attribute descriptor for declaring parameters.</p>
+<p>Parameters are a special kind of class attribute.  Setting a
+Parameterized class attribute to be a Parameter instance causes
+that attribute of the class (and the class&#8217;s instances) to be
+treated as a Parameter.  This allows special behavior, including
+dynamically generated parameter values, documentation strings,
+constant and read-only parameters, and type or range checking at
+assignment time.</p>
+<p>For example, suppose someone wants to define two new kinds of
+objects Foo and Bar, such that Bar has a parameter delta, Foo is a
+subclass of Bar, and Foo has parameters alpha, sigma, and gamma
+(and delta inherited from Bar).  She would begin her class
+definitions with something like this:</p>
+<dl class="docutils">
+<dt>class Bar(Parameterized):</dt>
+<dd>delta = Parameter(default=0.6, doc=&#8217;The difference between steps.&#8217;)
+...</dd>
+<dt>class Foo(Bar):</dt>
+<dd><p class="first">alpha = Parameter(default=0.1, doc=&#8217;The starting value.&#8217;)
+sigma = Parameter(default=0.5, doc=&#8217;The standard deviation.&#8217;,</p>
+<blockquote>
+<div>constant=True)</div></blockquote>
+<p class="last">gamma = Parameter(default=1.0, doc=&#8217;The ending value.&#8217;)
+...</p>
+</dd>
+</dl>
+<p>Class Foo would then have four parameters, with delta defaulting
+to 0.6.</p>
+<p>Parameters have several advantages over plain attributes:</p>
+<ol class="arabic">
+<li><p class="first">Parameters can be set automatically when an instance is
+constructed: The default constructor for Foo (and Bar) will
+accept arbitrary keyword arguments, each of which can be used
+to specify the value of a Parameter of Foo (or any of Foo&#8217;s
+superclasses).  E.g., if a script does this:</p>
+<blockquote>
+<div><p>myfoo = Foo(alpha=0.5)</p>
+</div></blockquote>
+<p>myfoo.alpha will return 0.5, without the Foo constructor
+needing special code to set alpha.</p>
+<p>If Foo implements its own constructor, keyword arguments will
+still be accepted if the constructor accepts a dictionary of
+keyword arguments (as in <tt class="docutils literal"><span class="pre">def</span> <span class="pre">__init__(self,**params):</span></tt>), and
+then each class calls its superclass (as in
+<tt class="docutils literal"><span class="pre">super(Foo,self).__init__(**params)</span></tt>) so that the
+Parameterized constructor will process the keywords.</p>
+</li>
+<li><p class="first">A Parameterized class need specify only the attributes of a
+Parameter whose values differ from those declared in
+superclasses; the other values will be inherited.  E.g. if Foo
+declares</p>
+<blockquote>
+<div><p>delta = Parameter(default=0.2)</p>
+</div></blockquote>
+<p>the default value of 0.2 will override the 0.6 inherited from
+Bar, but the doc will be inherited from Bar.</p>
+</li>
+<li><p class="first">The Parameter descriptor class can be subclassed to provide
+more complex behavior, allowing special types of parameters
+that, for example, require their values to be numbers in
+certain ranges, generate their values dynamically from a random
+distribution, or read their values from a file or other
+external source.</p>
+</li>
+<li><p class="first">The attributes associated with Parameters provide enough
+information for automatically generating property sheets in
+graphical user interfaces, allowing Parameterized instances to
+be edited by users.</p>
+</li>
+</ol>
+<p>Note that Parameters can only be used when set as class attributes
+of Parameterized classes. Parameters used as standalone objects,
+or as class attributes of non-Parameterized classes, will not have
+the behavior described here.</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="param.parameterized.ParameterMetaclass">
+<em class="property">class </em><tt class="descclassname">param.parameterized.</tt><tt class="descname">ParameterMetaclass</tt><a class="reference internal" href="../_modules/param/parameterized.html#ParameterMetaclass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.ParameterMetaclass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">type</span></tt></p>
+<p>Metaclass allowing control over creation of Parameter classes.</p>
+<dl class="method">
+<dt id="param.parameterized.ParameterMetaclass.mro">
+<tt class="descname">mro</tt><big>(</big><big>)</big> &rarr; list<a class="headerlink" href="#param.parameterized.ParameterMetaclass.mro" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a type&#8217;s method resolution order</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="param.parameterized.Parameterized">
+<em class="property">class </em><tt class="descclassname">param.parameterized.</tt><tt class="descname">Parameterized</tt><big>(</big><em>**params</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>Base class for named objects that support Parameters and message
+formatting.</p>
+<p>Automatic object naming: Every Parameterized instance has a name
+parameter.  If the user doesn&#8217;t designate a name=&lt;str&gt; argument
+when constructing the object, the object will be given a name
+consisting of its class name followed by a unique 5-digit number.</p>
+<p>Automatic parameter setting: The Parameterized __init__ method
+will automatically read the list of keyword parameters.  If any
+keyword matches the name of a Parameter (see Parameter class)
+defined in the object&#8217;s class or any of its superclasses, that
+parameter in the instance will get the value given as a keyword
+argument.  For example:</p>
+<blockquote>
+<div><dl class="docutils">
+<dt>class Foo(Parameterized):</dt>
+<dd>xx = Parameter(default=1)</dd>
+</dl>
+<p>foo = Foo(xx=20)</p>
+</div></blockquote>
+<p>in this case foo.xx gets the value 20.</p>
+<p>Message formatting: Each Parameterized instance has several
+methods for optionally printing output. This functionality is
+based on the standard Python &#8216;logging&#8217; module; using the methods
+provided here, wraps calls to the &#8216;logging&#8217; module&#8217;s root logger
+and prepends each message with information about the instance
+from which the call was made. For more information on how to set
+the global logging level and change the default message prefix,
+see documentation for the &#8216;logging&#8217; module.</p>
+<dl class="method">
+<dt id="param.parameterized.Parameterized.debug">
+<tt class="descname">debug</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.debug"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the arguments as a debugging statement.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.Parameterized.defaults">
+<tt class="descname">defaults</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.defaults"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return {parameter_name:parameter.default} for all non-constant
+Parameters.</p>
+<p>Note that a Parameter for which instantiate==True has its default
+instantiated.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.parameterized.Parameterized.force_new_dynamic_value">
+<tt class="descname">force_new_dynamic_value</tt><em class="property"> = &lt;functools.partial object at 0x472b158&gt;</em><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.force_new_dynamic_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.force_new_dynamic_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.Parameterized.get_param_values">
+<tt class="descname">get_param_values</tt><big>(</big><em>onlychanged=False</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.get_param_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.get_param_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of name,value pairs for all Parameters of this
+object.</p>
+<p>If onlychanged is True, will only return values that are not
+equal to the default value.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.parameterized.Parameterized.get_value_generator">
+<tt class="descname">get_value_generator</tt><em class="property"> = &lt;functools.partial object at 0x472b1b0&gt;</em><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.get_value_generator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.get_value_generator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="param.parameterized.Parameterized.inspect_value">
+<tt class="descname">inspect_value</tt><em class="property"> = &lt;functools.partial object at 0x472b260&gt;</em><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.inspect_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.inspect_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.Parameterized.message">
+<tt class="descname">message</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.message"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the arguments as a message.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="param.parameterized.Parameterized.params">
+<em class="property">classmethod </em><tt class="descname">params</tt><big>(</big><em>parameter_name=None</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.params"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the Parameters of this class as the
+dictionary {name: parameter_object}</p>
+<p>Includes Parameters from this class and its
+superclasses.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="param.parameterized.Parameterized.print_param_defaults">
+<em class="property">classmethod </em><tt class="descname">print_param_defaults</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.print_param_defaults"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.print_param_defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the default values of all cls&#8217;s Parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.Parameterized.print_param_values">
+<tt class="descname">print_param_values</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.print_param_values"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.print_param_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the values of all this object&#8217;s Parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.Parameterized.script_repr">
+<tt class="descname">script_repr</tt><big>(</big><em>imports=</em>, <span class="optional">[</span><span class="optional">]</span><em>prefix='    '</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.script_repr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.script_repr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Variant of __repr__ designed for generating a runnable script.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="param.parameterized.Parameterized.set_default">
+<em class="property">classmethod </em><tt class="descname">set_default</tt><big>(</big><em>param_name</em>, <em>value</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.set_default"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.set_default" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the default value of param_name.</p>
+<p>Equivalent to setting param_name on the class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.parameterized.Parameterized.set_dynamic_time_fn">
+<tt class="descname">set_dynamic_time_fn</tt><em class="property"> = &lt;functools.partial object at 0x472b208&gt;</em><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.set_dynamic_time_fn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.set_dynamic_time_fn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="param.parameterized.Parameterized.set_param">
+<tt class="descname">set_param</tt><em class="property"> = &lt;functools.partial object at 0x472b368&gt;</em><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.set_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.set_param" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.Parameterized.state_pop">
+<tt class="descname">state_pop</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.state_pop"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.state_pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restore the most recently saved state.</p>
+<p>See state_push() for more details.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.Parameterized.state_push">
+<tt class="descname">state_push</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.state_push"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.state_push" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save this instance&#8217;s state.</p>
+<p>For Parameterized instances, this includes the state of
+dynamically generated values.</p>
+<p>Subclasses that maintain short-term state should additionally
+save and restore that state using state_push() and
+state_pop().</p>
+<p>Generally, this method is used by operations that need to test
+something without permanently altering the objects&#8217; state.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.Parameterized.verbose">
+<tt class="descname">verbose</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.verbose"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.verbose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the arguments as a verbose message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.Parameterized.warning">
+<tt class="descname">warning</tt><big>(</big><em>*args</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.warning"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.warning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the arguments as a warning, unless module variable
+warnings_as_exceptions is True, then raise an Exception
+containing the arguments.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="param.parameterized.ParameterizedFunction">
+<em class="property">class </em><tt class="descclassname">param.parameterized.</tt><tt class="descname">ParameterizedFunction</tt><big>(</big><em>**params</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#ParameterizedFunction"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.ParameterizedFunction" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#param.parameterized.Parameterized" title="param.parameterized.Parameterized"><tt class="xref py py-class docutils literal"><span class="pre">param.parameterized.Parameterized</span></tt></a></p>
+<p>Acts like a Python function, but with arguments that are Parameters.</p>
+<p>Implemented as a subclass of Parameterized that, when instantiated,
+automatically invokes __call__ and returns the result, instead of
+returning an instance of the class.</p>
+<p>To obtain an instance of this class, call instance().</p>
+<dl class="method">
+<dt id="param.parameterized.ParameterizedFunction.debug">
+<tt class="descname">debug</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#param.parameterized.ParameterizedFunction.debug" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the arguments as a debugging statement.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParameterizedFunction.defaults">
+<tt class="descname">defaults</tt><big>(</big><big>)</big><a class="headerlink" href="#param.parameterized.ParameterizedFunction.defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return {parameter_name:parameter.default} for all non-constant
+Parameters.</p>
+<p>Note that a Parameter for which instantiate==True has its default
+instantiated.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.parameterized.ParameterizedFunction.force_new_dynamic_value">
+<tt class="descname">force_new_dynamic_value</tt><em class="property"> = &lt;functools.partial object at 0x472b100&gt;</em><a class="headerlink" href="#param.parameterized.ParameterizedFunction.force_new_dynamic_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParameterizedFunction.get_param_values">
+<tt class="descname">get_param_values</tt><big>(</big><em>onlychanged=False</em><big>)</big><a class="headerlink" href="#param.parameterized.ParameterizedFunction.get_param_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of name,value pairs for all Parameters of this
+object.</p>
+<p>If onlychanged is True, will only return values that are not
+equal to the default value.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.parameterized.ParameterizedFunction.get_value_generator">
+<tt class="descname">get_value_generator</tt><em class="property"> = &lt;functools.partial object at 0x472b418&gt;</em><a class="headerlink" href="#param.parameterized.ParameterizedFunction.get_value_generator" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="param.parameterized.ParameterizedFunction.inspect_value">
+<tt class="descname">inspect_value</tt><em class="property"> = &lt;functools.partial object at 0x472b470&gt;</em><a class="headerlink" href="#param.parameterized.ParameterizedFunction.inspect_value" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="param.parameterized.ParameterizedFunction.instance">
+<tt class="descname">instance</tt><em class="property"> = &lt;functools.partial object at 0x472b520&gt;</em><a class="reference internal" href="../_modules/param/parameterized.html#ParameterizedFunction.instance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.ParameterizedFunction.instance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParameterizedFunction.message">
+<tt class="descname">message</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#param.parameterized.ParameterizedFunction.message" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the arguments as a message.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="param.parameterized.ParameterizedFunction.params">
+<em class="property">classmethod </em><tt class="descname">params</tt><big>(</big><em>parameter_name=None</em><big>)</big><a class="headerlink" href="#param.parameterized.ParameterizedFunction.params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the Parameters of this class as the
+dictionary {name: parameter_object}</p>
+<p>Includes Parameters from this class and its
+superclasses.</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="param.parameterized.ParameterizedFunction.print_param_defaults">
+<em class="property">classmethod </em><tt class="descname">print_param_defaults</tt><big>(</big><big>)</big><a class="headerlink" href="#param.parameterized.ParameterizedFunction.print_param_defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the default values of all cls&#8217;s Parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParameterizedFunction.print_param_values">
+<tt class="descname">print_param_values</tt><big>(</big><big>)</big><a class="headerlink" href="#param.parameterized.ParameterizedFunction.print_param_values" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the values of all this object&#8217;s Parameters.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParameterizedFunction.script_repr">
+<tt class="descname">script_repr</tt><big>(</big><em>imports=</em>, <span class="optional">[</span><span class="optional">]</span><em>prefix='    '</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#ParameterizedFunction.script_repr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.ParameterizedFunction.script_repr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Same as Parameterized.script_repr, except that X.classname(Y
+is replaced with X.classname.instance(Y</p>
+</dd></dl>
+
+<dl class="classmethod">
+<dt id="param.parameterized.ParameterizedFunction.set_default">
+<em class="property">classmethod </em><tt class="descname">set_default</tt><big>(</big><em>param_name</em>, <em>value</em><big>)</big><a class="headerlink" href="#param.parameterized.ParameterizedFunction.set_default" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the default value of param_name.</p>
+<p>Equivalent to setting param_name on the class.</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.parameterized.ParameterizedFunction.set_dynamic_time_fn">
+<tt class="descname">set_dynamic_time_fn</tt><em class="property"> = &lt;functools.partial object at 0x472b890&gt;</em><a class="headerlink" href="#param.parameterized.ParameterizedFunction.set_dynamic_time_fn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="param.parameterized.ParameterizedFunction.set_param">
+<tt class="descname">set_param</tt><em class="property"> = &lt;functools.partial object at 0x472b8e8&gt;</em><a class="headerlink" href="#param.parameterized.ParameterizedFunction.set_param" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParameterizedFunction.state_pop">
+<tt class="descname">state_pop</tt><big>(</big><big>)</big><a class="headerlink" href="#param.parameterized.ParameterizedFunction.state_pop" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restore the most recently saved state.</p>
+<p>See state_push() for more details.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParameterizedFunction.state_push">
+<tt class="descname">state_push</tt><big>(</big><big>)</big><a class="headerlink" href="#param.parameterized.ParameterizedFunction.state_push" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save this instance&#8217;s state.</p>
+<p>For Parameterized instances, this includes the state of
+dynamically generated values.</p>
+<p>Subclasses that maintain short-term state should additionally
+save and restore that state using state_push() and
+state_pop().</p>
+<p>Generally, this method is used by operations that need to test
+something without permanently altering the objects&#8217; state.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParameterizedFunction.verbose">
+<tt class="descname">verbose</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#param.parameterized.ParameterizedFunction.verbose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the arguments as a verbose message.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParameterizedFunction.warning">
+<tt class="descname">warning</tt><big>(</big><em>*args</em><big>)</big><a class="headerlink" href="#param.parameterized.ParameterizedFunction.warning" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the arguments as a warning, unless module variable
+warnings_as_exceptions is True, then raise an Exception
+containing the arguments.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="param.parameterized.ParameterizedMetaclass">
+<em class="property">class </em><tt class="descclassname">param.parameterized.</tt><tt class="descname">ParameterizedMetaclass</tt><big>(</big><em>mcs</em>, <em>name</em>, <em>bases</em>, <em>dict_</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#ParameterizedMetaclass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.ParameterizedMetaclass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">type</span></tt></p>
+<p>The metaclass of Parameterized (and all its descendents).</p>
+<p>The metaclass overrides type.__setattr__ to allow us to set
+Parameter values on classes without overwriting the attribute
+descriptor.  That is, for a Parameterized class of type X with a
+Parameter y, the user can type X.y=3, which sets the default value
+of Parameter y to be 3, rather than overwriting y with the
+constant value 3 (and thereby losing all other info about that
+Parameter, such as the doc string, bounds, etc.).</p>
+<p>The __init__ method is used when defining a Parameterized class,
+usually when the module where that class is located is imported
+for the first time.  That is, the __init__ in this metaclass
+initializes the <em>class</em> object, while the __init__ method defined
+in each Parameterized class is called for each new instance of
+that class.</p>
+<p>Additionally, a class can declare itself abstract by having an
+attribute __abstract set to True. The &#8216;abstract&#8217; attribute can be
+used to find out if a class is abstract or not.</p>
+<dl class="attribute">
+<dt id="param.parameterized.ParameterizedMetaclass.abstract">
+<tt class="descname">abstract</tt><a class="headerlink" href="#param.parameterized.ParameterizedMetaclass.abstract" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return True if the class has an attribute __abstract set to True.
+Subclasses will return False unless they themselves have
+__abstract set to true.  This mechanism allows a class to
+declare itself to be abstract (e.g. to avoid it being offered
+as an option in a GUI), without the &#8220;abstract&#8221; property being
+inherited by its subclasses (at least one of which is
+presumably not abstract).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParameterizedMetaclass.get_param_descriptor">
+<tt class="descname">get_param_descriptor</tt><big>(</big><em>mcs</em>, <em>param_name</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#ParameterizedMetaclass.get_param_descriptor"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.ParameterizedMetaclass.get_param_descriptor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Goes up the class hierarchy (starting from the current class)
+looking for a Parameter class attribute param_name. As soon as
+one is found as a class attribute, that Parameter is returned
+along with the class in which it is declared.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.parameterized.ParameterizedMetaclass.mro">
+<tt class="descname">mro</tt><big>(</big><big>)</big> &rarr; list<a class="headerlink" href="#param.parameterized.ParameterizedMetaclass.mro" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a type&#8217;s method resolution order</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.parameterized.String">
+<tt class="descclassname">param.parameterized.</tt><tt class="descname">String</tt><a class="reference internal" href="../_modules/param/parameterized.html#String"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.String" title="Permalink to this definition">¶</a></dt>
+<dd><p>An attribute descriptor for declaring parameters.</p>
+<p>Parameters are a special kind of class attribute.  Setting a
+Parameterized class attribute to be a Parameter instance causes
+that attribute of the class (and the class&#8217;s instances) to be
+treated as a Parameter.  This allows special behavior, including
+dynamically generated parameter values, documentation strings,
+constant and read-only parameters, and type or range checking at
+assignment time.</p>
+<p>For example, suppose someone wants to define two new kinds of
+objects Foo and Bar, such that Bar has a parameter delta, Foo is a
+subclass of Bar, and Foo has parameters alpha, sigma, and gamma
+(and delta inherited from Bar).  She would begin her class
+definitions with something like this:</p>
+<dl class="docutils">
+<dt>class Bar(Parameterized):</dt>
+<dd>delta = Parameter(default=0.6, doc=&#8217;The difference between steps.&#8217;)
+...</dd>
+<dt>class Foo(Bar):</dt>
+<dd><p class="first">alpha = Parameter(default=0.1, doc=&#8217;The starting value.&#8217;)
+sigma = Parameter(default=0.5, doc=&#8217;The standard deviation.&#8217;,</p>
+<blockquote>
+<div>constant=True)</div></blockquote>
+<p class="last">gamma = Parameter(default=1.0, doc=&#8217;The ending value.&#8217;)
+...</p>
+</dd>
+</dl>
+<p>Class Foo would then have four parameters, with delta defaulting
+to 0.6.</p>
+<p>Parameters have several advantages over plain attributes:</p>
+<ol class="arabic">
+<li><p class="first">Parameters can be set automatically when an instance is
+constructed: The default constructor for Foo (and Bar) will
+accept arbitrary keyword arguments, each of which can be used
+to specify the value of a Parameter of Foo (or any of Foo&#8217;s
+superclasses).  E.g., if a script does this:</p>
+<blockquote>
+<div><p>myfoo = Foo(alpha=0.5)</p>
+</div></blockquote>
+<p>myfoo.alpha will return 0.5, without the Foo constructor
+needing special code to set alpha.</p>
+<p>If Foo implements its own constructor, keyword arguments will
+still be accepted if the constructor accepts a dictionary of
+keyword arguments (as in <tt class="docutils literal"><span class="pre">def</span> <span class="pre">__init__(self,**params):</span></tt>), and
+then each class calls its superclass (as in
+<tt class="docutils literal"><span class="pre">super(Foo,self).__init__(**params)</span></tt>) so that the
+Parameterized constructor will process the keywords.</p>
+</li>
+<li><p class="first">A Parameterized class need specify only the attributes of a
+Parameter whose values differ from those declared in
+superclasses; the other values will be inherited.  E.g. if Foo
+declares</p>
+<blockquote>
+<div><p>delta = Parameter(default=0.2)</p>
+</div></blockquote>
+<p>the default value of 0.2 will override the 0.6 inherited from
+Bar, but the doc will be inherited from Bar.</p>
+</li>
+<li><p class="first">The Parameter descriptor class can be subclassed to provide
+more complex behavior, allowing special types of parameters
+that, for example, require their values to be numbers in
+certain ranges, generate their values dynamically from a random
+distribution, or read their values from a file or other
+external source.</p>
+</li>
+<li><p class="first">The attributes associated with Parameters provide enough
+information for automatically generating property sheets in
+graphical user interfaces, allowing Parameterized instances to
+be edited by users.</p>
+</li>
+</ol>
+<p>Note that Parameters can only be used when set as class attributes
+of Parameterized classes. Parameters used as standalone objects,
+or as class attributes of non-Parameterized classes, will not have
+the behavior described here.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="param.parameterized.add_metaclass">
+<tt class="descclassname">param.parameterized.</tt><tt class="descname">add_metaclass</tt><big>(</big><em>metaclass</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#add_metaclass"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.add_metaclass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Class decorator for creating a class with a metaclass.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="param.parameterized.all_equal">
+<tt class="descclassname">param.parameterized.</tt><tt class="descname">all_equal</tt><big>(</big><em>arg1</em>, <em>arg2</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#all_equal"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.all_equal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a single boolean for arg1==arg2, even for numpy arrays
+using element-wise comparison.</p>
+<p>Uses all(arg1==arg2) for sequences, and arg1==arg2 otherwise.</p>
+<p>If both objects have an &#8216;_infinitely_iterable&#8217; attribute, they are
+not be zipped together and are compared directly instead.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="param.parameterized.as_uninitialized">
+<tt class="descclassname">param.parameterized.</tt><tt class="descname">as_uninitialized</tt><big>(</big><em>fn</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#as_uninitialized"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.as_uninitialized" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decorator: call fn with the parameterized_instance&#8217;s
+initialization flag set to False, then revert the flag.</p>
+<p>(Used to decorate Parameterized methods that must alter
+a constant Parameter.)</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="param.parameterized.bothmethod">
+<em class="property">class </em><tt class="descclassname">param.parameterized.</tt><tt class="descname">bothmethod</tt><big>(</big><em>func</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#bothmethod"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.bothmethod" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>&#8216;optional &#64;classmethod&#8217;</p>
+<p>A decorator that allows a method to receive either the class
+object (if called on the class) or the instance object
+(if called on the instance) as its first argument.</p>
+<p>Code (but not documentation) copied from:
+<a class="reference external" href="http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/523033">http://aspn.activestate.com/ASPN/Cookbook/Python/Recipe/523033</a>.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="param.parameterized.classlist">
+<tt class="descclassname">param.parameterized.</tt><tt class="descname">classlist</tt><big>(</big><em>class_</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#classlist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.classlist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of the class hierarchy above (and including) the given class.</p>
+<p>Same as inspect.getmro(<a href="#id3"><span class="problematic" id="id4">class_</span></a>)[::-1]</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="param.parameterized.dbprint_prefix">
+<tt class="descclassname">param.parameterized.</tt><tt class="descname">dbprint_prefix</tt><em class="property"> = None</em><a class="headerlink" href="#param.parameterized.dbprint_prefix" title="Permalink to this definition">¶</a></dt>
+<dd><p>If not None, the value of this Parameter will be called (using &#8216;()&#8217;)
+before every call to __db_print, and is expected to evaluate to a
+string that is suitable for prefixing messages and warnings (such
+as some indicator of the global state).</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="param.parameterized.descendents">
+<tt class="descclassname">param.parameterized.</tt><tt class="descname">descendents</tt><big>(</big><em>class_</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#descendents"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.descendents" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of the class hierarchy below (and including) the given class.</p>
+<p>The list is ordered from least- to most-specific.  Can be useful for
+printing the contents of an entire class hierarchy.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="param.parameterized.get_all_slots">
+<tt class="descclassname">param.parameterized.</tt><tt class="descname">get_all_slots</tt><big>(</big><em>class_</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#get_all_slots"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.get_all_slots" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of slot names for slots defined in <a href="#id5"><span class="problematic" id="id6">class_</span></a> and its
+superclasses.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="param.parameterized.get_occupied_slots">
+<tt class="descclassname">param.parameterized.</tt><tt class="descname">get_occupied_slots</tt><big>(</big><em>instance</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#get_occupied_slots"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.get_occupied_slots" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return a list of slots for which values have been set.</p>
+<p>(While a slot might be defined, if a value for that slot hasn&#8217;t
+been set, then it&#8217;s an AttributeError to request the slot&#8217;s
+value.)</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="param.parameterized.overridable_property">
+<em class="property">class </em><tt class="descclassname">param.parameterized.</tt><tt class="descname">overridable_property</tt><big>(</big><em>fget=None</em>, <em>fset=None</em>, <em>fdel=None</em>, <em>doc=None</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#overridable_property"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.overridable_property" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>The same as Python&#8217;s &#8220;property&#8221; attribute, but allows the accessor
+methods to be overridden in subclasses.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="param.parameterized.print_all_param_defaults">
+<tt class="descclassname">param.parameterized.</tt><tt class="descname">print_all_param_defaults</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#print_all_param_defaults"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.print_all_param_defaults" title="Permalink to this definition">¶</a></dt>
+<dd><p>Print the default values for all imported Parameters.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="param.parameterized.script_repr">
+<tt class="descclassname">param.parameterized.</tt><tt class="descname">script_repr</tt><big>(</big><em>val</em>, <em>imports</em>, <em>prefix</em>, <em>settings</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#script_repr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.script_repr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Variant of repr() designed for generating a runnable script.</p>
+<p>Instances of types that require special handling can use the
+script_repr_reg dictionary. Using the type as a key, add a
+function that returns a suitable representation of instances of
+that type, and adds the required import statement.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="param.parameterized.script_repr_reg">
+<tt class="descclassname">param.parameterized.</tt><tt class="descname">script_repr_reg</tt><em class="property"> = {&lt;type 'list'&gt;: &lt;function container_script_repr at 0x3249050&gt;, &lt;type 'tuple'&gt;: &lt;function container_script_repr at 0x3249050&gt;, &lt;type 'function'&gt;: &lt;function function_script_repr at 0x32490c8&gt;}</em><a class="headerlink" href="#param.parameterized.script_repr_reg" title="Permalink to this definition">¶</a></dt>
+<dd><p>see script_repr()</p>
+</dd></dl>
+
+</div>
+<div class="section" id="version-module">
+<h2><tt class="xref py py-mod docutils literal"><span class="pre">version</span></tt> Module<a class="headerlink" href="#version-module" title="Permalink to this headline">¶</a></h2>
+<p class="graphviz">
+<img src="../_images/inheritance-7dbd991a839cc97b30ccd4560e16ed0a3e45f42d.png" alt="Inheritance diagram of param.version" usemap="#inheritance736165aff1" class="inheritance"/>
+<map id="inheritance736165aff1" name="inheritance736165aff1">
+<area shape="rect" id="node1" href="#param.version.Version" title="A simple, approach to Python package versioning that supports PyPI" alt="" coords="5,5,171,33"/>
+</map>
+</p>
+<span class="target" id="module-param.version"></span><p>A simple approach to versioning that replaces the need to manually
+maintain __version__ strings without requiring larger, more complex
+solutions (e.g. versioneer.py).</p>
+<p>It is easy to forget to update __version__ strings when releasing a
+project and it is important that the __version__ strings are useful
+over the course of development, especially if releases are infrequent.</p>
+<p>The Version class is designed to solve these problems, acting like a
+simple version string for released versions while making additional
+information accessible when working with version control during
+development.  Currently only git is supported, but other version
+control systems could be added easily. Here is a typical example
+of how it is used in the __init__.py file of a package:</p>
+<p>__version__ = param.Version(release=(1,0), fpath=__file__)</p>
+<p>The Version class assumes that you will tag the release in your
+version control system with a string in the form v*.* before the
+release is made, e.g. v1.0 or v2.6.3. If you add a call to the
+Version.verify in your setup.py script, you will be reminded to create
+this tag (if it has been forgotten) and the declared version in
+setup.py will be checked for consistency with this tag.</p>
+<dl class="class">
+<dt id="param.version.Version">
+<em class="property">class </em><tt class="descclassname">param.version.</tt><tt class="descname">Version</tt><big>(</big><em>release=None</em>, <em>fpath=None</em>, <em>commit=None</em><big>)</big><a class="reference internal" href="../_modules/param/version.html#Version"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.version.Version" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <tt class="xref py py-class docutils literal"><span class="pre">object</span></tt></p>
+<p>A simple, approach to Python package versioning that supports PyPI
+releases and additional information when working with git version
+control. When obtaining from PyPI, the version returned is the a
+string-formatted rendering of the supplied release tuple.  Any
+number of items can be supplied in the tuple, with either two or
+three versioning levels typical.</p>
+<p>During development, <cite>git describe</cite> will be used to compute the
+number of commits since the last version tag and the short commit
+hash, and to determine if the commit is dirty (has changes not yet
+committed). Version tags must start with a lowercase &#8216;v&#8217; and have
+a period in them, e.g. v2.0, v0.9.8, v0.1a, v0.2beta, etc.</p>
+<p>Note that when git is used, the comparison operators take into
+account the number of commits since the last version tag. This
+approach is often useful in practice to decide which version is
+newer, but will not be reliable when comparing against a different
+fork or branch in a distributed version control system.</p>
+<p>If you want version control information available even in an
+exported git archive (e.g. a .zip file from GitHub), you can set
+the following line in the .gitattributes file of your project:</p>
+<p>__init__.py export-subst</p>
+<dl class="attribute">
+<dt id="param.version.Version.commit">
+<tt class="descname">commit</tt><a class="reference internal" href="../_modules/param/version.html#Version.commit"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.version.Version.commit" title="Permalink to this definition">¶</a></dt>
+<dd><p>The short git SHA</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.version.Version.commit_count">
+<tt class="descname">commit_count</tt><a class="reference internal" href="../_modules/param/version.html#Version.commit_count"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.version.Version.commit_count" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the number of commits since the last release</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.version.Version.dirty">
+<tt class="descname">dirty</tt><a class="reference internal" href="../_modules/param/version.html#Version.dirty"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.version.Version.dirty" title="Permalink to this definition">¶</a></dt>
+<dd><p>True if there are uncommited changes, False otherwise</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.version.Version.fetch">
+<tt class="descname">fetch</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/param/version.html#Version.fetch"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.version.Version.fetch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a tuple of the major version together with the
+appropriate SHA and dirty bit (for development version only).</p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="param.version.Version.release">
+<tt class="descname">release</tt><a class="reference internal" href="../_modules/param/version.html#Version.release"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.version.Version.release" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return the release tuple</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="param.version.Version.verify">
+<tt class="descname">verify</tt><big>(</big><big>)</big><a class="reference internal" href="../_modules/param/version.html#Version.verify"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.version.Version.verify" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that the version information is consistent with git before
+doing a release. Should be called from setup.py before releasing
+to PyPI.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div align="center"><h1>Param</h1></div>
+<ul class="global-toc">
+<li><a href="../index.html">Home</a></li>
+<li><a href="#">Reference Manual</a></li>
+<li><a href="http://github.com/ioam/param">Github Source Code</a></li>
+<li><a href="../site_map.html">Site Map</a></li>
+</ul>
+<h3><a href="../index.html">Table Of Contents</a></h3>
+<ul>
+<li><a class="reference internal" href="#">param.param Package</a><ul>
+<li><a class="reference internal" href="#param-package"><tt class="docutils literal"><span class="pre">param</span></tt> Package</a></li>
+<li><a class="reference internal" href="#ipython-module"><tt class="docutils literal"><span class="pre">ipython</span></tt> Module</a></li>
+<li><a class="reference internal" href="#parameterized-module"><tt class="docutils literal"><span class="pre">parameterized</span></tt> Module</a></li>
+<li><a class="reference internal" href="#version-module"><tt class="docutils literal"><span class="pre">version</span></tt> Module</a></li>
+</ul>
+</li>
+</ul>
+
+
+<h3>This Page</h3>
+<ul class="this-page-menu">
+	<li><a	href="https://github.com/ioam/param/edit/master/doc/Reference_Manual/param.rst" rel="nofollow">Edit on GitHub</a></li>
+</ul>
+
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+<li><a href="../index.html">Param Home</a></li>
+<li><a href="#">Reference Manual</a></li>
+
+
+
+
+
+
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2014, IOAM.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    </div>
+  </body>
+</html>

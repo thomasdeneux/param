@@ -1,0 +1,47 @@
+param.param Package
+===================
+
+:mod:`param` Package
+--------------------
+
+.. inheritance-diagram:: param.__init__
+
+
+.. automodule:: param.__init__
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+:mod:`ipython` Module
+---------------------
+
+.. inheritance-diagram:: param.ipython
+
+
+.. automodule:: param.ipython
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+:mod:`parameterized` Module
+---------------------------
+
+.. inheritance-diagram:: param.parameterized
+
+
+.. automodule:: param.parameterized
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
+:mod:`version` Module
+---------------------
+
+.. inheritance-diagram:: param.version
+
+
+.. automodule:: param.version
+    :members:
+    :inherited-members:
+    :show-inheritance:
+
