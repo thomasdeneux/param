@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>param.__init__ &mdash; Param 1.1-devel documentation</title>
+    <title>param.__init__ &mdash; Param 1.2.1-dev documentation</title>
     
     <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.1-devel',
+        VERSION:     '1.2.1-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -26,7 +26,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../_static/custom.js"></script>
-    <link rel="top" title="Param 1.1-devel documentation" href="../../index.html" />
+    <link rel="top" title="Param 1.2.1-dev documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -68,32 +68,43 @@
 <span class="sd">at assignment time.</span>
 
 <span class="sd">Potentially useful for any large Python program that needs</span>
-<span class="sd">user-modifiable object attributes; see the parameterized.Parameter and</span>
-<span class="sd">parameterized.Parameterized classes for more information.</span>
-
+<span class="sd">user-modifiable object attributes; see the Parameter and Parameterized</span>
+<span class="sd">classes for more information.  If you do not want to add a dependency</span>
+<span class="sd">on external code by importing from a separately installed param</span>
+<span class="sd">package, you can simply save this file as param.py and copy it and</span>
+<span class="sd">parameterized.py directly into your own package.</span>
 
 <span class="sd">This file contains subclasses of Parameter, implementing specific</span>
-<span class="sd">parameter types (e.g. Number).</span>
+<span class="sd">parameter types (e.g. Number), and also imports the definition of</span>
+<span class="sd">Parameters and Parameterized classes.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="c"># CEBALERT: we need more documentation above, now that params is a</span>
-<span class="c"># separate package.</span>
 
 <span class="kn">import</span> <span class="nn">os.path</span>
 
-<span class="kn">from</span> <span class="nn">param.parameterized</span> <span class="kn">import</span> <span class="n">Parameterized</span><span class="p">,</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> \
+<span class="kn">from</span> <span class="nn">.parameterized</span> <span class="kn">import</span> <span class="n">Parameterized</span><span class="p">,</span> <span class="n">Parameter</span><span class="p">,</span> <span class="n">String</span><span class="p">,</span> \
      <span class="n">descendents</span><span class="p">,</span> <span class="n">ParameterizedFunction</span><span class="p">,</span> <span class="n">ParamOverrides</span>
 
-<span class="kn">from</span> <span class="nn">param.version</span> <span class="kn">import</span> <span class="n">Version</span>
-<span class="n">__version__</span> <span class="o">=</span> <span class="n">Version</span><span class="p">(</span><span class="n">release</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">fpath</span><span class="o">=</span><span class="n">__file__</span><span class="p">,</span> <span class="n">commit</span><span class="o">=</span><span class="s">&quot;$Format:%h$&quot;</span><span class="p">)</span>
+<span class="kn">from</span> <span class="nn">.parameterized</span> <span class="kn">import</span> <span class="n">logging_level</span> <span class="c"># pyflakes:ignore (needed for eval)</span>
+
+
+<span class="c"># Determine up-to-date version information, if possible, but with a</span>
+<span class="c"># safe fallback to ensure that this file and parameterized.py are the</span>
+<span class="c"># only two required files.</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">.version</span> <span class="kn">import</span> <span class="n">Version</span>
+    <span class="n">__version__</span> <span class="o">=</span> <span class="n">Version</span><span class="p">(</span><span class="n">release</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="n">fpath</span><span class="o">=</span><span class="n">__file__</span><span class="p">,</span>
+                          <span class="n">commit</span><span class="o">=</span><span class="s">&quot;$Format:%h$&quot;</span><span class="p">,</span> <span class="n">reponame</span><span class="o">=</span><span class="s">&quot;param&quot;</span><span class="p">)</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="n">__version__</span> <span class="o">=</span> <span class="s">&#39;1.2.1-unknown&#39;</span>
+
 
 <span class="c">#: Top-level object to allow messaging not tied to a particular</span>
 <span class="c">#: Parameterized object, as in &#39;param.main.warning(&quot;Invalid option&quot;)&#39;.</span>
 <span class="n">main</span><span class="o">=</span><span class="n">Parameterized</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;main&quot;</span><span class="p">)</span>
 
 
-<span class="c"># A global random seed available for controlling the behaviour of</span>
-<span class="c"># parameterized objects with random state.</span>
+<span class="c"># A global random seed (integer or rational) available for controlling</span>
+<span class="c"># the behaviour of parameterized objects with random state.</span>
 <span class="n">random_seed</span> <span class="o">=</span> <span class="mi">42</span>
 
 
@@ -197,6 +208,12 @@
 
     <span class="n">forever</span> <span class="o">=</span> <span class="n">Infinity</span><span class="p">()</span>
 
+    <span class="n">label</span><span class="o">=</span> <span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="s">&#39;Time&#39;</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">         The label given to the Time object. Can be used to convey</span>
+<span class="s">         more specific notions of time as appropriate. For instance,</span>
+<span class="s">         the label could be &#39;Simulation Time&#39; or &#39;Duration&#39;.&quot;&quot;&quot;</span><span class="p">)</span>
+
+
     <span class="n">time_type</span> <span class="o">=</span> <span class="n">Parameter</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">constant</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s">&quot;&quot;&quot;</span>
 <span class="s">        Callable that Time will use to convert user-specified time</span>
 <span class="s">        values into the current time; all times will be of the resulting</span>
@@ -244,6 +261,13 @@
 <span class="s">         Declaration of an expected end to time values, if any.  When</span>
 <span class="s">         using the iterator interface, iteration will end before this</span>
 <span class="s">         value is exceeded.&quot;&quot;&quot;</span><span class="p">)</span>
+
+    <span class="n">unit</span> <span class="o">=</span> <span class="n">String</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">doc</span><span class="o">=</span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">        The units of the time dimensions. The default of None is set</span>
+<span class="s">        as the global time function may on an arbitrary time base.</span>
+
+<span class="s">        Typical values for the parameter are &#39;seconds&#39; (the SI unit</span>
+<span class="s">        for time) or subdivisions thereof (e.g. &#39;milliseconds&#39;).&quot;&quot;&quot;</span><span class="p">)</span>
 
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">params</span><span class="p">):</span>
@@ -1041,23 +1065,36 @@
 
 </div>
 <div class="viewcode-block" id="ClassSelector"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.ClassSelector">[docs]</a><span class="k">class</span> <span class="nc">ClassSelector</span><span class="p">(</span><span class="n">Selector</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Parameter whose value is an instance of the specified class.&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parameter whose value is a specified class or an instance of that class.</span>
+<span class="sd">    By default, requires an instance, but if is_instance=False, accepts a class instead.</span>
+<span class="sd">    Both class and instance values respect the instantiate slot, though it matters only</span>
+<span class="sd">    for is_instance=True.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;class_&#39;</span><span class="p">,</span><span class="s">&#39;allow_None&#39;</span><span class="p">]</span>
+    <span class="n">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;class_&#39;</span><span class="p">,</span><span class="s">&#39;allow_None&#39;</span><span class="p">,</span><span class="s">&#39;is_instance&#39;</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">class_</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">instantiate</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">allow_None</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="o">**</span><span class="n">params</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">class_</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">instantiate</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="n">allow_None</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="n">is_instance</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span><span class="o">**</span><span class="n">params</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">class_</span> <span class="o">=</span> <span class="n">class_</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">allow_None</span> <span class="o">=</span> <span class="p">(</span><span class="n">default</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">allow_None</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">is_instance</span> <span class="o">=</span> <span class="n">is_instance</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_value</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">ClassSelector</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">,</span><span class="n">instantiate</span><span class="o">=</span><span class="n">instantiate</span><span class="p">,</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 
     <span class="k">def</span> <span class="nf">_check_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">val</span><span class="p">,</span><span class="n">obj</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;val must be None or an instance of self.class_&quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">class_</span><span class="p">))</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="n">val</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">allow_None</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="s">&quot;Parameter &#39;</span><span class="si">%s</span><span class="s">&#39; value must be an instance of </span><span class="si">%s</span><span class="s">, not &#39;</span><span class="si">%s</span><span class="s">&#39;&quot;</span> <span class="o">%</span>
-                <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_attrib_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">class_</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">val</span><span class="p">))</span>
+        <span class="sd">&quot;&quot;&quot;val must be None, an instance of self.class_ if self.is_instance=True or a subclass of self_class if self.is_instance=False&quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_instance</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">class_</span><span class="p">))</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="n">val</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">allow_None</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s">&quot;Parameter &#39;</span><span class="si">%s</span><span class="s">&#39; value must be an instance of </span><span class="si">%s</span><span class="s">, not &#39;</span><span class="si">%s</span><span class="s">&#39;&quot;</span> <span class="o">%</span>
+                    <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_attrib_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">class_</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">val</span><span class="p">))</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">val</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">allow_None</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">issubclass</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">class_</span><span class="p">)):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s">&quot;Parameter &#39;</span><span class="si">%s</span><span class="s">&#39; must be a subclass of </span><span class="si">%s</span><span class="s">, not &#39;</span><span class="si">%s</span><span class="s">&#39;&quot;</span> <span class="o">%</span>
+                    <span class="p">(</span><span class="n">val</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">class_</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span> <span class="n">val</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">))</span>
+
 
     <span class="k">def</span> <span class="nf">__set__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">obj</span><span class="p">,</span><span class="n">val</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_check_value</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="n">obj</span><span class="p">)</span>
@@ -1376,8 +1413,8 @@
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">search_paths</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">resolve_path</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">path_to_file</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">search_paths</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">search_paths</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">resolve_path</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">path_to_file</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
-</pre></div></div>
+            <span class="k">return</span> <span class="n">resolve_path</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">path_to_file</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span></div>
+</pre></div>
 
           </div>
         </div>

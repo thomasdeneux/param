@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>param.version &mdash; Param 1.1-devel documentation</title>
+    <title>param.version &mdash; Param 1.2.1-dev documentation</title>
     
     <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.1-devel',
+        VERSION:     '1.2.1-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -26,7 +26,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../_static/custom.js"></script>
-    <link rel="top" title="Param 1.1-devel documentation" href="../../index.html" />
+    <link rel="top" title="Param 1.2.1-dev documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -62,29 +62,82 @@
             
   <h1>Source code for param.version</h1><div class="highlight"><pre>
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">A simple approach to versioning that replaces the need to manually</span>
-<span class="sd">maintain __version__ strings without requiring larger, more complex</span>
-<span class="sd">solutions (e.g. versioneer.py).</span>
+<span class="sd">Provide consistent and up-to-date ``__version__`` strings for Python</span>
+<span class="sd">packages.</span>
 
-<span class="sd">It is easy to forget to update __version__ strings when releasing a</span>
-<span class="sd">project and it is important that the __version__ strings are useful</span>
-<span class="sd">over the course of development, especially if releases are infrequent.</span>
+<span class="sd">It is easy to forget to update ``__version__`` strings when releasing</span>
+<span class="sd">a project, and it is important that the ``__version__`` strings are</span>
+<span class="sd">useful over the course of development even between releases,</span>
+<span class="sd">especially if releases are infrequent.</span>
 
-<span class="sd">The Version class is designed to solve these problems, acting like a</span>
-<span class="sd">simple version string for released versions while making additional</span>
-<span class="sd">information accessible when working with version control during</span>
-<span class="sd">development.  Currently only git is supported, but other version</span>
-<span class="sd">control systems could be added easily. Here is a typical example</span>
-<span class="sd">of how it is used in the __init__.py file of a package:</span>
+<span class="sd">This file provides a Version class that addresses both problems.</span>
+<span class="sd">Version is meant to be a simple, bare-bones approach that focuses on</span>
+<span class="sd">(a) ensuring that all declared version information matches for a</span>
+<span class="sd">release, and (b) providing fine-grained version information via a</span>
+<span class="sd">version control system (VCS) in between releases.  Other approaches</span>
+<span class="sd">like versioneer.py can automate more of the process of making</span>
+<span class="sd">releases, but they require more complex self-modifying code and code</span>
+<span class="sd">generation techniques than the simple Python class declaration used</span>
+<span class="sd">here.</span>
 
-<span class="sd">__version__ = param.Version(release=(1,0), fpath=__file__)</span>
+<span class="sd">Currently, the only VCS supported is git, but others could be added</span>
+<span class="sd">easily.</span>
 
-<span class="sd">The Version class assumes that you will tag the release in your</span>
-<span class="sd">version control system with a string in the form v*.* before the</span>
-<span class="sd">release is made, e.g. v1.0 or v2.6.3. If you add a call to the</span>
-<span class="sd">Version.verify in your setup.py script, you will be reminded to create</span>
-<span class="sd">this tag (if it has been forgotten) and the declared version in</span>
-<span class="sd">setup.py will be checked for consistency with this tag.</span>
+<span class="sd">To use Version in a project that provides a Python package named</span>
+<span class="sd">``package`` maintained in a git repository named ``packagegit``:</span>
+
+<span class="sd">1. Make the Version class available for import from your package,</span>
+<span class="sd">   either by adding the PyPI package &quot;param&quot; as a dependency for your</span>
+<span class="sd">   package, or by simply copying this file into ``package/version.py``.</span>
+
+<span class="sd">2. Assuming that the current version of your package is 1.0.0, add the</span>
+<span class="sd">   following lines to your ``package/__init__.py``::</span>
+
+<span class="sd">     from param import Version</span>
+<span class="sd">     __version__ = Version(release=(1,0,0), fpath=__file__,</span>
+<span class="sd">                           commit=&quot;$Format:%h$&quot;, reponame=&quot;packagegit&quot;)</span>
+
+<span class="sd">   (or ``from .version import Version`` if you copied the file directly.)</span>
+
+<span class="sd">3. Declare the version as a string in your package&#39;s setup.py file, e.g.::</span>
+
+<span class="sd">     setup_args[&quot;version&quot;]=&quot;1.0.0&quot;</span>
+
+<span class="sd">4. In your package&#39;s setup.py script code for making a release, add a</span>
+<span class="sd">   call to the Version.verify method. E.g.::</span>
+
+<span class="sd">     setup_args = dict(name=&#39;package&#39;, version=&quot;1.0.0&quot;, ...)</span>
+
+<span class="sd">     if __name__==&quot;__main__&quot;:</span>
+<span class="sd">          if &#39;upload&#39; in sys.argv:</span>
+<span class="sd">              import package</span>
+<span class="sd">              package.__version__.verify(setup_args[&#39;version&#39;])</span>
+<span class="sd">          setup(**setup_args)</span>
+
+<span class="sd">4. Tag the version of the repository to be released with a string of</span>
+<span class="sd">   the form v*.*, i.e. ``v1.0.0`` in this example.  E.g. for git::</span>
+
+<span class="sd">     git tag -a v1.0.0 -m &#39;Release version 1.0.0&#39; ; git push</span>
+
+
+<span class="sd">Now when you run ``setup.py`` to make a release via something like</span>
+<span class="sd">``python setup.py register sdist upload``, Python will verify that the</span>
+<span class="sd">version last tagged in the VCS is the same as what is declared in the</span>
+<span class="sd">package and also in setup.py, aborting the release until either the</span>
+<span class="sd">tag is corrected or the declared version is made to match the tag.</span>
+<span class="sd">Releases installed without VCS information will then report the</span>
+<span class="sd">declared release version.  If VCS information is available and matches</span>
+<span class="sd">the specified repository name, then the version reported from</span>
+<span class="sd">e.g. ``str(package.__version__)`` will provide more detailed</span>
+<span class="sd">information about the precise VCS revision changes since the release.</span>
+<span class="sd">See the docstring for the Version class for more detailed information.</span>
+
+<span class="sd">This file is in the public domain, provided as-is, with no warranty of</span>
+<span class="sd">any kind expressed or implied.  Anyone is free to copy, modify,</span>
+<span class="sd">publish, use, compile, sell, or distribute it under any license, for</span>
+<span class="sd">any purpose, commercial or non-commercial, and by any means.  The</span>
+<span class="sd">original file is maintained at:</span>
+<span class="sd">https://github.com/ioam/param/blob/master/param/version.py</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 
@@ -92,39 +145,55 @@
 
 <span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">subprocess</span>
 
+<span class="k">def</span> <span class="nf">run_cmd</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">cwd</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">args</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                            <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
+                            <span class="n">cwd</span><span class="o">=</span><span class="n">cwd</span><span class="p">)</span>
+    <span class="n">output</span><span class="p">,</span> <span class="n">error</span> <span class="o">=</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">proc</span><span class="o">.</span><span class="n">communicate</span><span class="p">())</span>
+
+    <span class="k">if</span> <span class="n">proc</span><span class="o">.</span><span class="n">returncode</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="n">proc</span><span class="o">.</span><span class="n">returncode</span><span class="p">,</span> <span class="n">error</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">output</span>
+
 <div class="viewcode-block" id="Version"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.version.Version">[docs]</a><span class="k">class</span> <span class="nc">Version</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A simple, approach to Python package versioning that supports PyPI</span>
-<span class="sd">    releases and additional information when working with git version</span>
-<span class="sd">    control. When obtaining from PyPI, the version returned is the a</span>
-<span class="sd">    string-formatted rendering of the supplied release tuple.  Any</span>
-<span class="sd">    number of items can be supplied in the tuple, with either two or</span>
-<span class="sd">    three versioning levels typical.</span>
+<span class="sd">    A simple approach to Python package versioning that supports PyPI</span>
+<span class="sd">    releases and additional information when working with version</span>
+<span class="sd">    control. When obtaining a package from PyPI, the version returned</span>
+<span class="sd">    is a string-formatted rendering of the supplied release tuple.</span>
+<span class="sd">    For instance, release (1,0) tagged as ``v1.0`` in the version</span>
+<span class="sd">    control system will return ``1.0`` for ``str(__version__)``.  Any</span>
+<span class="sd">    number of items can be supplied in the release tuple, with either</span>
+<span class="sd">    two or three numeric versioning levels typical.</span>
 
-<span class="sd">    During development, `git describe` will be used to compute the</span>
-<span class="sd">    number of commits since the last version tag and the short commit</span>
-<span class="sd">    hash, and to determine if the commit is dirty (has changes not yet</span>
-<span class="sd">    committed). Version tags must start with a lowercase &#39;v&#39; and have</span>
-<span class="sd">    a period in them, e.g. v2.0, v0.9.8, v0.1a, v0.2beta, etc.</span>
+<span class="sd">    During development, a command like ``git describe`` will be used to</span>
+<span class="sd">    compute the number of commits since the last version tag, the</span>
+<span class="sd">    short commit hash, and whether the commit is dirty (has changes</span>
+<span class="sd">    not yet committed). Version tags must start with a lowercase &#39;v&#39;</span>
+<span class="sd">    and have a period in them, e.g. v2.0, v0.9.8, v0.1a, or v0.2beta.</span>
+<span class="sd">    Note that any non-numeric portion of the version (&quot;a&quot;, &quot;beta&quot;,</span>
+<span class="sd">    etc.)  will currently be discarded for the purposes of numeric</span>
+<span class="sd">    comparisons.</span>
 
-<span class="sd">    Note that when git is used, the comparison operators take into</span>
-<span class="sd">    account the number of commits since the last version tag. This</span>
-<span class="sd">    approach is often useful in practice to decide which version is</span>
-<span class="sd">    newer, but will not be reliable when comparing against a different</span>
-<span class="sd">    fork or branch in a distributed version control system.</span>
+<span class="sd">    Also note that when version control system (VCS) information is</span>
+<span class="sd">    used, the comparison operators take into account the number of</span>
+<span class="sd">    commits since the last version tag. This approach is often useful</span>
+<span class="sd">    in practice to decide which version is newer for a single</span>
+<span class="sd">    developer, but will not necessarily be reliable when comparing</span>
+<span class="sd">    against a different fork or branch in a distributed VCS.</span>
 
-<span class="sd">    If you want version control information available even in an</span>
-<span class="sd">    exported git archive (e.g. a .zip file from GitHub), you can set</span>
-<span class="sd">    the following line in the .gitattributes file of your project:</span>
+<span class="sd">    For git, if you want version control information available even in</span>
+<span class="sd">    an exported archive (e.g. a .zip file from GitHub), you can set</span>
+<span class="sd">    the following line in the .gitattributes file of your project::</span>
 
-<span class="sd">    __init__.py export-subst</span>
+<span class="sd">      __init__.py export-subst</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">release</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">fpath</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">commit</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">release</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">fpath</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">commit</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span> <span class="n">reponame</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        release:  Release tuple (corresponding to the current git tag)</span>
-<span class="sd">        fpath:    Set to __file__ to access version control information</span>
-<span class="sd">        describe: Set to &quot;$Format:%h$&quot; (double quotes) for git archive</span>
+<span class="sd">        :release:  Release tuple (corresponding to the current VCS tag)</span>
+<span class="sd">        :fpath:    Set to ``__file__`` to access version control information</span>
+<span class="sd">        :reponame: Used to verify VCS repository name.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">fpath</span> <span class="o">=</span> <span class="n">fpath</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_expected_commit</span> <span class="o">=</span> <span class="n">commit</span>
@@ -134,6 +203,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_commit_count</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_release</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_dirty</span> <span class="o">=</span> <span class="bp">False</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reponame</span> <span class="o">=</span> <span class="n">reponame</span>
 
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Version.release"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.version.Version.release">[docs]</a>    <span class="k">def</span> <span class="nf">release</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -142,7 +212,7 @@
 </div>
     <span class="nd">@property</span>
 <div class="viewcode-block" id="Version.commit"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.version.Version.commit">[docs]</a>    <span class="k">def</span> <span class="nf">commit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="s">&quot;The short git SHA&quot;</span>
+        <span class="s">&quot;A specification for this particular VCS version, e.g. a short git SHA&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fetch</span><span class="p">()</span><span class="o">.</span><span class="n">_commit</span>
 </div>
     <span class="nd">@property</span>
@@ -169,7 +239,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_commit</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_expected_commit</span>
             <span class="k">return</span> <span class="bp">self</span>
 
-         <span class="c"># Only git right now but easily extended to SVN, Mercurial etc.</span>
+         <span class="c"># Only git right now but easily extended to SVN, Mercurial, etc.</span>
         <span class="k">for</span> <span class="n">cmd</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;git&#39;</span><span class="p">,</span> <span class="s">&#39;git.cmd&#39;</span><span class="p">,</span> <span class="s">&#39;git.exe&#39;</span><span class="p">]:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">git_fetch</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
@@ -180,17 +250,27 @@
 
 </div>
     <span class="k">def</span> <span class="nf">git_fetch</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cmd</span><span class="o">=</span><span class="s">&#39;git&#39;</span><span class="p">):</span>
-        <span class="n">cmd</span> <span class="o">=</span> <span class="p">[</span><span class="n">cmd</span><span class="p">,</span> <span class="s">&#39;describe&#39;</span><span class="p">,</span> <span class="s">&#39;--long&#39;</span><span class="p">,</span> <span class="s">&#39;--match&#39;</span><span class="p">,</span> <span class="s">&#39;v*.*&#39;</span><span class="p">,</span> <span class="s">&#39;--dirty&#39;</span><span class="p">]</span>
-        <span class="n">proc</span> <span class="o">=</span> <span class="n">subprocess</span><span class="o">.</span><span class="n">Popen</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="n">stdout</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
-                                <span class="n">stderr</span><span class="o">=</span><span class="n">subprocess</span><span class="o">.</span><span class="n">PIPE</span><span class="p">,</span>
-                                <span class="n">cwd</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpath</span><span class="p">))</span>
-        <span class="n">output</span><span class="p">,</span> <span class="n">error</span> <span class="o">=</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">decode</span><span class="p">())</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">proc</span><span class="o">.</span><span class="n">communicate</span><span class="p">())</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">reponame</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
+                <span class="c"># Verify this is the correct repository (since fpath could</span>
+                <span class="c"># be an unrelated git repository, and param could just have</span>
+                <span class="c"># been copied/installed into it).</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="n">run_cmd</span><span class="p">([</span><span class="n">cmd</span><span class="p">,</span> <span class="s">&#39;remote&#39;</span><span class="p">,</span> <span class="s">&#39;-v&#39;</span><span class="p">],</span>
+                                 <span class="n">cwd</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpath</span><span class="p">))</span>
+                <span class="n">repo_matches</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">reponame</span> <span class="o">+</span> <span class="s">&#39;.git&#39;</span> <span class="p">,</span>
+                                <span class="c"># A remote &#39;server:reponame.git&#39; can also be referred </span>
+                                <span class="c"># to (i.e. cloned) as `server:reponame`.</span>
+                                <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">reponame</span> <span class="o">+</span> <span class="s">&#39; &#39;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">m</span> <span class="ow">in</span> <span class="n">output</span> <span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="n">repo_matches</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="bp">self</span>
 
-        <span class="k">if</span> <span class="n">error</span><span class="o">==</span><span class="s">&#39;fatal: No names found, cannot describe anything.&#39;</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Cannot find any git version tags of format v*.*&quot;</span><span class="p">)</span>
-
-        <span class="c"># If there is any other error, return (release value still useful)</span>
-        <span class="k">if</span> <span class="n">proc</span><span class="o">.</span><span class="n">returncode</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span> <span class="k">return</span> <span class="bp">self</span>
+            <span class="n">output</span> <span class="o">=</span> <span class="n">run_cmd</span><span class="p">([</span><span class="n">cmd</span><span class="p">,</span> <span class="s">&#39;describe&#39;</span><span class="p">,</span> <span class="s">&#39;--long&#39;</span><span class="p">,</span> <span class="s">&#39;--match&#39;</span><span class="p">,</span> <span class="s">&#39;v*.*&#39;</span><span class="p">,</span> <span class="s">&#39;--dirty&#39;</span><span class="p">],</span>
+                             <span class="n">cwd</span><span class="o">=</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fpath</span><span class="p">))</span>
+        <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;fatal: No names found, cannot describe anything.&#39;</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Cannot find any git version tags of format v*.*&quot;</span><span class="p">)</span>
+            <span class="c"># If there is any other error, return (release value still useful)</span>
+            <span class="k">return</span> <span class="bp">self</span>
 
         <span class="n">split</span> <span class="o">=</span> <span class="n">output</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;-&#39;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_release</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">el</span><span class="p">)</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">split</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">))</span>
@@ -199,16 +279,20 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_dirty</span> <span class="o">=</span> <span class="p">(</span><span class="n">split</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="s">&#39;dirty&#39;</span><span class="p">)</span>
         <span class="k">return</span> <span class="bp">self</span>
 
+
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Version in in x.y.z string format. Does not include the &#39;v&#39;</span>
-<span class="sd">        prefix of git version tags, for pip compatibility.</span>
+<span class="sd">        Version in x.y.z string format. Does not include the &quot;v&quot;</span>
+<span class="sd">        prefix of the VCS version tags, for pip compatibility.</span>
 
-<span class="sd">        If the commit count is non-zero or the repository is dirty the</span>
-<span class="sd">        string representation is equivalent to the output of:</span>
+<span class="sd">        If the commit count is non-zero or the repository is dirty,</span>
+<span class="sd">        the string representation is equivalent to the output of::</span>
 
-<span class="sd">        `git describe --long --match v*.* --dirty` (with &#39;v&#39; prefix removed)</span>
+<span class="sd">          git describe --long --match v*.* --dirty</span>
+
+<span class="sd">        (with &quot;v&quot; prefix removed).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">release</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span> <span class="k">return</span> <span class="s">&#39;None&#39;</span>
         <span class="n">release</span> <span class="o">=</span> <span class="s">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">el</span><span class="p">)</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">release</span><span class="p">)</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">commit_count</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirty</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">release</span>
@@ -222,7 +306,24 @@
                                       <span class="bp">self</span><span class="o">.</span><span class="n">fpath</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">fpath</span> <span class="k">else</span> <span class="bp">None</span><span class="p">,</span>
                                       <span class="bp">self</span><span class="o">.</span><span class="n">commit</span><span class="p">)</span>
 
+<div class="viewcode-block" id="Version.abbrev"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.version.Version.abbrev">[docs]</a>    <span class="k">def</span> <span class="nf">abbrev</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">dev_suffix</span><span class="o">=</span><span class="s">&quot;&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Abbreviated string representation, optionally declaring whether it is</span>
+<span class="sd">        a development version.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="s">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">el</span><span class="p">)</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">release</span><span class="p">)</span> <span class="o">+</span> \
+            <span class="p">(</span><span class="n">dev_suffix</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">commit_count</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirty</span> <span class="k">else</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+
+
+</div>
     <span class="k">def</span> <span class="nf">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Two versions are considered equivalent if and only if they are</span>
+<span class="sd">        from the same release, with the same commit count, and are not</span>
+<span class="sd">        dirty.  Any dirty version is considered different from any</span>
+<span class="sd">        other version, since it could potentially have any arbitrary</span>
+<span class="sd">        changes even for the same release and commit count.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirty</span> <span class="ow">or</span> <span class="n">other</span><span class="o">.</span><span class="n">dirty</span><span class="p">:</span> <span class="k">return</span> <span class="bp">False</span>
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">release</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">commit_count</span><span class="p">)</span> <span class="o">==</span> <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">release</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">commit_count</span><span class="p">)</span>
 
@@ -233,12 +334,17 @@
         <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">release</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">commit_count</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">release</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">commit_count</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="Version.verify"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.version.Version.verify">[docs]</a>    <span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="Version.verify"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.version.Version.verify">[docs]</a>    <span class="k">def</span> <span class="nf">verify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">string_version</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Check that the version information is consistent with git before</span>
-<span class="sd">        doing a release. Should be called from setup.py before releasing</span>
-<span class="sd">        to PyPI.</span>
+<span class="sd">        Check that the version information is consistent with the VCS</span>
+<span class="sd">        before doing a release. If supplied with a string version,</span>
+<span class="sd">        this is also checked against the current version. Should be</span>
+<span class="sd">        called from setup.py with the declared package version before</span>
+<span class="sd">        releasing to PyPI.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">string_version</span> <span class="ow">and</span> <span class="n">string_version</span> <span class="o">!=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Supplied string version does not match current version.&quot;</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">dirty</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Current working directory is dirty.&quot;</span><span class="p">)</span>
 
@@ -246,10 +352,10 @@
             <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Declared release does not match current release tag.&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">commit_count</span> <span class="o">!=</span><span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Please update the git version tag before release.&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Please update the VCS version tag before release.&quot;</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_expected_commit</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">[</span><span class="bp">None</span><span class="p">,</span> <span class="s">&quot;$Format:%h$&quot;</span><span class="p">]:</span>
-            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Declared release does not match git version tag&quot;</span><span class="p">)</span></div></div>
+            <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Declared release does not match the VCS version tag&quot;</span><span class="p">)</span></div></div>
 </pre></div>
 
           </div>

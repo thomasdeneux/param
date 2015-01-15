@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>param.parameterized &mdash; Param 1.1-devel documentation</title>
+    <title>param.parameterized &mdash; Param 1.2.1-dev documentation</title>
     
     <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.1-devel',
+        VERSION:     '1.2.1-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -26,7 +26,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../_static/custom.js"></script>
-    <link rel="top" title="Param 1.1-devel documentation" href="../../index.html" />
+    <link rel="top" title="Param 1.2.1-dev documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -74,8 +74,17 @@
 <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span><span class="p">,</span> <span class="n">wraps</span>
 
 <span class="kn">import</span> <span class="nn">logging</span>
-
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
 <span class="kn">from</span> <span class="nn">logging</span> <span class="kn">import</span> <span class="n">DEBUG</span><span class="p">,</span> <span class="n">INFO</span><span class="p">,</span> <span class="n">WARNING</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="n">CRITICAL</span> <span class="c"># pyflakes:ignore (API import)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="c"># In case the optional ipython module is unavailable</span>
+    <span class="kn">from</span> <span class="nn">.ipython</span> <span class="kn">import</span> <span class="n">ParamPager</span>
+    <span class="n">param_pager</span> <span class="o">=</span> <span class="n">ParamPager</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  <span class="c"># Generates param description</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="n">param_pager</span> <span class="o">=</span> <span class="bp">None</span>
+
+
 <span class="n">VERBOSE</span> <span class="o">=</span> <span class="n">INFO</span> <span class="o">-</span> <span class="mi">1</span>
 <span class="n">logging</span><span class="o">.</span><span class="n">addLevelName</span><span class="p">(</span><span class="n">VERBOSE</span><span class="p">,</span> <span class="s">&quot;VERBOSE&quot;</span><span class="p">)</span>
 
@@ -95,10 +104,35 @@
 <span class="c"># processing.</span>
 <span class="n">warnings_as_exceptions</span> <span class="o">=</span> <span class="bp">False</span>
 
+<span class="n">docstring_signature</span> <span class="o">=</span> <span class="bp">True</span>        <span class="c"># Add signature to class docstrings</span>
+<span class="n">docstring_describe_params</span> <span class="o">=</span> <span class="bp">True</span>  <span class="c"># Add parameter description to class</span>
+                                  <span class="c"># docstrings (requires ipython module)</span>
 <span class="n">object_count</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">warning_count</span> <span class="o">=</span> <span class="mi">0</span>
 
 
+<span class="nd">@contextmanager</span>
+<div class="viewcode-block" id="logging_level"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.logging_level">[docs]</a><span class="k">def</span> <span class="nf">logging_level</span><span class="p">(</span><span class="n">level</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Temporarily modify param&#39;s logging level.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">level</span> <span class="o">=</span> <span class="n">level</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>
+    <span class="n">levels</span> <span class="o">=</span> <span class="p">[</span><span class="n">DEBUG</span><span class="p">,</span> <span class="n">INFO</span><span class="p">,</span> <span class="n">WARNING</span><span class="p">,</span> <span class="n">ERROR</span><span class="p">,</span> <span class="n">CRITICAL</span><span class="p">,</span> <span class="n">VERBOSE</span><span class="p">]</span>
+    <span class="n">level_names</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;DEBUG&#39;</span><span class="p">,</span> <span class="s">&#39;INFO&#39;</span><span class="p">,</span> <span class="s">&#39;WARNING&#39;</span><span class="p">,</span> <span class="s">&#39;ERROR&#39;</span><span class="p">,</span> <span class="s">&#39;CRITICAL&#39;</span><span class="p">,</span> <span class="s">&#39;VERBOSE&#39;</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">level</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">level_names</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Level </span><span class="si">%r</span><span class="s"> not in </span><span class="si">%r</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="n">levels</span><span class="p">))</span>
+
+    <span class="n">param_logger</span> <span class="o">=</span> <span class="n">get_logger</span><span class="p">()</span>
+    <span class="n">logging_level</span> <span class="o">=</span> <span class="n">param_logger</span><span class="o">.</span><span class="n">getEffectiveLevel</span><span class="p">()</span>
+    <span class="n">param_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">levels</span><span class="p">[</span><span class="n">level_names</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">level</span><span class="p">)])</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="bp">None</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">param_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging_level</span><span class="p">)</span>
+
+
+</div>
 <span class="kn">import</span> <span class="nn">inspect</span>
 <div class="viewcode-block" id="classlist"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.classlist">[docs]</a><span class="k">def</span> <span class="nf">classlist</span><span class="p">(</span><span class="n">class_</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
@@ -607,6 +641,34 @@
         <span class="k">for</span> <span class="n">param_name</span><span class="p">,</span><span class="n">param</span> <span class="ow">in</span> <span class="n">parameters</span><span class="p">:</span>
             <span class="n">mcs</span><span class="o">.</span><span class="n">_initialize_parameter</span><span class="p">(</span><span class="n">param_name</span><span class="p">,</span><span class="n">param</span><span class="p">)</span>
 
+        <span class="k">if</span> <span class="n">docstring_signature</span><span class="p">:</span>
+            <span class="n">mcs</span><span class="o">.</span><span class="n">__class_docstring_signature</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__class_docstring_signature</span><span class="p">(</span><span class="n">mcs</span><span class="p">,</span> <span class="n">max_repr_len</span><span class="o">=</span><span class="mi">15</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Autogenerate a keyword signature in the class docstring for</span>
+<span class="sd">        all available parameters. This is particularly useful in the</span>
+<span class="sd">        IPython Notebook as IPython will parse this signature to allow</span>
+<span class="sd">        tab-completion of keywords.</span>
+
+<span class="sd">        max_repr_len: Maximum length (in characters) of value reprs.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">processed_kws</span><span class="p">,</span> <span class="n">keyword_groups</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(),</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">cls</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">mcs</span><span class="o">.</span><span class="n">mro</span><span class="p">()):</span>
+            <span class="n">keyword_group</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">v</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">cls</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()):</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">Parameter</span><span class="p">)</span> <span class="ow">and</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">processed_kws</span><span class="p">:</span>
+                    <span class="n">param_type</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span>
+                    <span class="n">keyword_group</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">=</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">param_type</span><span class="p">))</span>
+                    <span class="n">processed_kws</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">k</span><span class="p">)</span>
+            <span class="n">keyword_groups</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">keyword_group</span><span class="p">)</span>
+
+        <span class="n">keywords</span> <span class="o">=</span> <span class="p">[</span><span class="n">el</span> <span class="k">for</span> <span class="n">grp</span> <span class="ow">in</span> <span class="nb">reversed</span><span class="p">(</span><span class="n">keyword_groups</span><span class="p">)</span> <span class="k">for</span> <span class="n">el</span> <span class="ow">in</span> <span class="n">grp</span><span class="p">]</span>
+        <span class="n">class_docstr</span> <span class="o">=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">+</span><span class="n">mcs</span><span class="o">.</span><span class="n">__doc__</span> <span class="k">if</span> <span class="n">mcs</span><span class="o">.</span><span class="n">__doc__</span> <span class="k">else</span> <span class="s">&#39;&#39;</span>
+        <span class="n">signature</span> <span class="o">=</span> <span class="s">&quot;params(</span><span class="si">%s</span><span class="s">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="s">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">keywords</span><span class="p">))</span>
+        <span class="n">description</span> <span class="o">=</span> <span class="n">param_pager</span><span class="p">(</span><span class="n">mcs</span><span class="p">)</span> <span class="k">if</span> <span class="p">(</span><span class="n">docstring_describe_params</span> <span class="ow">and</span> <span class="n">param_pager</span><span class="p">)</span> <span class="k">else</span> <span class="s">&#39;&#39;</span>
+        <span class="n">mcs</span><span class="o">.</span><span class="n">__doc__</span> <span class="o">=</span> <span class="n">signature</span> <span class="o">+</span> <span class="n">class_docstr</span> <span class="o">+</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">+</span> <span class="n">description</span>
+
 
     <span class="k">def</span> <span class="nf">_initialize_parameter</span><span class="p">(</span><span class="n">mcs</span><span class="p">,</span><span class="n">param_name</span><span class="p">,</span><span class="n">param</span><span class="p">):</span>
         <span class="c"># parameter has no way to find out the name a</span>
@@ -683,8 +745,9 @@
                 <span class="c"># mechanisms, which has have consequences for warning</span>
                 <span class="c"># counts, warnings as exceptions, etc.</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">attribute_name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;_&#39;</span><span class="p">):</span>
-                    <span class="k">print</span><span class="p">(</span><span class="s">&quot;Warning: Setting non-Parameter class attribute </span><span class="si">%s</span><span class="s">.</span><span class="si">%s</span><span class="s"> = </span><span class="si">%s</span><span class="s"> &quot;</span>
-                           <span class="o">%</span> <span class="p">(</span><span class="n">mcs</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span><span class="n">attribute_name</span><span class="p">,</span><span class="nb">repr</span><span class="p">(</span><span class="n">value</span><span class="p">)))</span>
+                    <span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">WARNING</span><span class="p">,</span>
+                                     <span class="s">&quot;Setting non-Parameter class attribute </span><span class="si">%s</span><span class="s">.</span><span class="si">%s</span><span class="s"> = </span><span class="si">%s</span><span class="s"> &quot;</span>
+                                     <span class="o">%</span> <span class="p">(</span><span class="n">mcs</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span><span class="n">attribute_name</span><span class="p">,</span><span class="nb">repr</span><span class="p">(</span><span class="n">value</span><span class="p">)))</span>
 
 
     <span class="k">def</span> <span class="nf">__param_inheritance</span><span class="p">(</span><span class="n">mcs</span><span class="p">,</span><span class="n">param_name</span><span class="p">,</span><span class="n">param</span><span class="p">):</span>
@@ -732,7 +795,7 @@
         <span class="c"># instantiate is handled specially</span>
         <span class="k">for</span> <span class="n">superclass</span> <span class="ow">in</span> <span class="n">classlist</span><span class="p">(</span><span class="n">mcs</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
             <span class="n">super_param</span> <span class="o">=</span> <span class="n">superclass</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">param_name</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">super_param</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">super_param</span><span class="o">.</span><span class="n">instantiate</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">super_param</span><span class="p">,</span> <span class="n">Parameter</span><span class="p">)</span> <span class="ow">and</span> <span class="n">super_param</span><span class="o">.</span><span class="n">instantiate</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
                 <span class="n">param</span><span class="o">.</span><span class="n">instantiate</span><span class="o">=</span><span class="bp">True</span>
         <span class="k">del</span> <span class="n">slots</span><span class="p">[</span><span class="s">&#39;instantiate&#39;</span><span class="p">]</span>
 
@@ -795,6 +858,9 @@
 <span class="sd">    script_repr_reg dictionary. Using the type as a key, add a</span>
 <span class="sd">    function that returns a suitable representation of instances of</span>
 <span class="sd">    that type, and adds the required import statement.</span>
+
+<span class="sd">    The repr of a parameter can be suppressed by returning None from</span>
+<span class="sd">    the appropriate hook in script_repr_reg.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="c"># CB: doc prefix &amp; settings or realize they don&#39;t need to be</span>
     <span class="c"># passed around, etc.</span>
@@ -835,6 +901,22 @@
     <span class="c"># no imports to add for built-in types</span>
 
     <span class="k">return</span> <span class="n">rep</span>
+
+
+<span class="k">def</span> <span class="nf">empty_script_repr</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span> <span class="c"># pyflakes:ignore (unused arguments):</span>
+    <span class="k">return</span> <span class="bp">None</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="c"># Suppress scriptrepr for objects not yet having a useful string representation</span>
+    <span class="kn">import</span> <span class="nn">random</span>
+    <span class="n">script_repr_reg</span><span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">Random</span><span class="p">]</span> <span class="o">=</span> <span class="n">empty_script_repr</span>
+
+    <span class="kn">import</span> <span class="nn">numpy</span>
+    <span class="n">script_repr_reg</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">]</span> <span class="o">=</span> <span class="n">empty_script_repr</span>
+
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="k">pass</span> <span class="c"># Support added only if those libraries are available</span>
+
 
 <span class="c"># why I have to type prefix and settings?</span>
 <span class="k">def</span> <span class="nf">function_script_repr</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span><span class="n">imports</span><span class="p">,</span><span class="n">prefix</span><span class="p">,</span><span class="n">settings</span><span class="p">):</span>
@@ -904,6 +986,15 @@
 
 <span class="sd">    in this case foo.xx gets the value 20.</span>
 
+<span class="sd">    When initializing a Parameterized instance (&#39;foo&#39; in the example</span>
+<span class="sd">    above), the values of parameters can be supplied as keyword</span>
+<span class="sd">    arguments to the constructor (using parametername=parametervalue);</span>
+<span class="sd">    these values will override the class default values for this one</span>
+<span class="sd">    instance.</span>
+
+<span class="sd">    If no &#39;name&#39; parameter is supplied, self.name defaults to the</span>
+<span class="sd">    object&#39;s class name with a unique number appended to it.</span>
+
 <span class="sd">    Message formatting: Each Parameterized instance has several</span>
 <span class="sd">    methods for optionally printing output. This functionality is</span>
 <span class="sd">    based on the standard Python &#39;logging&#39; module; using the methods</span>
@@ -919,17 +1010,6 @@
 
 
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">**</span><span class="n">params</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Initialize this Parameterized instance.</span>
-
-<span class="sd">        The values of parameters can be supplied as keyword arguments</span>
-<span class="sd">        to the constructor (using parametername=parametervalue); these</span>
-<span class="sd">        values will override the class default values for this one</span>
-<span class="sd">        instance.</span>
-
-<span class="sd">        If no &#39;name&#39; parameter is supplied, self.name defaults to the</span>
-<span class="sd">        object&#39;s class name with a unique number appended to it.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">global</span> <span class="n">object_count</span>
 
         <span class="c"># Flag that can be tested to see if e.g. constant Parameters</span>
@@ -1602,6 +1682,14 @@
 <span class="sd">        overridden object.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_extra_keywords</span>
+</div>
+<div class="viewcode-block" id="ParamOverrides.param_keywords"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.ParamOverrides.param_keywords">[docs]</a>    <span class="k">def</span> <span class="nf">param_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return a dictionary containing items from the originally</span>
+<span class="sd">        supplied dict_ whose names are parameters of the</span>
+<span class="sd">        overridden object (i.e. not extra keywords/parameters).</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">dict</span><span class="p">((</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="p">[</span><span class="n">key</span><span class="p">])</span> <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span> <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">extra_keywords</span><span class="p">())</span>
 </div>
     <span class="k">def</span> <span class="nf">__missing__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">):</span>
         <span class="c"># Return &#39;name&#39; from the overridden object</span>
