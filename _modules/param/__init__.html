@@ -822,20 +822,18 @@
 
     <span class="n">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;length&#39;</span><span class="p">,</span> <span class="s">&#39;allow_None&#39;</span><span class="p">]</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="n">allow_None</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="n">length</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="o">**</span><span class="n">params</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span><span class="n">length</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="o">**</span><span class="n">params</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize a numeric tuple parameter with a fixed length</span>
 <span class="sd">        (number of elements).  The length is determined by the initial</span>
 <span class="sd">        default value, and is not allowed to change after</span>
 <span class="sd">        instantiation.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="n">length</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Tuple</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">,</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">length</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">and</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">length</span> <span class="o">=</span> <span class="n">length</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">allow_None</span> <span class="o">=</span> <span class="p">(</span><span class="n">default</span> <span class="ow">is</span> <span class="bp">None</span> <span class="ow">or</span> <span class="n">allow_None</span><span class="p">)</span>
-        <span class="nb">super</span><span class="p">(</span><span class="n">Tuple</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">,</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
-
         <span class="bp">self</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
 
 
@@ -863,9 +861,11 @@
 
     <span class="k">def</span> <span class="nf">_check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">val</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">NumericTuple</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
-        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">val</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_number</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">: tuple element is not numeric: </span><span class="si">%s</span><span class="s">.&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_attrib_name</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">allow_None</span> <span class="ow">and</span> <span class="n">val</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">val</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_number</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">: tuple element is not numeric: </span><span class="si">%s</span><span class="s">.&quot;</span> <span class="o">%</span>
+                                     <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_attrib_name</span><span class="p">,</span><span class="nb">str</span><span class="p">(</span><span class="n">n</span><span class="p">)))</span>
 
 
 </div>
@@ -888,7 +888,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span> <span class="nf">__set__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">obj</span><span class="p">,</span><span class="n">val</span><span class="p">):</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">callable</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allow_None</span> <span class="ow">and</span> <span class="n">val</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="nb">callable</span><span class="p">(</span><span class="n">val</span><span class="p">)):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Callable &#39;</span><span class="si">%s</span><span class="s">&#39; only takes a callable object.&quot;</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">_attrib_name</span><span class="p">)</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Callable</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__set__</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="n">val</span><span class="p">)</span>
 
@@ -998,10 +998,12 @@
     <span class="c"># ObjectSelector is usually used to allow selection from a list of</span>
     <span class="c"># existing objects, therefore instantiate is False by default.</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">objects</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">instantiate</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span>
-                 <span class="n">compute_default_fn</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">check_on_set</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="o">**</span><span class="n">params</span><span class="p">):</span>
+                 <span class="n">compute_default_fn</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">check_on_set</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="n">allow_None</span><span class="o">=</span><span class="bp">None</span><span class="p">,</span><span class="o">**</span><span class="n">params</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">objects</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">objects</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="n">objects</span>
+        <span class="k">if</span> <span class="n">allow_None</span> <span class="ow">and</span> <span class="bp">None</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">objects</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">compute_default_fn</span> <span class="o">=</span> <span class="n">compute_default_fn</span>
 
         <span class="k">if</span> <span class="n">check_on_set</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
@@ -1011,10 +1013,11 @@
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">check_on_set</span><span class="o">=</span><span class="bp">True</span>
 
+        <span class="nb">super</span><span class="p">(</span><span class="n">ObjectSelector</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">,</span><span class="n">instantiate</span><span class="o">=</span><span class="n">instantiate</span><span class="p">,</span>
+                                            <span class="n">allow_None</span><span class="o">=</span><span class="n">allow_None</span><span class="p">,</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+
         <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_on_set</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_check_value</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
-
-        <span class="nb">super</span><span class="p">(</span><span class="n">ObjectSelector</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">,</span><span class="n">instantiate</span><span class="o">=</span><span class="n">instantiate</span><span class="p">,</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 
     <span class="c"># CBNOTE: if the list of objects is changed, the current value for</span>
@@ -1038,7 +1041,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        val must be None or one of the objects in self.objects.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allow_None</span> <span class="ow">and</span> <span class="n">val</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">)):</span>
             <span class="c"># CEBALERT: can be called before __init__ has called</span>
             <span class="c"># super&#39;s __init__, i.e. before attrib_name has been set.</span>
             <span class="k">try</span><span class="p">:</span>
@@ -1144,9 +1147,9 @@
                  <span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="bp">None</span><span class="p">),</span><span class="o">**</span><span class="n">params</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">class_</span> <span class="o">=</span> <span class="n">class_</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="n">bounds</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_check_bounds</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
         <span class="n">Parameter</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">,</span><span class="n">instantiate</span><span class="o">=</span><span class="n">instantiate</span><span class="p">,</span>
                            <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_check_bounds</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
 
     <span class="c"># Could add range() method from ClassSelector, to allow</span>
     <span class="c"># list to be populated in the GUI</span>
@@ -1161,7 +1164,10 @@
 <span class="sd">        Checks that the list is of the right length and has the right contents.</span>
 <span class="sd">        Otherwise, an exception is raised.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="nb">list</span><span class="p">)):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">allow_None</span> <span class="ow">and</span> <span class="n">val</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;List &#39;</span><span class="si">%s</span><span class="s">&#39; must be a list.&quot;</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_attrib_name</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
@@ -1354,11 +1360,11 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Call Parameter&#39;s __set__, but warn if the file cannot be found.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">try</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_resolve</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
-        <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-            <span class="n">Parameterized</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">.</span><span class="si">%s</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">_attrib_name</span><span class="p">))</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">allow_None</span> <span class="ow">and</span> <span class="n">val</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_resolve</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">Parameterized</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">.</span><span class="si">%s</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">_attrib_name</span><span class="p">))</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Path</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__set__</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="n">val</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__get__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">objtype</span><span class="p">):</span>
@@ -1366,7 +1372,7 @@
 <span class="sd">        Return an absolute, normalized path (see resolve_path).</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">raw_path</span> <span class="o">=</span> <span class="nb">super</span><span class="p">(</span><span class="n">Path</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__get__</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="n">objtype</span><span class="p">)</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve</span><span class="p">(</span><span class="n">raw_path</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">None</span> <span class="k">if</span> <span class="n">raw_path</span> <span class="ow">is</span> <span class="bp">None</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_resolve</span><span class="p">(</span><span class="n">raw_path</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">__getstate__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="c"># don&#39;t want to pickle the search_paths</span>
