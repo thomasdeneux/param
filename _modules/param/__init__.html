@@ -398,11 +398,6 @@
 <span class="sd">    other callable as required so long as a number is returned on each</span>
 <span class="sd">    call.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="c"># CB: making Dynamic support iterators and generators is sf.net</span>
-    <span class="c"># feature request 1864370. When working on that task, note that</span>
-    <span class="c"># detection of a dynamic generator by &#39;callable&#39; needs to be</span>
-    <span class="c"># replaced by something that matches whatever Dynamic becomes</span>
-    <span class="c"># capable of using.</span>
 
     <span class="n">time_fn</span> <span class="o">=</span> <span class="n">Time</span><span class="p">()</span>
     <span class="n">time_dependent</span> <span class="o">=</span> <span class="bp">False</span>
@@ -645,12 +640,8 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">Number</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__set__</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="n">bounded_val</span><span class="p">)</span>
 
 
-    <span class="c"># CEBERRORALERT: doesn&#39;t take account of exclusive bounds. When</span>
-    <span class="c"># the gui uses set_in_bounds(), expecting to get acceptable</span>
-    <span class="c"># values, it actually gets an out-of-bounds error. When fixed,</span>
-    <span class="c"># should remove hack in</span>
-    <span class="c"># topo.tkgui.projectionpanel.UnitsPanel.sheet_change().</span>
-
+    <span class="c"># CEBERRORALERT: doesn&#39;t take account of exclusive bounds; see</span>
+    <span class="c"># https://github.com/ioam/param/issues/80.</span>
     <span class="k">def</span> <span class="nf">crop_to_bounds</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">val</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Return the given value cropped to be within the hard bounds</span>
@@ -694,6 +685,7 @@
             <span class="n">vmin</span><span class="p">,</span><span class="n">vmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span>
             <span class="n">incmin</span><span class="p">,</span><span class="n">incmax</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">inclusive_bounds</span>
 
+            <span class="c"># Could simplify: see https://github.com/ioam/param/issues/83</span>
             <span class="k">if</span> <span class="n">vmax</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">incmax</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
                     <span class="k">if</span> <span class="ow">not</span> <span class="n">val</span> <span class="o">&lt;=</span> <span class="n">vmax</span><span class="p">:</span>
@@ -710,19 +702,6 @@
                     <span class="k">if</span> <span class="ow">not</span> <span class="n">val</span> <span class="o">&gt;</span> <span class="n">vmin</span><span class="p">:</span>
                         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Parameter &#39;</span><span class="si">%s</span><span class="s">&#39; must be greater than </span><span class="si">%s</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_attrib_name</span><span class="p">,</span><span class="n">vmin</span><span class="p">))</span>
 
-<span class="c">##         could consider simplifying the above to something like this untested code:</span>
-
-<span class="c">##          too_low = False if vmin is None else</span>
-<span class="c">##                    (val &lt; vmin if incmin else val &lt;= vmin) and</span>
-<span class="c">##                    (val &gt; vmin if incmin else val &lt;= vmin)</span>
-
-<span class="c">##          too_high = ...</span>
-
-<span class="c">##          if too_low or too_high:</span>
-<span class="c">##              raise ValueError(&quot;Parameter &#39;%s&#39; must be in the range %s&quot; % (self._attrib_name,self.rangestr()))</span>
-
-<span class="c">##         where self.rangestr() formats the range using the usual notation for</span>
-<span class="c">##         indicating exclusivity, e.g. &quot;[0,10)&quot;.</span>
 
 
     <span class="k">def</span> <span class="nf">_check_value</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">val</span><span class="p">):</span>
@@ -786,15 +765,13 @@
         <span class="n">Number</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">,</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">),</span><span class="n">softbounds</span><span class="o">=</span><span class="n">softbounds</span><span class="p">,</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
 
 
-
-<span class="c"># JAB: Should this and other Parameters below be a Dynamic instead?</span></div>
+</div>
 <div class="viewcode-block" id="Boolean"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.__init__.Boolean">[docs]</a><span class="k">class</span> <span class="nc">Boolean</span><span class="p">(</span><span class="n">Parameter</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Binary or tristate Boolean Parameter.&quot;&quot;&quot;</span>
 
     <span class="n">__slots__</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;bounds&#39;</span><span class="p">]</span>
 
-    <span class="c"># CB: what does bounds=(0,1) mean/do for this Parameter? (Maybe we meant to inherit from</span>
-    <span class="c"># Integer?)</span>
+    <span class="c"># CB: bounds have no effect; see https://github.com/ioam/param/issues/82</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">default</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="o">**</span><span class="n">params</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">bounds</span> <span class="o">=</span> <span class="n">bounds</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">Boolean</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">,</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
@@ -893,10 +870,7 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">Callable</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__set__</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span><span class="n">val</span><span class="p">)</span>
 
 
-
-<span class="c"># CBNOTE: python now has abstract base classes, so we could update</span>
-<span class="c"># this. At least if the check is in a method, all such checks could be</span>
-<span class="c"># changed at once.</span></div>
+</div>
 <span class="k">def</span> <span class="nf">_is_abstract</span><span class="p">(</span><span class="n">class_</span><span class="p">):</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="k">return</span> <span class="n">class_</span><span class="o">.</span><span class="n">abstract</span>
