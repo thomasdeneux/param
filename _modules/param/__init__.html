@@ -820,7 +820,7 @@
             <span class="k">return</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="nb">tuple</span><span class="p">):</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;NumericTuple &#39;</span><span class="si">%s</span><span class="s">&#39; only takes a tuple value.&quot;</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">_attrib_name</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;Tuple &#39;</span><span class="si">%s</span><span class="s">&#39; only takes a tuple value.&quot;</span><span class="o">%</span><span class="bp">self</span><span class="o">.</span><span class="n">_attrib_name</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">val</span><span class="p">)</span><span class="o">==</span><span class="bp">self</span><span class="o">.</span><span class="n">length</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">: tuple is not of the correct length (</span><span class="si">%d</span><span class="s"> instead of </span><span class="si">%d</span><span class="s">).&quot;</span> <span class="o">%</span>
@@ -838,7 +838,7 @@
 
     <span class="k">def</span> <span class="nf">_check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">val</span><span class="p">):</span>
         <span class="nb">super</span><span class="p">(</span><span class="n">NumericTuple</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">_check</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">allow_None</span> <span class="ow">and</span> <span class="n">val</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">allow_None</span> <span class="ow">and</span> <span class="n">val</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">val</span><span class="p">:</span>
                 <span class="k">if</span> <span class="ow">not</span> <span class="n">_is_number</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
                     <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">: tuple element is not numeric: </span><span class="si">%s</span><span class="s">.&quot;</span> <span class="o">%</span>
@@ -976,8 +976,6 @@
         <span class="k">if</span> <span class="n">objects</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
             <span class="n">objects</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">objects</span> <span class="o">=</span> <span class="n">objects</span>
-        <span class="k">if</span> <span class="n">allow_None</span> <span class="ow">and</span> <span class="bp">None</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">objects</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">objects</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">None</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">compute_default_fn</span> <span class="o">=</span> <span class="n">compute_default_fn</span>
 
         <span class="k">if</span> <span class="n">check_on_set</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span><span class="p">:</span>
@@ -988,8 +986,9 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">check_on_set</span><span class="o">=</span><span class="bp">True</span>
 
         <span class="nb">super</span><span class="p">(</span><span class="n">ObjectSelector</span><span class="p">,</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">default</span><span class="o">=</span><span class="n">default</span><span class="p">,</span><span class="n">instantiate</span><span class="o">=</span><span class="n">instantiate</span><span class="p">,</span>
-                                            <span class="n">allow_None</span><span class="o">=</span><span class="n">allow_None</span><span class="p">,</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
-
+                                            <span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="c"># Required as Parameter sets allow_None=True if default is None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">allow_None</span> <span class="o">=</span> <span class="n">allow_None</span>
         <span class="k">if</span> <span class="n">default</span> <span class="ow">is</span> <span class="ow">not</span> <span class="bp">None</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">check_on_set</span> <span class="ow">is</span> <span class="bp">True</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">_check_value</span><span class="p">(</span><span class="n">default</span><span class="p">)</span>
 
@@ -1334,7 +1333,10 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Call Parameter&#39;s __set__, but warn if the file cannot be found.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">allow_None</span> <span class="ow">and</span> <span class="n">val</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">val</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">allow_None</span><span class="p">:</span>
+                <span class="n">Parameterized</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">.</span><span class="si">%s</span><span class="s">&quot;</span><span class="o">%</span><span class="p">(</span><span class="n">obj</span><span class="o">.</span><span class="n">name</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">_attrib_name</span><span class="p">))</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&#39;None is not allowed&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
             <span class="k">try</span><span class="p">:</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">_resolve</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
             <span class="k">except</span> <span class="ne">IOError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
