@@ -1782,6 +1782,8 @@
 
         <span class="n">inst</span><span class="o">=</span><span class="n">Parameterized</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">)</span>
         <span class="n">Parameterized</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">inst</span><span class="p">,</span><span class="o">**</span><span class="n">params</span><span class="p">)</span>
+        <span class="k">if</span> <span class="s">&#39;name&#39;</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>  <span class="n">inst</span><span class="o">.</span><span class="n">__name__</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s">&#39;name&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>                 <span class="n">inst</span><span class="o">.</span><span class="n">__name__</span> <span class="o">=</span> <span class="n">self_or_cls</span><span class="o">.</span><span class="n">name</span>
         <span class="k">return</span> <span class="n">inst</span>
 </div>
     <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">class_</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">params</span><span class="p">):</span>
