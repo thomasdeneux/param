@@ -1187,7 +1187,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_set_name</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s%05d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span> <span class="p">,</span><span class="n">object_count</span><span class="p">))</span>
 
-    <span class="c"># CB: __repr__ is called often; methods it uses should not be too slow</span>
+
     <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Provide a nearly valid Python representation that could be used to recreate</span>
@@ -1240,16 +1240,9 @@
 
 
     <span class="c"># CEBALERT: designed to avoid any processing unless the print</span>
-    <span class="c"># level is high enough (e.g. to avoid expensive str(Parameterized</span>
-    <span class="c"># instance) calls). Not all callers are taking advantage of this</span>
-    <span class="c"># (either calling str() themselves, resulting in potentially</span>
-    <span class="c"># expensive operations for things that might never be printed, or</span>
-    <span class="c"># redundantly using lambda functions to avoid the</span>
-    <span class="c"># processing. Should fix that.</span>
-    <span class="c">#</span>
-    <span class="c"># Note that Python&#39;s logging module would simplify print</span>
-    <span class="c"># statements still further (see &quot;topographica&#39;s debug printing&quot;</span>
-    <span class="c"># emails between CB&amp;JB).</span>
+    <span class="c"># level is high enough, but not all callers of message(),</span>
+    <span class="c"># verbose(), debug(), etc are taking advantage of this. Need to</span>
+    <span class="c"># document, and also check other ioam projects.</span>
     <span class="k">def</span> <span class="nf">__db_print</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">level</span><span class="o">=</span><span class="n">INFO</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Any of args may be functions, in which case they will be</span>
@@ -1348,9 +1341,9 @@
         <span class="k">for</span> <span class="n">name</span><span class="p">,</span><span class="n">val</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
             <span class="n">desc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">get_param_descriptor</span><span class="p">(</span><span class="n">name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="c"># pylint: disable-msg=E1101</span>
             <span class="k">if</span> <span class="n">desc</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;Setting param </span><span class="si">%s</span><span class="s">=</span><span class="si">%s</span><span class="s">&quot;</span><span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">val</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&quot;Setting param </span><span class="si">%s</span><span class="s">=</span><span class="si">%s</span><span class="s">&quot;</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">val</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&quot;Setting non-parameter attribute </span><span class="si">%s</span><span class="s">=</span><span class="si">%s</span><span class="s"> using a mechanism intended only for parameters&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">val</span><span class="p">))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&quot;Setting non-parameter attribute </span><span class="si">%s</span><span class="s">=</span><span class="si">%s</span><span class="s"> using a mechanism intended only for parameters&quot;</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">val</span><span class="p">)</span>
             <span class="c"># i.e. if not desc it&#39;s setting an attribute in __dict__, not a Parameter</span>
             <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">name</span><span class="p">,</span><span class="n">val</span><span class="p">)</span>
 
@@ -1724,7 +1717,7 @@
         <span class="n">overridden_object_params</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_overridden</span><span class="o">.</span><span class="n">params</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">params</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">item</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">overridden_object_params</span><span class="p">:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&quot;&#39;</span><span class="si">%s</span><span class="s">&#39; will be ignored (not a Parameter).&quot;</span><span class="o">%</span><span class="n">item</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&quot;&#39;</span><span class="si">%s</span><span class="s">&#39; will be ignored (not a Parameter).&quot;</span><span class="p">,</span><span class="n">item</span><span class="p">)</span>
 
     <span class="k">def</span> <span class="nf">_extract_extra_keywords</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">params</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
