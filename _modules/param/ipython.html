@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>param.ipython &mdash; Param 1.3.0 documentation</title>
+    <title>param.ipython &mdash; Param 1.3.0-dev documentation</title>
     
     <link rel="stylesheet" href="../../_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../../',
-        VERSION:     '1.3.0',
+        VERSION:     '1.3.0-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -26,7 +26,7 @@
     <script type="text/javascript" src="../../_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="../../_static/custom.js"></script>
-    <link rel="top" title="Param 1.3.0 documentation" href="../../index.html" />
+    <link rel="top" title="Param 1.3.0-dev documentation" href="../../index.html" />
     <link rel="up" title="Module code" href="../index.html" /> 
   </head>
   <body>
@@ -164,7 +164,7 @@
             <span class="k">if</span> <span class="p">(</span><span class="n">WARN_MISFORMATTED_DOCSTRINGS</span>
                 <span class="ow">and</span> <span class="ow">not</span> <span class="n">unindented</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">)</span>  <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">unindented</span><span class="o">.</span><span class="n">splitlines</span><span class="p">())</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">):</span>
                 <span class="n">param</span><span class="o">.</span><span class="n">main</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&quot;Multi-line docstring for </span><span class="si">%r</span><span class="s"> is incorrectly formatted &quot;</span>
-                                   <span class="s">&quot; (should start with newline)&quot;</span> <span class="o">%</span> <span class="n">name</span><span class="p">)</span>
+                                   <span class="s">&quot; (should start with newline)&quot;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
             <span class="c"># Strip any starting newlines</span>
             <span class="k">while</span> <span class="n">unindented</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">):</span>
                 <span class="n">unindented</span> <span class="o">=</span> <span class="n">unindented</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
