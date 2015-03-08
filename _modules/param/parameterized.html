@@ -852,8 +852,7 @@
 <span class="c"># Also, do we need an option to return repr without path, if desired?</span>
 <span class="c"># E.g. to get &#39;pre_plot_hooks()&#39; instead of</span>
 <span class="c"># &#39;topo.command.analysis.pre_plot_hooks()&#39; in the gui?</span>
-<div class="viewcode-block" id="script_repr"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.script_repr">[docs]</a><span class="k">def</span> <span class="nf">script_repr</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="n">imports</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">    &quot;</span><span class="p">,</span> <span class="n">settings</span><span class="o">=</span><span class="p">[],</span>
-                <span class="n">unknown_value</span><span class="o">=</span><span class="s">&#39;&lt;?&gt;&#39;</span><span class="p">,</span> <span class="n">qualify</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="script_repr"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.script_repr">[docs]</a><span class="k">def</span> <span class="nf">script_repr</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="n">imports</span><span class="p">,</span><span class="n">prefix</span><span class="p">,</span><span class="n">settings</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Variant of repr() designed for generating a runnable script.</span>
 
@@ -865,6 +864,15 @@
 <span class="sd">    The repr of a parameter can be suppressed by returning None from</span>
 <span class="sd">    the appropriate hook in script_repr_reg.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">pprint</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="n">imports</span><span class="o">=</span><span class="n">imports</span><span class="p">,</span><span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span><span class="n">settings</span><span class="o">=</span><span class="n">settings</span><span class="p">)</span>
+
+
+<span class="c"># CB: when removing script_repr, move its docstring here and improve,</span>
+<span class="c"># maybe merging with original docstring of pprint from </span>
+<span class="c"># https://github.com/ioam/param/commit/10672a25c7eecfc28ce5f5f5d36ff1bbd08ab0f3.</span>
+<span class="c"># And the ALERT by script_repr about defaults can go.</span></div>
+<span class="k">def</span> <span class="nf">pprint</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="n">imports</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">    &quot;</span><span class="p">,</span> <span class="n">settings</span><span class="o">=</span><span class="p">[],</span>
+           <span class="n">unknown_value</span><span class="o">=</span><span class="s">&#39;&lt;?&gt;&#39;</span><span class="p">,</span> <span class="n">qualify</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
     <span class="c"># CB: doc prefix &amp; settings or realize they don&#39;t need to be</span>
     <span class="c"># passed around, etc.</span>
     <span class="c"># JLS: The settings argument is not used anywhere. To be removed</span>
@@ -875,9 +883,13 @@
     <span class="k">elif</span> <span class="nb">type</span><span class="p">(</span><span class="n">val</span><span class="p">)</span> <span class="ow">in</span> <span class="n">script_repr_reg</span><span class="p">:</span>
         <span class="n">rep</span> <span class="o">=</span> <span class="n">script_repr_reg</span><span class="p">[</span><span class="nb">type</span><span class="p">(</span><span class="n">val</span><span class="p">)](</span><span class="n">val</span><span class="p">,</span><span class="n">imports</span><span class="p">,</span><span class="n">prefix</span><span class="p">,</span><span class="n">settings</span><span class="p">)</span>
 
+    <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="s">&#39;pprint&#39;</span><span class="p">):</span>
+        <span class="n">rep</span><span class="o">=</span><span class="n">val</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">imports</span><span class="o">=</span><span class="n">imports</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="o">+</span><span class="s">&quot;    &quot;</span><span class="p">,</span>
+                       <span class="n">qualify</span><span class="o">=</span><span class="n">qualify</span><span class="p">,</span> <span class="n">unknown_value</span><span class="o">=</span><span class="n">unknown_value</span><span class="p">)</span>
+        
+    <span class="c"># CB: to be removed when script_repr is removed</span>
     <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">val</span><span class="p">,</span><span class="s">&#39;script_repr&#39;</span><span class="p">):</span>
-        <span class="n">rep</span><span class="o">=</span><span class="n">val</span><span class="o">.</span><span class="n">script_repr</span><span class="p">(</span><span class="n">imports</span><span class="o">=</span><span class="n">imports</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="o">+</span><span class="s">&quot;    &quot;</span><span class="p">,</span>
-                            <span class="n">qualify</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">unknown_value</span><span class="o">=</span><span class="n">unknown_value</span><span class="p">)</span>
+        <span class="n">rep</span><span class="o">=</span><span class="n">val</span><span class="o">.</span><span class="n">script_repr</span><span class="p">(</span><span class="n">imports</span><span class="p">,</span><span class="n">prefix</span><span class="o">+</span><span class="s">&quot;    &quot;</span><span class="p">)</span>
 
     <span class="k">else</span><span class="p">:</span>
         <span class="n">rep</span><span class="o">=</span><span class="nb">repr</span><span class="p">(</span><span class="n">val</span><span class="p">)</span>
@@ -885,7 +897,7 @@
     <span class="k">return</span> <span class="n">rep</span>
 
 
-<span class="c">#: see script_repr()</span></div>
+<span class="c">#: see script_repr()</span>
 <span class="n">script_repr_reg</span> <span class="o">=</span> <span class="p">{}</span>
 
 
@@ -893,7 +905,7 @@
 <span class="k">def</span> <span class="nf">container_script_repr</span><span class="p">(</span><span class="n">container</span><span class="p">,</span><span class="n">imports</span><span class="p">,</span><span class="n">prefix</span><span class="p">,</span><span class="n">settings</span><span class="p">):</span>
     <span class="n">result</span><span class="o">=</span><span class="p">[]</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">container</span><span class="p">:</span>
-        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">script_repr</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">imports</span><span class="p">,</span><span class="n">prefix</span><span class="p">,</span><span class="n">settings</span><span class="p">))</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pprint</span><span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">imports</span><span class="p">,</span><span class="n">prefix</span><span class="p">,</span><span class="n">settings</span><span class="p">))</span>
 
     <span class="c">## (hack to get container brackets)</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">container</span><span class="p">,</span><span class="nb">list</span><span class="p">):</span>
@@ -1205,17 +1217,14 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&quot;(&quot;</span> <span class="o">+</span> <span class="s">&quot;, &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span> <span class="o">+</span> <span class="s">&quot;)&quot;</span>
 
 
-<div class="viewcode-block" id="Parameterized.pprint"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.pprint">[docs]</a>    <span class="k">def</span> <span class="nf">pprint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        See script_repr().</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">script_repr</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kw</span><span class="p">)</span>
-
-</div>
-<div class="viewcode-block" id="Parameterized.script_repr"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.script_repr">[docs]</a>    <span class="k">def</span> <span class="nf">script_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">imports</span><span class="o">=</span><span class="p">[],</span> <span class="n">prefix</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="n">unknown_value</span><span class="o">=</span><span class="s">&#39;&lt;?&gt;&#39;</span><span class="p">,</span> <span class="n">qualify</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+<div class="viewcode-block" id="Parameterized.script_repr"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.script_repr">[docs]</a>    <span class="k">def</span> <span class="nf">script_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">imports</span><span class="o">=</span><span class="p">[],</span><span class="n">prefix</span><span class="o">=</span><span class="s">&quot;    &quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Variant of __repr__ designed for generating a runnable script.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">imports</span><span class="o">=</span><span class="n">imports</span><span class="p">,</span><span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span><span class="n">qualify</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+</div>
+    <span class="k">def</span> <span class="nf">pprint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">imports</span><span class="o">=</span><span class="p">[],</span> <span class="n">prefix</span><span class="o">=</span><span class="s">&quot; &quot;</span><span class="p">,</span> <span class="n">unknown_value</span><span class="o">=</span><span class="s">&#39;&lt;?&gt;&#39;</span><span class="p">,</span> <span class="n">qualify</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="n">exclude</span><span class="o">=</span><span class="p">[</span><span class="s">&#39;self&#39;</span><span class="p">,</span> <span class="s">&#39;name&#39;</span><span class="p">]</span>
 
         <span class="c"># Generate import statement</span>
@@ -1252,9 +1261,9 @@
                                 <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">&#39;^&#39;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="o">+</span><span class="s">&#39;[0-9]+$&#39;</span><span class="p">,</span> <span class="n">values</span><span class="p">[</span><span class="n">k</span><span class="p">])):</span>
                 <span class="k">continue</span>
 
-            <span class="n">value</span> <span class="o">=</span> <span class="n">script_repr</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">imports</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span><span class="n">settings</span><span class="o">=</span><span class="p">[],</span>
-                                <span class="n">unknown_value</span><span class="o">=</span><span class="n">unknown_value</span><span class="p">,</span>
-                                <span class="n">qualify</span><span class="o">=</span><span class="n">qualify</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">values</span> <span class="k">else</span> <span class="n">unknown_value</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">pprint</span><span class="p">(</span><span class="n">values</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">imports</span><span class="p">,</span> <span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span><span class="n">settings</span><span class="o">=</span><span class="p">[],</span>
+                           <span class="n">unknown_value</span><span class="o">=</span><span class="n">unknown_value</span><span class="p">,</span>
+                           <span class="n">qualify</span><span class="o">=</span><span class="n">qualify</span><span class="p">)</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">values</span> <span class="k">else</span> <span class="n">unknown_value</span>
             <span class="k">if</span> <span class="n">value</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">Exception</span><span class="p">(</span><span class="s">&quot;Argument </span><span class="si">%r</span><span class="s"> is not a parameter &quot;</span>
                                 <span class="s">&quot;and has an unknown value.&quot;</span> <span class="o">%</span> <span class="n">k</span><span class="p">)</span>
@@ -1276,7 +1285,7 @@
         <span class="n">arguments</span> <span class="o">=</span> <span class="n">arglist</span> <span class="o">+</span> <span class="n">keywords</span> <span class="o">+</span> <span class="p">([</span><span class="s">&#39;**</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">spec</span><span class="o">.</span><span class="n">varargs</span><span class="p">]</span> <span class="k">if</span> <span class="n">spec</span><span class="o">.</span><span class="n">varargs</span> <span class="k">else</span> <span class="p">[])</span>
         <span class="k">return</span> <span class="n">qualifier</span> <span class="o">+</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">(</span><span class="si">%s</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span>  <span class="p">(</span><span class="s">&#39;,&#39;</span><span class="o">+</span><span class="n">prefix</span><span class="p">)</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">arguments</span><span class="p">))</span>
 
-</div>
+
     <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;Return a short representation of the name and class of this object.&quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="s">&quot;&lt;</span><span class="si">%s</span><span class="s"> </span><span class="si">%s</span><span class="s">&gt;&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
@@ -1833,15 +1842,18 @@
         <span class="c"># __main__. Pretty obscure aspect of pickle.py, or a bug?</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">_new_parameterized</span><span class="p">,(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="p">,),</span><span class="n">state</span><span class="p">)</span>
 
-<div class="viewcode-block" id="ParameterizedFunction.script_repr"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.ParameterizedFunction.script_repr">[docs]</a>    <span class="k">def</span> <span class="nf">script_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">imports</span><span class="o">=</span><span class="p">[],</span> <span class="n">prefix</span><span class="o">=</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">    &quot;</span><span class="p">,</span> <span class="n">settings</span><span class="o">=</span><span class="p">[],</span>
-                        <span class="n">unknown_value</span><span class="o">=</span><span class="s">&#39;&lt;?&gt;&#39;</span><span class="p">,</span> <span class="n">qualify</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="ParameterizedFunction.script_repr"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.ParameterizedFunction.script_repr">[docs]</a>    <span class="k">def</span> <span class="nf">script_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">imports</span><span class="o">=</span><span class="p">[],</span><span class="n">prefix</span><span class="o">=</span><span class="s">&quot;    &quot;</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Same as Parameterized.script_repr, except that X.classname(Y</span>
 <span class="sd">        is replaced with X.classname.instance(Y</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">r</span> <span class="o">=</span> <span class="n">Parameterized</span><span class="o">.</span><span class="n">script_repr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">imports</span><span class="p">,</span><span class="n">prefix</span><span class="p">,</span>
-                                      <span class="n">unknown_value</span><span class="o">=</span><span class="n">unknown_value</span><span class="p">,</span>
-                                      <span class="n">qualify</span><span class="o">=</span><span class="n">qualify</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">imports</span><span class="o">=</span><span class="n">imports</span><span class="p">,</span><span class="n">prefix</span><span class="o">=</span><span class="n">prefix</span><span class="p">,</span><span class="n">qualify</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</div>
+    <span class="k">def</span> <span class="nf">pprint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">imports</span><span class="o">=</span><span class="p">[],</span> <span class="n">prefix</span><span class="o">=</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">    &quot;</span><span class="p">,</span> <span class="n">settings</span><span class="o">=</span><span class="p">[],</span>
+               <span class="n">unknown_value</span><span class="o">=</span><span class="s">&#39;&lt;?&gt;&#39;</span><span class="p">,</span> <span class="n">qualify</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+        <span class="n">r</span> <span class="o">=</span> <span class="n">Parameterized</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">imports</span><span class="p">,</span><span class="n">prefix</span><span class="p">,</span>
+                                 <span class="n">unknown_value</span><span class="o">=</span><span class="n">unknown_value</span><span class="p">,</span>
+                                 <span class="n">qualify</span><span class="o">=</span><span class="n">qualify</span><span class="p">)</span>
         <span class="n">classname</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span>
         <span class="k">return</span> <span class="n">r</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&quot;.</span><span class="si">%s</span><span class="s">(&quot;</span><span class="o">%</span><span class="n">classname</span><span class="p">,</span><span class="s">&quot;.</span><span class="si">%s</span><span class="s">.instance(&quot;</span><span class="o">%</span><span class="n">classname</span><span class="p">)</span>
 
@@ -1856,7 +1868,7 @@
 <span class="c"># http://docs.python.org/whatsnew/2.6.html</span>
 
 <span class="c"># Renamed &amp; documented version of OProperty from</span>
-<span class="c"># infinitesque.net/articles/2005/enhancing%20Python&#39;s%20property.xhtml</span></div></div>
+<span class="c"># infinitesque.net/articles/2005/enhancing%20Python&#39;s%20property.xhtml</span></div>
 <div class="viewcode-block" id="overridable_property"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.overridable_property">[docs]</a><span class="k">class</span> <span class="nc">overridable_property</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    The same as Python&#39;s &quot;property&quot; attribute, but allows the accessor</span>
