@@ -476,7 +476,7 @@ instantiated.</p>
 
 <dl class="attribute">
 <dt id="param.__init__.Time.force_new_dynamic_value">
-<tt class="descname">force_new_dynamic_value</tt><em class="property"> = &lt;functools.partial object at 0x2b80934914c8&gt;</em><a class="headerlink" href="#param.__init__.Time.force_new_dynamic_value" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">force_new_dynamic_value</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6da8628&gt;</em><a class="headerlink" href="#param.__init__.Time.force_new_dynamic_value" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -490,12 +490,12 @@ equal to the default value.</p>
 
 <dl class="attribute">
 <dt id="param.__init__.Time.get_value_generator">
-<tt class="descname">get_value_generator</tt><em class="property"> = &lt;functools.partial object at 0x2b8093491a48&gt;</em><a class="headerlink" href="#param.__init__.Time.get_value_generator" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">get_value_generator</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6da8ba8&gt;</em><a class="headerlink" href="#param.__init__.Time.get_value_generator" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="param.__init__.Time.inspect_value">
-<tt class="descname">inspect_value</tt><em class="property"> = &lt;functools.partial object at 0x2b8093491db8&gt;</em><a class="headerlink" href="#param.__init__.Time.inspect_value" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">inspect_value</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6da8f18&gt;</em><a class="headerlink" href="#param.__init__.Time.inspect_value" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -519,8 +519,16 @@ superclasses.</p>
 <dd><p>(Experimental) Pretty printed representation that may be
 evaluated with eval. Similar to repr except introspection of the
 constructor (__init__) ensures a valid and succinct representation
-is generated.</p>
-<p>See pprint() function for more details.</p>
+is generated. Note that only values of parameters are included.</p>
+<p>unknown_value determines what to do where a representation cannot be
+generated for something required to recreate the object. Such things
+include non-parameter positional and keyword arguments, and certain
+values of parameters (e.g. some random state objects).</p>
+<p>Supplying an unknown_value of None causes unrepresentable things to be silently
+ignored. If unknown_value is a string, that string will appear in place of
+any unrepresentable things. If unknown_value is False, an Exception will be
+raised if an unrepresentable value is encountered.</p>
+<p>See the pprint() function for more details.</p>
 <p>NOTE: pprint will replace script_repr in a future version of
 param, but is not yet a complete replacement for script_repr.</p>
 </dd></dl>
@@ -552,12 +560,12 @@ param, but is not yet a complete replacement for script_repr.</p>
 
 <dl class="attribute">
 <dt id="param.__init__.Time.set_dynamic_time_fn">
-<tt class="descname">set_dynamic_time_fn</tt><em class="property"> = &lt;functools.partial object at 0x2b80934919f0&gt;</em><a class="headerlink" href="#param.__init__.Time.set_dynamic_time_fn" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">set_dynamic_time_fn</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6da8b50&gt;</em><a class="headerlink" href="#param.__init__.Time.set_dynamic_time_fn" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="param.__init__.Time.set_param">
-<tt class="descname">set_param</tt><em class="property"> = &lt;functools.partial object at 0x2b8093491ba8&gt;</em><a class="headerlink" href="#param.__init__.Time.set_param" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">set_param</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6da8d08&gt;</em><a class="headerlink" href="#param.__init__.Time.set_param" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -672,7 +680,7 @@ instantiated.</p>
 
 <dl class="attribute">
 <dt id="param.__init__.normalize_path.force_new_dynamic_value">
-<tt class="descname">force_new_dynamic_value</tt><em class="property"> = &lt;functools.partial object at 0x2b8093491940&gt;</em><a class="headerlink" href="#param.__init__.normalize_path.force_new_dynamic_value" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">force_new_dynamic_value</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6da8aa0&gt;</em><a class="headerlink" href="#param.__init__.normalize_path.force_new_dynamic_value" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -686,17 +694,17 @@ equal to the default value.</p>
 
 <dl class="attribute">
 <dt id="param.__init__.normalize_path.get_value_generator">
-<tt class="descname">get_value_generator</tt><em class="property"> = &lt;functools.partial object at 0x2b8093491af8&gt;</em><a class="headerlink" href="#param.__init__.normalize_path.get_value_generator" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">get_value_generator</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6da8c58&gt;</em><a class="headerlink" href="#param.__init__.normalize_path.get_value_generator" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="param.__init__.normalize_path.inspect_value">
-<tt class="descname">inspect_value</tt><em class="property"> = &lt;functools.partial object at 0x2b8093491c58&gt;</em><a class="headerlink" href="#param.__init__.normalize_path.inspect_value" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">inspect_value</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6da8db8&gt;</em><a class="headerlink" href="#param.__init__.normalize_path.inspect_value" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="param.__init__.normalize_path.instance">
-<tt class="descname">instance</tt><em class="property"> = &lt;functools.partial object at 0x2b8093491998&gt;</em><a class="headerlink" href="#param.__init__.normalize_path.instance" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">instance</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6da8af8&gt;</em><a class="headerlink" href="#param.__init__.normalize_path.instance" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -716,7 +724,7 @@ superclasses.</p>
 
 <dl class="method">
 <dt id="param.__init__.normalize_path.pprint">
-<tt class="descname">pprint</tt><big>(</big><em>imports=</em>, <span class="optional">[</span><span class="optional">]</span><em>prefix='n    '</em>, <em>settings=</em>, <span class="optional">[</span><span class="optional">]</span><em>unknown_value='&lt;?&gt;'</em>, <em>qualify=True</em><big>)</big><a class="headerlink" href="#param.__init__.normalize_path.pprint" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">pprint</tt><big>(</big><em>imports=</em>, <span class="optional">[</span><span class="optional">]</span><em>prefix='n    '</em>, <em>unknown_value='&lt;?&gt;'</em>, <em>qualify=True</em><big>)</big><a class="headerlink" href="#param.__init__.normalize_path.pprint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Same as Parameterized.pprint, except that X.classname(Y
 is replaced with X.classname.instance(Y</p>
 </dd></dl>
@@ -749,12 +757,12 @@ is replaced with X.classname.instance(Y</p>
 
 <dl class="attribute">
 <dt id="param.__init__.normalize_path.set_dynamic_time_fn">
-<tt class="descname">set_dynamic_time_fn</tt><em class="property"> = &lt;functools.partial object at 0x2b8093491b50&gt;</em><a class="headerlink" href="#param.__init__.normalize_path.set_dynamic_time_fn" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">set_dynamic_time_fn</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6da8cb0&gt;</em><a class="headerlink" href="#param.__init__.normalize_path.set_dynamic_time_fn" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="param.__init__.normalize_path.set_param">
-<tt class="descname">set_param</tt><em class="property"> = &lt;functools.partial object at 0x2b8093491d60&gt;</em><a class="headerlink" href="#param.__init__.normalize_path.set_param" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">set_param</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6da8ec0&gt;</em><a class="headerlink" href="#param.__init__.normalize_path.set_param" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -847,7 +855,7 @@ instantiated.</p>
 
 <dl class="attribute">
 <dt id="param.__init__.resolve_path.force_new_dynamic_value">
-<tt class="descname">force_new_dynamic_value</tt><em class="property"> = &lt;functools.partial object at 0x2b80934919f0&gt;</em><a class="headerlink" href="#param.__init__.resolve_path.force_new_dynamic_value" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">force_new_dynamic_value</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6da8b50&gt;</em><a class="headerlink" href="#param.__init__.resolve_path.force_new_dynamic_value" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -861,17 +869,17 @@ equal to the default value.</p>
 
 <dl class="attribute">
 <dt id="param.__init__.resolve_path.get_value_generator">
-<tt class="descname">get_value_generator</tt><em class="property"> = &lt;functools.partial object at 0x2b8093491a48&gt;</em><a class="headerlink" href="#param.__init__.resolve_path.get_value_generator" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">get_value_generator</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6da8ba8&gt;</em><a class="headerlink" href="#param.__init__.resolve_path.get_value_generator" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="param.__init__.resolve_path.inspect_value">
-<tt class="descname">inspect_value</tt><em class="property"> = &lt;functools.partial object at 0x2b8093491940&gt;</em><a class="headerlink" href="#param.__init__.resolve_path.inspect_value" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">inspect_value</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6da8aa0&gt;</em><a class="headerlink" href="#param.__init__.resolve_path.inspect_value" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="param.__init__.resolve_path.instance">
-<tt class="descname">instance</tt><em class="property"> = &lt;functools.partial object at 0x2b8093491890&gt;</em><a class="headerlink" href="#param.__init__.resolve_path.instance" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">instance</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6da89f0&gt;</em><a class="headerlink" href="#param.__init__.resolve_path.instance" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -891,7 +899,7 @@ superclasses.</p>
 
 <dl class="method">
 <dt id="param.__init__.resolve_path.pprint">
-<tt class="descname">pprint</tt><big>(</big><em>imports=</em>, <span class="optional">[</span><span class="optional">]</span><em>prefix='n    '</em>, <em>settings=</em>, <span class="optional">[</span><span class="optional">]</span><em>unknown_value='&lt;?&gt;'</em>, <em>qualify=True</em><big>)</big><a class="headerlink" href="#param.__init__.resolve_path.pprint" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">pprint</tt><big>(</big><em>imports=</em>, <span class="optional">[</span><span class="optional">]</span><em>prefix='n    '</em>, <em>unknown_value='&lt;?&gt;'</em>, <em>qualify=True</em><big>)</big><a class="headerlink" href="#param.__init__.resolve_path.pprint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Same as Parameterized.pprint, except that X.classname(Y
 is replaced with X.classname.instance(Y</p>
 </dd></dl>
@@ -924,12 +932,12 @@ is replaced with X.classname.instance(Y</p>
 
 <dl class="attribute">
 <dt id="param.__init__.resolve_path.set_dynamic_time_fn">
-<tt class="descname">set_dynamic_time_fn</tt><em class="property"> = &lt;functools.partial object at 0x2b8093491838&gt;</em><a class="headerlink" href="#param.__init__.resolve_path.set_dynamic_time_fn" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">set_dynamic_time_fn</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6da8998&gt;</em><a class="headerlink" href="#param.__init__.resolve_path.set_dynamic_time_fn" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="param.__init__.resolve_path.set_param">
-<tt class="descname">set_param</tt><em class="property"> = &lt;functools.partial object at 0x2b8093491788&gt;</em><a class="headerlink" href="#param.__init__.resolve_path.set_param" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">set_param</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6da88e8&gt;</em><a class="headerlink" href="#param.__init__.resolve_path.set_param" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1289,7 +1297,7 @@ instantiated.</p>
 
 <dl class="attribute">
 <dt id="param.parameterized.Parameterized.force_new_dynamic_value">
-<tt class="descname">force_new_dynamic_value</tt><em class="property"> = &lt;functools.partial object at 0x2b80932b5aa0&gt;</em><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.force_new_dynamic_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.force_new_dynamic_value" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">force_new_dynamic_value</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6b82cb0&gt;</em><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.force_new_dynamic_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.force_new_dynamic_value" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1303,12 +1311,12 @@ equal to the default value.</p>
 
 <dl class="attribute">
 <dt id="param.parameterized.Parameterized.get_value_generator">
-<tt class="descname">get_value_generator</tt><em class="property"> = &lt;functools.partial object at 0x2b80932b5a48&gt;</em><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.get_value_generator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.get_value_generator" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">get_value_generator</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6b82c58&gt;</em><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.get_value_generator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.get_value_generator" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="param.parameterized.Parameterized.inspect_value">
-<tt class="descname">inspect_value</tt><em class="property"> = &lt;functools.partial object at 0x2b80932b5af8&gt;</em><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.inspect_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.inspect_value" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">inspect_value</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6b82d08&gt;</em><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.inspect_value"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.inspect_value" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1332,8 +1340,16 @@ superclasses.</p>
 <dd><p>(Experimental) Pretty printed representation that may be
 evaluated with eval. Similar to repr except introspection of the
 constructor (__init__) ensures a valid and succinct representation
-is generated.</p>
-<p>See pprint() function for more details.</p>
+is generated. Note that only values of parameters are included.</p>
+<p>unknown_value determines what to do where a representation cannot be
+generated for something required to recreate the object. Such things
+include non-parameter positional and keyword arguments, and certain
+values of parameters (e.g. some random state objects).</p>
+<p>Supplying an unknown_value of None causes unrepresentable things to be silently
+ignored. If unknown_value is a string, that string will appear in place of
+any unrepresentable things. If unknown_value is False, an Exception will be
+raised if an unrepresentable value is encountered.</p>
+<p>See the pprint() function for more details.</p>
 <p>NOTE: pprint will replace script_repr in a future version of
 param, but is not yet a complete replacement for script_repr.</p>
 </dd></dl>
@@ -1365,12 +1381,12 @@ param, but is not yet a complete replacement for script_repr.</p>
 
 <dl class="attribute">
 <dt id="param.parameterized.Parameterized.set_dynamic_time_fn">
-<tt class="descname">set_dynamic_time_fn</tt><em class="property"> = &lt;functools.partial object at 0x2b80932b5ba8&gt;</em><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.set_dynamic_time_fn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.set_dynamic_time_fn" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">set_dynamic_time_fn</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6b82db8&gt;</em><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.set_dynamic_time_fn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.set_dynamic_time_fn" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="param.parameterized.Parameterized.set_param">
-<tt class="descname">set_param</tt><em class="property"> = &lt;functools.partial object at 0x2b80932b5c00&gt;</em><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.set_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.set_param" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">set_param</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6b82e10&gt;</em><a class="reference internal" href="../_modules/param/parameterized.html#Parameterized.set_param"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.Parameterized.set_param" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1440,7 +1456,7 @@ instantiated.</p>
 
 <dl class="attribute">
 <dt id="param.parameterized.ParameterizedFunction.force_new_dynamic_value">
-<tt class="descname">force_new_dynamic_value</tt><em class="property"> = &lt;functools.partial object at 0x2b80932b5aa0&gt;</em><a class="headerlink" href="#param.parameterized.ParameterizedFunction.force_new_dynamic_value" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">force_new_dynamic_value</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6b82cb0&gt;</em><a class="headerlink" href="#param.parameterized.ParameterizedFunction.force_new_dynamic_value" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1454,17 +1470,17 @@ equal to the default value.</p>
 
 <dl class="attribute">
 <dt id="param.parameterized.ParameterizedFunction.get_value_generator">
-<tt class="descname">get_value_generator</tt><em class="property"> = &lt;functools.partial object at 0x2b80932b5c58&gt;</em><a class="headerlink" href="#param.parameterized.ParameterizedFunction.get_value_generator" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">get_value_generator</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6b82e68&gt;</em><a class="headerlink" href="#param.parameterized.ParameterizedFunction.get_value_generator" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="param.parameterized.ParameterizedFunction.inspect_value">
-<tt class="descname">inspect_value</tt><em class="property"> = &lt;functools.partial object at 0x2b80932b5d08&gt;</em><a class="headerlink" href="#param.parameterized.ParameterizedFunction.inspect_value" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">inspect_value</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b6b82f18&gt;</em><a class="headerlink" href="#param.parameterized.ParameterizedFunction.inspect_value" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="param.parameterized.ParameterizedFunction.instance">
-<tt class="descname">instance</tt><em class="property"> = &lt;functools.partial object at 0x2b80932b5db8&gt;</em><a class="reference internal" href="../_modules/param/parameterized.html#ParameterizedFunction.instance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.ParameterizedFunction.instance" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">instance</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b7391050&gt;</em><a class="reference internal" href="../_modules/param/parameterized.html#ParameterizedFunction.instance"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.ParameterizedFunction.instance" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1484,7 +1500,7 @@ superclasses.</p>
 
 <dl class="method">
 <dt id="param.parameterized.ParameterizedFunction.pprint">
-<tt class="descname">pprint</tt><big>(</big><em>imports=</em>, <span class="optional">[</span><span class="optional">]</span><em>prefix='n    '</em>, <em>settings=</em>, <span class="optional">[</span><span class="optional">]</span><em>unknown_value='&lt;?&gt;'</em>, <em>qualify=True</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#ParameterizedFunction.pprint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.ParameterizedFunction.pprint" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">pprint</tt><big>(</big><em>imports=</em>, <span class="optional">[</span><span class="optional">]</span><em>prefix='n    '</em>, <em>unknown_value='&lt;?&gt;'</em>, <em>qualify=True</em><big>)</big><a class="reference internal" href="../_modules/param/parameterized.html#ParameterizedFunction.pprint"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#param.parameterized.ParameterizedFunction.pprint" title="Permalink to this definition">¶</a></dt>
 <dd><p>Same as Parameterized.pprint, except that X.classname(Y
 is replaced with X.classname.instance(Y</p>
 </dd></dl>
@@ -1517,12 +1533,12 @@ is replaced with X.classname.instance(Y</p>
 
 <dl class="attribute">
 <dt id="param.parameterized.ParameterizedFunction.set_dynamic_time_fn">
-<tt class="descname">set_dynamic_time_fn</tt><em class="property"> = &lt;functools.partial object at 0x2b8093abf1b0&gt;</em><a class="headerlink" href="#param.parameterized.ParameterizedFunction.set_dynamic_time_fn" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">set_dynamic_time_fn</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b73913c0&gt;</em><a class="headerlink" href="#param.parameterized.ParameterizedFunction.set_dynamic_time_fn" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="attribute">
 <dt id="param.parameterized.ParameterizedFunction.set_param">
-<tt class="descname">set_param</tt><em class="property"> = &lt;functools.partial object at 0x2b8093abf208&gt;</em><a class="headerlink" href="#param.parameterized.ParameterizedFunction.set_param" title="Permalink to this definition">¶</a></dt>
+<tt class="descname">set_param</tt><em class="property"> = &lt;functools.partial object at 0x2ae5b7391418&gt;</em><a class="headerlink" href="#param.parameterized.ParameterizedFunction.set_param" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="method">
@@ -1744,7 +1760,7 @@ the appropriate hook in script_repr_reg.</p>
 
 <dl class="data">
 <dt id="param.parameterized.script_repr_reg">
-<tt class="descclassname">param.parameterized.</tt><tt class="descname">script_repr_reg</tt><em class="property"> = {&lt;type 'mtrand.RandomState'&gt;: &lt;function empty_script_repr at 0x2b808d502578&gt;, &lt;type 'tuple'&gt;: &lt;function container_script_repr at 0x2b808d502488&gt;, &lt;type 'function'&gt;: &lt;function function_script_repr at 0x2b8090d0c6e0&gt;, &lt;type 'list'&gt;: &lt;function container_script_repr at 0x2b808d502488&gt;, &lt;class 'random.Random'&gt;: &lt;function empty_script_repr at 0x2b808d502578&gt;}</em><a class="headerlink" href="#param.parameterized.script_repr_reg" title="Permalink to this definition">¶</a></dt>
+<tt class="descclassname">param.parameterized.</tt><tt class="descname">script_repr_reg</tt><em class="property"> = {&lt;type 'mtrand.RandomState'&gt;: &lt;function empty_script_repr at 0x2ae5b0e23410&gt;, &lt;type 'tuple'&gt;: &lt;function container_script_repr at 0x2ae5b0e23398&gt;, &lt;type 'function'&gt;: &lt;function function_script_repr at 0x2ae5b4627578&gt;, &lt;type 'list'&gt;: &lt;function container_script_repr at 0x2ae5b0e23398&gt;, &lt;class 'random.Random'&gt;: &lt;function empty_script_repr at 0x2ae5b0e23410&gt;}</em><a class="headerlink" href="#param.parameterized.script_repr_reg" title="Permalink to this definition">¶</a></dt>
 <dd><p>see script_repr()</p>
 </dd></dl>
 
