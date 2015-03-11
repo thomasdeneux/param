@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Param &mdash; Param 1.3.0-dev documentation</title>
+    <title>Param &mdash; Param 1.3.1-dev documentation</title>
     
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.3.0-dev',
+        VERSION:     '1.3.1-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -26,7 +26,7 @@
     <script type="text/javascript" src="_static/doctools.js"></script>
     <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/custom.js"></script>
-    <link rel="top" title="Param 1.3.0-dev documentation" href="#" /> 
+    <link rel="top" title="Param 1.3.1-dev documentation" href="#" /> 
   </head>
   <body>
     <div class="related">
@@ -181,8 +181,8 @@ Windows users can alternatively download and run an installer (exe).</p>
 <h2>Release Notes<a class="headerlink" href="#release-notes" title="Permalink to this headline">¶</a></h2>
 <p>Notable additions, or changes that may require users to alter code,
 are listed below.</p>
-<div class="section" id="unreleased">
-<h3>1.3.1 (unreleased)<a class="headerlink" href="#unreleased" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id1">
+<h3>1.3.1 (2015/03)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Minor bugfix release to restore pre-1.3.0 script_repr behavior
 (accidentally changed in 1.3.0) and to fix issues with logging.</li>
@@ -193,12 +193,14 @@ no longer call functions that are passed as arguments (instead,
 Python&#8217;s logging module does lazy string merges), and (b) no longer
 automatically combine strings passed as arguments (instead, Python&#8217;s
 logging module supports string formatting).</li>
+<li>Improved set_param() method, now allowing multiple parameters to be
+set easily via keyword arguments (as on initialization).</li>
 </ul>
 <p>A full list of changes since the previous release is available
-<a class="reference external" href="https://github.com/ioam/param/compare/v1.3.0...master">on GitHub</a>.</p>
+<a class="reference external" href="https://github.com/ioam/param/compare/v1.3.0...v1.3.1">on GitHub</a>.</p>
 </div>
-<div class="section" id="id1">
-<h3>1.3.0 (2015/03)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id2">
+<h3>1.3.0 (2015/03)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Added &#8216;allow_None&#8217; support to all Parameters. Any subclass of
 Parameter that checks types and/or values should be modified to add
@@ -214,8 +216,8 @@ be removed in a future release.</li>
 <p>A full list of changes since the previous release is available
 <a class="reference external" href="https://github.com/ioam/param/compare/v1.2.1...v1.3.0">on GitHub</a>.</p>
 </div>
-<div class="section" id="id3">
-<h3>1.2.1 (2014/06)<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>1.2.1 (2014/06)<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Minor bugfix release to fix issues with version when param is
 installed in a foreign git repository</li>
@@ -225,8 +227,8 @@ installed in a foreign git repository</li>
 <p>A full list of changes since the previous release is available
 <a class="reference external" href="https://github.com/ioam/param/compare/v1.2.0...v1.2.1">on GitHub</a>.</p>
 </div>
-<div class="section" id="id5">
-<h3>1.2.0 (2014/06)<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3>1.2.0 (2014/06)<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Added support for Python 3 (thanks to Marco Elver).</li>
 <li>Dropped support for Python 2.5.</li>
@@ -236,8 +238,8 @@ installed in a foreign git repository</li>
 <p>A full list of changes since the previous release is available
 <a class="reference external" href="https://github.com/ioam/param/compare/v1.1.0...v1.2.0">on GitHub</a>.</p>
 </div>
-<div class="section" id="id7">
-<h3>1.1.0 (2014/05)<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3>1.1.0 (2014/05)<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Switched to Python&#8217;s own logging module.</li>
 <li>Improved support for time when using Dynamic parameters.</li>
@@ -246,8 +248,8 @@ installed in a foreign git repository</li>
 <p>A full list of changes since the previous release is available
 <a class="reference external" href="https://github.com/ioam/param/compare/v1.0.0...v1.1.0">on GitHub</a>.</p>
 </div>
-<div class="section" id="id9">
-<h3>1.0.0 (2012/07)<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id10">
+<h3>1.0.0 (2012/07)<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>First standalone release. Param was originally developed as part of
 <a class="reference external" href="http://ioam.github.io/topographica/">Topographica</a>, and has been
@@ -287,12 +289,12 @@ in heavy usage as part of that project since 2005.</li>
 </li>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 <li><a class="reference internal" href="#release-notes">Release Notes</a><ul>
-<li><a class="reference internal" href="#unreleased">1.3.1 (unreleased)</a></li>
-<li><a class="reference internal" href="#id1">1.3.0 (2015/03)</a></li>
-<li><a class="reference internal" href="#id3">1.2.1 (2014/06)</a></li>
-<li><a class="reference internal" href="#id5">1.2.0 (2014/06)</a></li>
-<li><a class="reference internal" href="#id7">1.1.0 (2014/05)</a></li>
-<li><a class="reference internal" href="#id9">1.0.0 (2012/07)</a></li>
+<li><a class="reference internal" href="#id1">1.3.1 (2015/03)</a></li>
+<li><a class="reference internal" href="#id2">1.3.0 (2015/03)</a></li>
+<li><a class="reference internal" href="#id4">1.2.1 (2014/06)</a></li>
+<li><a class="reference internal" href="#id6">1.2.0 (2014/06)</a></li>
+<li><a class="reference internal" href="#id8">1.1.0 (2014/05)</a></li>
+<li><a class="reference internal" href="#id10">1.0.0 (2012/07)</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#support">Support</a></li>
