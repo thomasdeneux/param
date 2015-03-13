@@ -1359,7 +1359,7 @@
     <span class="c"># level is high enough, but not all callers of message(),</span>
     <span class="c"># verbose(), debug(), etc are taking advantage of this. Need to</span>
     <span class="c"># document, and also check other ioam projects.</span>
-    <span class="k">def</span> <span class="nf">__db_print</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">level</span><span class="p">,</span><span class="n">msg</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__db_print</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">level</span><span class="p">,</span><span class="n">msg</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calls the logger returned by the get_logger() function,</span>
 <span class="sd">        prepending the result of calling dbprint_prefix() (if any).</span>
@@ -1373,13 +1373,15 @@
             <span class="k">else</span><span class="p">:</span>
                 <span class="n">prefix</span><span class="o">=</span><span class="s">&quot;&quot;</span>
 
-            <span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="s">&#39;</span><span class="si">%s%s</span><span class="s">: &#39;</span><span class="o">+</span><span class="n">msg</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">)</span>
+            <span class="n">get_logger</span><span class="p">()</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">level</span><span class="p">,</span> <span class="s">&#39;</span><span class="si">%s%s</span><span class="s">: &#39;</span><span class="o">+</span><span class="n">msg</span><span class="p">,</span> <span class="n">prefix</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Parameterized.warning"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.warning">[docs]</a>    <span class="k">def</span> <span class="nf">warning</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">msg</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Print the arguments as a warning, unless module variable</span>
+<span class="sd">        Print msg merged with args as a warning, unless module variable</span>
 <span class="sd">        warnings_as_exceptions is True, then raise an Exception</span>
 <span class="sd">        containing the arguments.</span>
+
+<span class="sd">        See Python&#39;s logging module for details of message formatting.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">warnings_as_exceptions</span><span class="p">:</span>
             <span class="k">global</span> <span class="n">warning_count</span>
@@ -1390,15 +1392,27 @@
 
 </div>
 <div class="viewcode-block" id="Parameterized.message"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.message">[docs]</a>    <span class="k">def</span> <span class="nf">message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">msg</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Print the arguments as a message.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;        </span>
+<span class="sd">        Print msg merged with args as a message.</span>
+
+<span class="sd">        See Python&#39;s logging module for details of message formatting.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__db_print</span><span class="p">(</span><span class="n">INFO</span><span class="p">,</span><span class="n">msg</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kw</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Parameterized.verbose"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.verbose">[docs]</a>    <span class="k">def</span> <span class="nf">verbose</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">msg</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Print the arguments as a verbose message.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;        </span>
+<span class="sd">        Print msg merged with args as a verbose message.</span>
+
+<span class="sd">        See Python&#39;s logging module for details of message formatting.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">__db_print</span><span class="p">(</span><span class="n">VERBOSE</span><span class="p">,</span><span class="n">msg</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kw</span><span class="p">)</span>
 </div>
 <div class="viewcode-block" id="Parameterized.debug"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.Parameterized.debug">[docs]</a>    <span class="k">def</span> <span class="nf">debug</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">msg</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-        <span class="sd">&quot;&quot;&quot;Print the arguments as a debugging statement.&quot;&quot;&quot;</span>
+        <span class="sd">&quot;&quot;&quot;        </span>
+<span class="sd">        Print msg merged with args as a debugging statement.</span>
+
+<span class="sd">        See Python&#39;s logging module for details of message formatting.</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
         <span class="bp">self</span><span class="o">.</span><span class="n">__db_print</span><span class="p">(</span><span class="n">DEBUG</span><span class="p">,</span><span class="n">msg</span><span class="p">,</span><span class="o">*</span><span class="n">args</span><span class="p">,</span><span class="o">**</span><span class="n">kw</span><span class="p">)</span>
 
     <span class="c"># CEBALERT: this is a bit ugly</span></div>
