@@ -82,6 +82,7 @@
 
 <span class="n">__author__</span> <span class="o">=</span> <span class="s">&quot;Jean-Luc Stevens&quot;</span>
 
+<span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">textwrap</span>
 <span class="kn">import</span> <span class="nn">param</span>
 
@@ -114,7 +115,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">metaclass</span> <span class="o">=</span> <span class="n">metaclass</span>
 
 
-    <span class="k">def</span> <span class="nf">_get_param_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">include_super</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
+<div class="viewcode-block" id="ParamPager.get_param_info"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.ipython.ParamPager.get_param_info">[docs]</a>    <span class="k">def</span> <span class="nf">get_param_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">include_super</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get the parameter dictionary, the list of modifed parameters</span>
 <span class="sd">        and the dictionary or parameter values. If include_super is</span>
@@ -138,8 +139,8 @@
         <span class="n">params</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s">&#39;name&#39;</span><span class="p">)</span> <span class="c"># Already displayed in the title.</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">val_dict</span><span class="p">,</span> <span class="n">changed</span><span class="p">)</span>
 
-
-    <span class="k">def</span> <span class="nf">_param_docstrings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">max_col_len</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">only_changed</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+</div>
+<div class="viewcode-block" id="ParamPager.param_docstrings"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.ipython.ParamPager.param_docstrings">[docs]</a>    <span class="k">def</span> <span class="nf">param_docstrings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">max_col_len</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">only_changed</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Build a string to that presents all of the parameter</span>
 <span class="sd">        docstrings in a clean format (alternating red and blue for</span>
@@ -185,7 +186,7 @@
 
         <span class="k">return</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">contents</span><span class="p">)</span>
 
-
+</div>
     <span class="k">def</span> <span class="nf">_build_table</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">info</span><span class="p">,</span> <span class="n">order</span><span class="p">,</span> <span class="n">max_col_len</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span> <span class="n">only_changed</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Collect the information about parameters needed to build a</span>
@@ -296,7 +297,7 @@
 <span class="sd">        Given a Parameterized object or class, display information</span>
 <span class="sd">        about the parameters in the IPython pager.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-
+        <span class="n">title</span> <span class="o">=</span> <span class="bp">None</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">metaclass</span><span class="p">:</span>
             <span class="n">parameterized_object</span> <span class="o">=</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">param_obj</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">)</span>
             <span class="n">parameterized_class</span> <span class="o">=</span> <span class="p">(</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">param_obj</span><span class="p">,</span><span class="nb">type</span><span class="p">)</span>
@@ -306,11 +307,20 @@
                 <span class="k">print</span><span class="p">(</span><span class="s">&quot;Object is not a Parameterized class or object.&quot;</span><span class="p">)</span>
                 <span class="k">return</span>
 
-        <span class="n">title</span> <span class="o">=</span> <span class="s">&#39;Parameters of </span><span class="si">%r</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">param_obj</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">if</span> <span class="n">parameterized_object</span><span class="p">:</span>
+                <span class="c"># Only show the name if not autogenerated</span>
+                <span class="n">class_name</span> <span class="o">=</span> <span class="n">param_obj</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span>
+                <span class="n">default_name</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">match</span><span class="p">(</span><span class="s">&#39;^&#39;</span><span class="o">+</span><span class="n">class_name</span><span class="o">+</span><span class="s">&#39;[0-9]+$&#39;</span><span class="p">,</span> <span class="n">param_obj</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="n">obj_name</span> <span class="o">=</span> <span class="s">&#39;&#39;</span> <span class="k">if</span> <span class="n">default_name</span> <span class="k">else</span> <span class="p">(</span><span class="s">&#39; </span><span class="si">%r</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">param_obj</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+                <span class="n">title</span> <span class="o">=</span> <span class="s">&#39;Parameters of </span><span class="si">%r</span><span class="s"> instance</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">class_name</span><span class="p">,</span> <span class="n">obj_name</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">title</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>
+            <span class="n">title</span> <span class="o">=</span> <span class="s">&#39;Parameters of </span><span class="si">%r</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">param_obj</span><span class="o">.</span><span class="n">name</span>
+
         <span class="n">heading_line</span> <span class="o">=</span> <span class="s">&#39;=&#39;</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">title</span><span class="p">)</span>
         <span class="n">heading_text</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="se">\n</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">title</span><span class="p">,</span> <span class="n">heading_line</span><span class="p">)</span>
 
-        <span class="n">param_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_param_info</span><span class="p">(</span><span class="n">param_obj</span><span class="p">,</span> <span class="n">include_super</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">param_info</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_param_info</span><span class="p">(</span><span class="n">param_obj</span><span class="p">,</span> <span class="n">include_super</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="ow">not</span> <span class="n">param_info</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
             <span class="k">return</span> <span class="s">&quot;</span><span class="si">%s</span><span class="se">\n</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">((</span><span class="n">green</span> <span class="o">%</span> <span class="n">heading_text</span><span class="p">),</span> <span class="s">&quot;Object has no parameters.&quot;</span><span class="p">)</span>
@@ -318,7 +328,7 @@
         <span class="n">table</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_build_table</span><span class="p">(</span><span class="n">param_info</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">order</span><span class="p">,</span> <span class="n">max_col_len</span><span class="o">=</span><span class="mi">40</span><span class="p">,</span>
                                   <span class="n">only_changed</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
-        <span class="n">docstrings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_param_docstrings</span><span class="p">(</span><span class="n">param_info</span><span class="p">,</span> <span class="n">max_col_len</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">only_changed</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+        <span class="n">docstrings</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">param_docstrings</span><span class="p">(</span><span class="n">param_info</span><span class="p">,</span> <span class="n">max_col_len</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">only_changed</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
 
         <span class="n">dflt_msg</span> <span class="o">=</span> <span class="s">&quot;Parameters changed from their default values are marked in red.&quot;</span>
         <span class="n">top_heading</span> <span class="o">=</span> <span class="p">(</span><span class="n">green</span> <span class="o">%</span> <span class="n">heading_text</span><span class="p">)</span>
