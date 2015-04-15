@@ -69,6 +69,8 @@
 <span class="kn">import</span> <span class="nn">copy</span>
 <span class="kn">import</span> <span class="nn">re</span>
 <span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">inspect</span>
+<span class="kn">import</span> <span class="nn">random</span>
 
 <span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">itemgetter</span><span class="p">,</span><span class="n">attrgetter</span>
 <span class="kn">from</span> <span class="nn">types</span> <span class="kn">import</span> <span class="n">FunctionType</span>
@@ -132,9 +134,7 @@
     <span class="k">finally</span><span class="p">:</span>
         <span class="n">param_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging_level</span><span class="p">)</span>
 
-
 </div>
-<span class="kn">import</span> <span class="nn">inspect</span>
 <div class="viewcode-block" id="classlist"><a class="viewcode-back" href="../../Reference_Manual/param.html#param.parameterized.classlist">[docs]</a><span class="k">def</span> <span class="nf">classlist</span><span class="p">(</span><span class="n">class_</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Return a list of the class hierarchy above (and including) the given class.</span>
@@ -971,10 +971,8 @@
 
 <span class="k">try</span><span class="p">:</span>
     <span class="c"># Suppress scriptrepr for objects not yet having a useful string representation</span>
-    <span class="kn">import</span> <span class="nn">random</span>
-    <span class="n">script_repr_reg</span><span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">Random</span><span class="p">]</span> <span class="o">=</span> <span class="n">empty_script_repr</span>
-
     <span class="kn">import</span> <span class="nn">numpy</span>
+    <span class="n">script_repr_reg</span><span class="p">[</span><span class="n">random</span><span class="o">.</span><span class="n">Random</span><span class="p">]</span> <span class="o">=</span> <span class="n">empty_script_repr</span>
     <span class="n">script_repr_reg</span><span class="p">[</span><span class="n">numpy</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">]</span> <span class="o">=</span> <span class="n">empty_script_repr</span>
 
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
