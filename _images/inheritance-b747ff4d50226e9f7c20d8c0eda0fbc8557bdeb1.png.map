@@ -1,0 +1,33 @@
+<map id="inheritance6ce4706456" name="inheritance6ce4706456">
+<area shape="rect" id="node1" href="#param.__init__.Action" target="_top" title="A user&#45;provided function that can be invoked like a class or object method using ()." alt="" coords="560,107,689,127"/>
+<area shape="rect" id="node2" href="#param.__init__.Callable" target="_top" title="Parameter holding a value that is a callable object, such as a function." alt="" coords="304,107,441,127"/>
+<area shape="rect" id="node3" href="#param.__init__.Array" target="_top" title="Parameter whose value is a numpy array." alt="" coords="777,107,901,127"/>
+<area shape="rect" id="node4" href="#param.__init__.ClassSelector" target="_top" title="Parameter whose value is a specified class or an instance of that class." alt="" coords="541,148,708,168"/>
+<area shape="rect" id="node9" href="#param.__init__.Dict" target="_top" title="Parameter whose value is a dictionary." alt="" coords="781,148,897,168"/>
+<area shape="rect" id="node5" href="#param.__init__.Boolean" target="_top" title="Binary or tristate Boolean Parameter." alt="" coords="303,148,442,168"/>
+<area shape="rect" id="node6" href="#param.parameterized.Parameter" target="_top" title="An attribute descriptor for declaring parameters." alt="" coords="15,250,198,271"/>
+<area shape="rect" id="node7" href="#param.__init__.Selector" target="_top" title="Parameter whose value must be chosen from a list of possibilities." alt="" coords="303,189,442,209"/>
+<area shape="rect" id="node8" href="#param.__init__.Composite" target="_top" title="A Parameter that is a composite of a set of other attributes of the class." alt="" coords="297,230,448,250"/>
+<area shape="rect" id="node10" href="#param.__init__.Dynamic" target="_top" title="Parameter whose value can be generated dynamically by a callable" alt="" coords="302,271,443,291"/>
+<area shape="rect" id="node14" href="#param.__init__.Path" target="_top" title="Parameter that can be set to a string specifying the path of a file or folder." alt="" coords="313,312,433,332"/>
+<area shape="rect" id="node17" href="#param.__init__.List" target="_top" title="Parameter whose value is a list of objects, usually of a specified type." alt="" coords="315,363,430,383"/>
+<area shape="rect" id="node25" href="#param.__init__.Tuple" target="_top" title="A tuple Parameter (e.g. (&#39;a&#39;,7.6,[3,5])) with a fixed tuple length." alt="" coords="310,424,435,445"/>
+<area shape="rect" id="node12" href="#param.__init__.ObjectSelector" target="_top" title="Parameter whose value must be one object from a list of possible objects." alt="" coords="539,189,710,209"/>
+<area shape="rect" id="node20" href="#param.__init__.Number" target="_top" title="A numeric Dynamic Parameter, with a default value and optional bounds." alt="" coords="556,271,693,291"/>
+<area shape="rect" id="node11" href="#param.__init__.FileSelector" target="_top" title="Given a path glob, allows one file to be selected from those matching." alt="" coords="761,189,918,209"/>
+<area shape="rect" id="node21" href="#param.__init__.ListSelector" target="_top" title="Variant of ObjectSelector where the value can be multiple objects from" alt="" coords="761,230,917,250"/>
+<area shape="rect" id="node13" href="#param.__init__.Filename" target="_top" title="Parameter that can be set to a string specifying the path of a file." alt="" coords="553,312,696,332"/>
+<area shape="rect" id="node15" href="#param.__init__.Foldername" target="_top" title="Parameter that can be set to a string specifying the path of a folder." alt="" coords="546,353,703,373"/>
+<area shape="rect" id="node16" href="#param.__init__.HookList" target="_top" title="Parameter whose value is a list of callable objects." alt="" coords="554,394,695,414"/>
+<area shape="rect" id="node18" href="#param.__init__.Infinity" target="_top" title="An instance of this class represents an infinite value. Unlike" alt="" coords="42,138,171,158"/>
+<area shape="rect" id="node19" href="#param.__init__.Integer" target="_top" title="Numeric Parameter required to be an Integer" alt="" coords="773,271,905,291"/>
+<area shape="rect" id="node22" href="#param.__init__.Magnitude" target="_top" title="Numeric Parameter required to be in the range [0.0&#45;1.0]." alt="" coords="764,312,914,332"/>
+<area shape="rect" id="node23" href="#param.__init__.MultiFileSelector" target="_top" title="Given a path glob, allows multiple files to be selected from the list of matches." alt="" coords="967,230,1147,250"/>
+<area shape="rect" id="node24" href="#param.__init__.NumericTuple" target="_top" title="A numeric tuple Parameter (e.g. (4.5,7.6,3)) with a fixed tuple length." alt="" coords="541,435,708,455"/>
+<area shape="rect" id="node28" href="#param.__init__.XYCoordinates" target="_top" title="A NumericTuple for an X,Y coordinate." alt="" coords="753,435,926,455"/>
+<area shape="rect" id="node26" href="#param.__init__.Time" target="_top" title="params(label=String, time_type=Parameter, timestep=Parameter, unit=String, until=Parameter, name=String)" alt="" coords="312,5,433,25"/>
+<area shape="rect" id="node27" href="#param.parameterized.Parameterized" target="_top" title="params(name=String)" alt="" coords="5,25,208,46"/>
+<area shape="rect" id="node30" href="#param.parameterized.ParameterizedFunction" target="_top" title="params(name=String)" alt="" coords="249,46,496,66"/>
+<area shape="rect" id="node29" href="#param.__init__.normalize_path" target="_top" title="params(prefix=String, name=String)" alt="" coords="537,25,712,46"/>
+<area shape="rect" id="node31" href="#param.__init__.resolve_path" target="_top" title="params(path_to_file=Boolean, search_paths=List, name=String)" alt="" coords="543,66,705,86"/>
+</map>

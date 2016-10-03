@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>Param &mdash; Param 1.3.1-dev documentation</title>
+    <title>Param &#8212; Param 1.4.1-dev documentation</title>
     
     <link rel="stylesheet" href="_static/nature.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
@@ -15,7 +15,7 @@
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    './',
-        VERSION:     '1.3.1-dev',
+        VERSION:     '1.4.1-dev',
         COLLAPSE_INDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -24,12 +24,12 @@
     <script type="text/javascript" src="_static/jquery.js"></script>
     <script type="text/javascript" src="_static/underscore.js"></script>
     <script type="text/javascript" src="_static/doctools.js"></script>
-    <script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     <script type="text/javascript" src="_static/custom.js"></script>
-    <link rel="top" title="Param 1.3.1-dev documentation" href="#" /> 
+    <link rel="top" title="Param 1.4.1-dev documentation" href="#" /> 
   </head>
-  <body>
-    <div class="related">
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -52,7 +52,7 @@
     <div class="document">
       <div class="documentwrapper">
         <div class="bodywrapper">
-          <div class="body">
+          <div class="body" role="main">
             
   <div class="section" id="param">
 <h1>Param<a class="headerlink" href="#param" title="Permalink to this headline">¶</a></h1>
@@ -73,35 +73,35 @@ easily see how to use it properly.</p>
 <div class="section" id="what-is-a-parameter">
 <h2>What is a Parameter?<a class="headerlink" href="#what-is-a-parameter" title="Permalink to this headline">¶</a></h2>
 <p>A Parameter is a special type of Python attribute extended to have features such as type and range checking, dynamically generated values, documentation strings, default values, etc., each of which is inherited from parent classes if not specified in a subclass.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">param</span><span class="o">,</span><span class="nn">random</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">param</span><span class="o">,</span><span class="nn">random</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
-<span class="gp">... </span>   <span class="n">a</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">doc</span><span class="o">=</span><span class="s">&quot;Probability that...&quot;</span><span class="p">)</span>
-<span class="gp">... </span>   <span class="n">b</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="bp">False</span><span class="p">,</span><span class="n">doc</span><span class="o">=</span><span class="s">&quot;Enable feature...&quot;</span><span class="p">)</span>
+<span class="gp">... </span>   <span class="n">a</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Probability that...&quot;</span><span class="p">)</span>
+<span class="gp">... </span>   <span class="n">b</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Enable feature...&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
-<span class="gp">... </span>   <span class="n">b</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="n">b</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">B</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">B</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="k">lambda</span><span class="p">:</span> <span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">a</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">a</span>
 <span class="go">0.37053399325641945</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">a</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">a</span>
 <span class="go">0.64907392300071842</span>
 </pre></div>
 </div>
 <div class="section" id="parameters-provide-optional-range-and-type-checking">
 <h3>Parameters provide optional range and type checking<a class="headerlink" href="#parameters-provide-optional-range-and-type-checking" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">a</span><span class="o">=</span><span class="mi">5</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">a</span><span class="o">=</span><span class="mi">5</span>
 <span class="go">[...]</span>
 <span class="go">ValueError: Parameter &#39;a&#39; must be at most 1</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">a</span><span class="o">=</span><span class="s">&quot;0.5&quot;</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span><span class="o">.</span><span class="n">a</span><span class="o">=</span><span class="s2">&quot;0.5&quot;</span>
 <span class="go">[...]</span>
 <span class="go">ValueError: Parameter &#39;a&#39; only takes numeric values</span>
 </pre></div>
@@ -109,7 +109,7 @@ easily see how to use it properly.</p>
 </div>
 <div class="section" id="parameters-have-docstrings">
 <h3>Parameters have docstrings<a class="headerlink" href="#parameters-have-docstrings" title="Permalink to this headline">¶</a></h3>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">help</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">help</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
 <span class="go">[...]</span>
 <span class="go">class B(A)</span>
 <span class="go">[...]</span>
@@ -131,7 +131,17 @@ included as part of larger projects without adding external dependencies.</p>
 </div>
 <div class="section" id="parameters-make-gui-programming-simpler">
 <h3>Parameters make GUI programming simpler<a class="headerlink" href="#parameters-make-gui-programming-simpler" title="Permalink to this headline">¶</a></h3>
-<p>Parameters make it simple to generate GUIs. An interface for Tk already exists (<a class="reference external" href="http://ioam.github.com/paramtk/">ParamTk</a>), providing a property sheet that can automatically generate a GUI window for viewing and editing an object&#8217;s Parameters.</p>
+<p>Parameters make it simple to generate GUIs by separating your semantic
+information (what is this parameter? what type can it have? does it
+have bounds?) from anything to do with a particular GUI library.  To
+use Parameters in a particular GUI toolkit, you just need to write a
+simple set of interfaces that indicate how a given Parameter type
+should be displayed, and what widgets to generate for it.  Currently,
+interfaces are provided for use in Jupyter Notebooks (<a class="reference external" href="https://github.com/ioam/paramnb">ParamNB</a>)
+or in Tk (<a class="reference external" href="http://ioam.github.com/paramtk/">ParamTk</a>), both of which
+make it simple to provide a property sheet that automatically
+generates a set of widgets for viewing and editing an object&#8217;s
+Parameters.</p>
 </div>
 <div class="section" id="optional-dynamic-parameter-values-using-numbergen">
 <h3>Optional dynamic parameter values using <cite>numbergen</cite><a class="headerlink" href="#optional-dynamic-parameter-values-using-numbergen" title="Permalink to this headline">¶</a></h3>
@@ -144,23 +154,23 @@ optional set of value-generating objects that are easily configured
 and support pickling.  These objects are available if you import the
 optional <cite>numbergen</cite> module.  If you wish to use numbergen, the above
 example can be rewritten as:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">param</span><span class="o">,</span><span class="nn">numbergen</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">param</span><span class="o">,</span><span class="nn">numbergen</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">A</span><span class="p">(</span><span class="n">param</span><span class="o">.</span><span class="n">Parameterized</span><span class="p">):</span>
-<span class="gp">... </span>   <span class="n">a</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">doc</span><span class="o">=</span><span class="s">&quot;Probability that...&quot;</span><span class="p">)</span>
-<span class="gp">... </span>   <span class="n">b</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="bp">False</span><span class="p">,</span><span class="n">doc</span><span class="o">=</span><span class="s">&quot;Enable feature...&quot;</span><span class="p">)</span>
+<span class="gp">... </span>   <span class="n">a</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Number</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span><span class="n">bounds</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Probability that...&quot;</span><span class="p">)</span>
+<span class="gp">... </span>   <span class="n">b</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="kc">False</span><span class="p">,</span><span class="n">doc</span><span class="o">=</span><span class="s2">&quot;Enable feature...&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
-<span class="gp">... </span>   <span class="n">b</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">class</span> <span class="nc">B</span><span class="p">(</span><span class="n">A</span><span class="p">):</span>
+<span class="gp">... </span>   <span class="n">b</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="n">Boolean</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
 </pre></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">B</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">numbergen</span><span class="o">.</span><span class="n">UniformRandom</span><span class="p">())</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">x</span> <span class="o">=</span> <span class="n">B</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="n">numbergen</span><span class="o">.</span><span class="n">UniformRandom</span><span class="p">())</span>
 </pre></div>
 </div>
 <p>Numbergen objects support the usual arithmetic operations like +, -,
 *, /, //, %, **, and abs(), and so they can be freely combined with
 each other or with mathematical constants:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">B</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mf">2.0</span><span class="o">*</span><span class="n">numbergen</span><span class="o">.</span><span class="n">UniformRandom</span><span class="p">()</span><span class="o">/</span><span class="p">(</span><span class="n">numbergen</span><span class="o">.</span><span class="n">NormalRandom</span><span class="p">()</span><span class="o">+</span><span class="mf">1.5</span><span class="p">))</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">y</span> <span class="o">=</span> <span class="n">B</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mf">2.0</span><span class="o">*</span><span class="n">numbergen</span><span class="o">.</span><span class="n">UniformRandom</span><span class="p">()</span><span class="o">/</span><span class="p">(</span><span class="n">numbergen</span><span class="o">.</span><span class="n">NormalRandom</span><span class="p">()</span><span class="o">+</span><span class="mf">1.5</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>Note that unlike the lambda-function approach, all varying numbergen
@@ -172,17 +182,61 @@ values will be generated only when Param&#8217;s time has changed.</p>
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
 <p>Param has no dependencies outside of Python&#8217;s standard library.</p>
 <p>Official releases of Param are available at
-<a class="reference external" href="http://pypi.python.org/pypi/param">PyPI</a>, and can be installed via <tt class="docutils literal"><span class="pre">pip</span>
-<span class="pre">install</span> <span class="pre">--user</span> <span class="pre">param</span></tt>, <tt class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">param</span></tt>, or <tt class="docutils literal"><span class="pre">easy_install</span> <span class="pre">param</span></tt>.
+<a class="reference external" href="http://pypi.python.org/pypi/param">PyPI</a>, and can be installed via <code class="docutils literal"><span class="pre">pip</span>
+<span class="pre">install</span> <span class="pre">--user</span> <span class="pre">param</span></code>, <code class="docutils literal"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">param</span></code>, or <code class="docutils literal"><span class="pre">easy_install</span> <span class="pre">param</span></code>.
 Windows users can alternatively download and run an installer (exe).</p>
 <p>More recent changes can be obtained by cloning the <a class="reference external" href="http://github.com/ioam/param">git repository</a>.</p>
+</div>
+<div class="section" id="comparison-to-other-packages">
+<h2>Comparison to other packages<a class="headerlink" href="#comparison-to-other-packages" title="Permalink to this headline">¶</a></h2>
+<p>Param was first developed in 2003, in the context of the Topographica brain simulator project, and
+was made into a separate package in 2012.  During that time there were other parameter libraries
+developed, including <a class="reference external" href="http://code.enthought.com/projects/traits">Traits</a> and
+<a class="reference external" href="https://github.com/ipython/traitlets/">Traitlets</a>.  These libraries have broadly similar goals,
+but each differs in important ways:</p>
+<dl class="docutils">
+<dt><strong>Dependencies</strong>:</dt>
+<dd>Traits is a much more heavyweight solution, requiring
+installation of a large suite of tools, including C code, which makes it difficult to include in
+separate projects.  Param and Traitlets are both pure Python projects, with minimal dependencies.</dd>
+<dt><strong>GUI toolkits</strong>:</dt>
+<dd>The packages differ on which GUI toolkits are supported: Traits (via the
+separate TraitsUI package) supports wxWidgets and QT, while Param supports Tkinter (via the
+separate ParamTk package) and IPython widgets (via the separate ParamNB package), and Traitlets
+supports IPython widgets.</dd>
+<dt><strong>Dynamic support</strong>:</dt>
+<dd>The packages differ in how they support &#8220;active&#8221; or &#8220;dynamic&#8221; values.
+Traits and Traitlets provide extensive mechanisms for defining custom callbacks and &#8220;onchange&#8221;
+code associated with specific user-defined trait instances, which can be very valuable when it is
+needed, but requires a significant amount of code to be written each time support for such
+dynamic execution is provided to users.  Param instead focuses on supporting dynamic parameter
+<em>values</em> for any parameter, not on implementing specific dynamic parameter <em>definitions</em>,
+allowing users to provide dynamic streams of values for any Parameter that has been defined.
+The <cite>numbergen</cite> package included with Param make it simple to define such streams (e.g.
+random values, values determined by a mathematical function, or values calculated using
+arbitrary Python code). Users can then define a clock function for Param so that it is clear
+when the next dynamic value should be returned; each dynamic value is then a function of this
+global clock value.  Param&#8217;s approach is particularly well suited for use when there is a
+concept of time, whether simulated or real time, because it makes it simple to
+coordinate many different dynamic parameter values without requiring any code to do the
+coordination or handle generating the dynamic values themselves.</dd>
+</dl>
 </div>
 <div class="section" id="release-notes">
 <h2>Release Notes<a class="headerlink" href="#release-notes" title="Permalink to this headline">¶</a></h2>
 <p>Notable additions, or changes that may require users to alter code,
 are listed below.</p>
 <div class="section" id="id1">
-<h3>1.3.2 (2015/04)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<h3>1.4.0 (2016/07)<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Added support for new (<a href="#id15"><span class="problematic" id="id16">`ParamNB&lt;https://github.com/ioam/paramnb&gt;`_</span></a>) ParamNB project</li>
+<li>Added new parameter types Action, FileSelector, and ListSelector</li>
+</ul>
+<p>A full list of changes since the previous release is available
+<a class="reference external" href="https://github.com/ioam/param/compare/v1.3.2...v1.4.0">on GitHub</a>.</p>
+</div>
+<div class="section" id="id2">
+<h3>1.3.2 (2015/04)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Added Unicode support for param.String.</li>
 <li>Minor bugfixes.</li>
@@ -190,8 +244,8 @@ are listed below.</p>
 <p>A full list of changes since the previous release is available
 <a class="reference external" href="https://github.com/ioam/param/compare/v1.3.1...v1.3.2">on GitHub</a>.</p>
 </div>
-<div class="section" id="id2">
-<h3>1.3.1 (2015/03)<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id4">
+<h3>1.3.1 (2015/03)<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Minor bugfix release to restore pre-1.3.0 script_repr behavior
 (accidentally changed in 1.3.0) and to fix issues with logging.</li>
@@ -208,8 +262,8 @@ set easily via keyword arguments (as on initialization).</li>
 <p>A full list of changes since the previous release is available
 <a class="reference external" href="https://github.com/ioam/param/compare/v1.3.0...v1.3.1">on GitHub</a>.</p>
 </div>
-<div class="section" id="id4">
-<h3>1.3.0 (2015/03)<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id6">
+<h3>1.3.0 (2015/03)<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Added &#8216;allow_None&#8217; support to all Parameters. Any subclass of
 Parameter that checks types and/or values should be modified to add
@@ -225,8 +279,8 @@ be removed in a future release.</li>
 <p>A full list of changes since the previous release is available
 <a class="reference external" href="https://github.com/ioam/param/compare/v1.2.1...v1.3.0">on GitHub</a>.</p>
 </div>
-<div class="section" id="id6">
-<h3>1.2.1 (2014/06)<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id8">
+<h3>1.2.1 (2014/06)<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Minor bugfix release to fix issues with version when param is
 installed in a foreign git repository</li>
@@ -236,8 +290,8 @@ installed in a foreign git repository</li>
 <p>A full list of changes since the previous release is available
 <a class="reference external" href="https://github.com/ioam/param/compare/v1.2.0...v1.2.1">on GitHub</a>.</p>
 </div>
-<div class="section" id="id8">
-<h3>1.2.0 (2014/06)<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id10">
+<h3>1.2.0 (2014/06)<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Added support for Python 3 (thanks to Marco Elver).</li>
 <li>Dropped support for Python 2.5.</li>
@@ -247,8 +301,8 @@ installed in a foreign git repository</li>
 <p>A full list of changes since the previous release is available
 <a class="reference external" href="https://github.com/ioam/param/compare/v1.1.0...v1.2.0">on GitHub</a>.</p>
 </div>
-<div class="section" id="id10">
-<h3>1.1.0 (2014/05)<a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id12">
+<h3>1.1.0 (2014/05)<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>Switched to Python&#8217;s own logging module.</li>
 <li>Improved support for time when using Dynamic parameters.</li>
@@ -257,12 +311,12 @@ installed in a foreign git repository</li>
 <p>A full list of changes since the previous release is available
 <a class="reference external" href="https://github.com/ioam/param/compare/v1.0.0...v1.1.0">on GitHub</a>.</p>
 </div>
-<div class="section" id="id12">
-<h3>1.0.0 (2012/07)<a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id14">
+<h3>1.0.0 (2012/07)<a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li>First standalone release. Param was originally developed as part of
 <a class="reference external" href="http://ioam.github.io/topographica/">Topographica</a>, and has been
-in heavy usage as part of that project since 2005.</li>
+in heavy usage as part of that project since 2003.</li>
 </ul>
 </div>
 </div>
@@ -276,7 +330,7 @@ in heavy usage as part of that project since 2005.</li>
           </div>
         </div>
       </div>
-      <div class="sphinxsidebar">
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
 <div align="center"><h1>Param</h1></div>
 <ul class="global-toc">
@@ -297,14 +351,16 @@ in heavy usage as part of that project since 2005.</li>
 </ul>
 </li>
 <li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#comparison-to-other-packages">Comparison to other packages</a></li>
 <li><a class="reference internal" href="#release-notes">Release Notes</a><ul>
-<li><a class="reference internal" href="#id1">1.3.2 (2015/04)</a></li>
-<li><a class="reference internal" href="#id2">1.3.1 (2015/03)</a></li>
-<li><a class="reference internal" href="#id4">1.3.0 (2015/03)</a></li>
-<li><a class="reference internal" href="#id6">1.2.1 (2014/06)</a></li>
-<li><a class="reference internal" href="#id8">1.2.0 (2014/06)</a></li>
-<li><a class="reference internal" href="#id10">1.1.0 (2014/05)</a></li>
-<li><a class="reference internal" href="#id12">1.0.0 (2012/07)</a></li>
+<li><a class="reference internal" href="#id1">1.4.0 (2016/07)</a></li>
+<li><a class="reference internal" href="#id2">1.3.2 (2015/04)</a></li>
+<li><a class="reference internal" href="#id4">1.3.1 (2015/03)</a></li>
+<li><a class="reference internal" href="#id6">1.3.0 (2015/03)</a></li>
+<li><a class="reference internal" href="#id8">1.2.1 (2014/06)</a></li>
+<li><a class="reference internal" href="#id10">1.2.0 (2014/06)</a></li>
+<li><a class="reference internal" href="#id12">1.1.0 (2014/05)</a></li>
+<li><a class="reference internal" href="#id14">1.0.0 (2012/07)</a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#support">Support</a></li>
@@ -318,24 +374,21 @@ in heavy usage as part of that project since 2005.</li>
 	<li><a	href="https://github.com/ioam/param/edit/master/doc/index.rst" rel="nofollow">Edit on GitHub</a></li>
 </ul>
 
-<div id="searchbox" style="display: none">
+<div id="searchbox" style="display: none" role="search">
   <h3>Quick search</h3>
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" />
-      <input type="submit" value="Go" />
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
       <input type="hidden" name="check_keywords" value="yes" />
       <input type="hidden" name="area" value="default" />
     </form>
-    <p class="searchtip" style="font-size: 90%">
-    Enter search terms or a module, class or function name.
-    </p>
 </div>
 <script type="text/javascript">$('#searchbox').show(0);</script>
         </div>
       </div>
       <div class="clearer"></div>
     </div>
-    <div class="related">
+    <div class="related" role="navigation" aria-label="related navigation">
       <h3>Navigation</h3>
       <ul>
         <li class="right" style="margin-right: 10px">
@@ -354,9 +407,9 @@ in heavy usage as part of that project since 2005.</li>
 
       </ul>
     </div>
-    <div class="footer">
-        &copy; Copyright 2014, IOAM.
-      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.2.
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2014, IOAM.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.4.6.
     </div>
   </body>
 </html>

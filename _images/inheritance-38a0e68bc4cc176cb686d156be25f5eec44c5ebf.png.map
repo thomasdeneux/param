@@ -1,5 +1,0 @@
-<map id="inheritance6c9d819611" name="inheritance6c9d819611">
-<area shape="rect" id="node1" title="Base class for implementing magic functions." alt="" coords="8,55,200,83"/>
-<area shape="rect" id="node2" href="#param.ipython.ParamMagics" title="Implements the %params line magic used to inspect the parameters" alt="" coords="252,55,455,83"/>
-<area shape="rect" id="node4" href="#param.ipython.ParamPager" title="Callable class that displays information about the supplied" alt="" coords="7,5,201,33"/>
-</map>
