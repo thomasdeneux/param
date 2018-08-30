@@ -25,6 +25,7 @@ import datetime as dt
 from .parameterized import Parameterized, Parameter, String, \
      descendents, ParameterizedFunction, ParamOverrides
 
+from .parameterized import depends           # noqa: api import
 from .parameterized import logging_level     # noqa: api import
 from .parameterized import shared_parameters # noqa: api import
 
@@ -213,7 +214,7 @@ class Time(Parameterized):
         should be able to handle such computations exactly, avoiding
         accumulation issues over long time intervals.
 
-        Some potentially useful exact number classes::
+        Some potentially useful exact number classes:
 
          - int: Suitable if all times can be expressed as integers.
 
@@ -563,8 +564,10 @@ class Number(Dynamic):
     allows, for instance, a GUI to know what values to display on
     sliders for the Number.
 
-    Example of creating a Number:
+    Example of creating a Number::
+
       AB = Number(default=0.5, bounds=(None,10), softbounds=(0,1), doc='Distance from A to B.')
+
     """
 
     __slots__ = ['bounds','_softbounds','inclusive_bounds','set_hook']
@@ -912,6 +915,9 @@ class Composite(Parameter):
     attributes.
     """
 
+    # Note: objtype is same as _owner, but objtype left for backwards
+    # compatibility (I think it's used in places to detect composite
+    # parameter)
     __slots__=['attribs','objtype']
 
     def __init__(self,attribs=None,**kw):
