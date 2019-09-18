@@ -6,6 +6,7 @@ import param
 import numbergen
 
 from . import API1TestCase
+from .utils import MockLoggingHandler
 
 # CEBALERT: not anything like a complete test of Parameterized!
 
@@ -15,6 +16,7 @@ from nose.tools import istest, nottest
 
 
 from param.parameterized import ParamOverrides, shared_parameters
+from param.parameterized import default_label_formatter, no_instance_params
 
 @nottest
 class _SomeRandomNumbers(object):
@@ -24,12 +26,23 @@ class _SomeRandomNumbers(object):
 @nottest
 class TestPO(param.Parameterized):
     inst = param.Parameter(default=[1,2,3],instantiate=True)
-    notinst = param.Parameter(default=[1,2,3],instantiate=False)
+    notinst = param.Parameter(default=[1,2,3],instantiate=False, per_instance=False)
     const = param.Parameter(default=1,constant=True)
     ro = param.Parameter(default="Hello",readonly=True)
     ro2 = param.Parameter(default=object(),readonly=True,instantiate=True)
+    ro_label = param.Parameter(default=object(), label='Ro Label')
+    ro_format = param.Parameter(default=object())
 
     dyn = param.Dynamic(default=1)
+
+@nottest
+class TestPOValidation(param.Parameterized):
+    value = param.Number(default=2, bounds=(0, 4))
+
+@nottest
+@no_instance_params
+class TestPONoInstance(TestPO):
+    pass
 
 @nottest
 class AnotherTestPO(param.Parameterized):
@@ -47,6 +60,14 @@ class TestParamInstantiation(AnotherTestPO):
 @istest
 class TestParameterized(API1TestCase):
 
+    @classmethod
+    def setUpClass(cls):
+        super(TestParameterized, cls).setUpClass()
+        log = param.parameterized.get_logger()
+        cls.log_handler = MockLoggingHandler(level='DEBUG')
+        log.addHandler(cls.log_handler)
+
+
     def test_constant_parameter(self):
         """Test that you can't set a constant parameter after construction."""
         testpo = TestPO(const=17)
@@ -57,6 +78,7 @@ class TestParameterized(API1TestCase):
         TestPO.const=9
         testpo = TestPO()
         self.assertEqual(testpo.const,9)
+
 
     def test_readonly_parameter(self):
         """Test that you can't set a read-only parameter on construction or as an attribute."""
@@ -76,7 +98,6 @@ class TestParameterized(API1TestCase):
 
         # check that instantiate was ignored for readonly
         self.assertEqual(testpo.param.params()['ro2'].instantiate,False)
-
 
 
     def test_basic_instantiation(self):
@@ -122,9 +143,24 @@ class TestParameterized(API1TestCase):
         self.assertEqual(TestPO.abstract,False)
 
 
+    def test_override_class_param_validation(self):
+        test = TestPOValidation()
+        test.param.value.bounds = (0, 3)
+        with self.assertRaises(ValueError):
+            test.value = 4
+        TestPOValidation.value = 4
+
+
+    def test_remove_class_param_validation(self):
+        test = TestPOValidation()
+        test.param.value.bounds = None
+        test.value = 20
+        with self.assertRaises(ValueError):
+            TestPOValidation.value = 10
+
+
     def test_params(self):
         """Basic tests of params() method."""
-
 
         # CB: test not so good because it requires changes if params
         # of PO are changed
@@ -140,6 +176,122 @@ class TestParameterized(API1TestCase):
         assert param.Parameterized.param.params() is param.Parameterized().param.params(), "Results of params() should be cached." # just for performance reasons
 
 
+    def test_param_iterator(self):
+        self.assertEqual(set(TestPO.param), {'name', 'inst', 'notinst', 'const', 'dyn',
+                                             'ro', 'ro2', 'ro_label', 'ro_format'})
+
+
+    def test_param_contains(self):
+        for p in ['name', 'inst', 'notinst', 'const', 'dyn', 'ro', 'ro2']:
+            self.assertIn(p, TestPO.param)
+
+
+    def test_class_param_objects(self):
+        objects = TestPO.param.objects()
+
+        self.assertEqual(set(objects),
+                         {'name', 'inst', 'notinst', 'const', 'dyn',
+                          'ro', 'ro2', 'ro_label', 'ro_format'})
+
+        # Check caching
+        assert TestPO.param.objects() is objects
+
+
+    def test_instance_param_objects(self):
+        inst = TestPO()
+        objects = inst.param.objects()
+
+        for p, obj in objects.items():
+            if p == 'notinst':
+                assert obj is TestPO.param[p]
+            else:
+                assert obj is not TestPO.param[p]
+
+
+    def test_instance_param_objects_set_to_false(self):
+        inst = TestPO()
+        objects = inst.param.objects(instance=False)
+
+        for p, obj in objects.items():
+            assert obj is TestPO.param[p]
+
+
+    def test_instance_param_objects_set_to_current(self):
+        inst = TestPO()
+        inst_param = inst.param.inst
+        objects = inst.param.objects(instance='existing')
+
+        for p, obj in objects.items():
+            if p == 'inst':
+                assert obj is inst_param
+            else:
+                assert obj is TestPO.param[p]
+
+
+    def test_instance_param_objects_warn_on_params(self):
+        inst = TestPO()
+        inst.param['inst']
+
+        inst.param.params()
+        self.log_handler.assertContains(
+            'WARNING', 'The Parameterized instance has instance parameters')
+
+
+    def test_instance_param_getitem(self):
+        test = TestPO()
+        assert test.param['inst'] is not TestPO.param['inst']
+
+
+    def test_instance_param_getitem_not_per_instance(self):
+        test = TestPO()
+        assert test.param['notinst'] is TestPO.param['notinst']
+
+
+    def test_instance_param_getitem_no_instance_params(self):
+        test = TestPONoInstance()
+        assert test.param['inst'] is TestPO.param['inst']
+
+
+    def test_instance_param_getattr(self):
+        test = TestPO()
+        assert test.param.inst is not TestPO.param.inst
+
+        # Assert no deep copy
+        assert test.param.inst.default is TestPO.param.inst.default
+
+
+    def test_pprint_instance_params(self):
+        # Ensure pprint does not make instance parameter copies
+        test = TestPO()
+        test.pprint()
+        for p, obj in TestPO.param.objects('current').items():
+            assert obj is TestPO.param[p]
+
+
+    def test_set_param_instance_params(self):
+        # Ensure set_param does not make instance parameter copies
+        test = TestPO()
+        test.param.set_param(inst=3)
+        for p, obj in TestPO.param.objects('current').items():
+            assert obj is TestPO.param[p]
+
+
+    def test_get_param_values_instance_params(self):
+        # Ensure get_param_values does not make instance parameter copies
+        test = TestPO()
+        test.param.get_param_values()
+        for p, obj in TestPO.param.objects('current').items():
+            assert obj is TestPO.param[p]
+
+
+    def test_defaults_instance_params(self):
+        # Ensure get_param_values does not make instance parameter copies
+        test = TestPO()
+        test.param.defaults()
+        for p, obj in TestPO.param.objects('current').items():
+            assert obj is TestPO.param[p]
+
+
     def test_state_saving(self):
         t = TestPO(dyn=_SomeRandomNumbers())
         g = t.param.get_value_generator('dyn')
@@ -152,6 +304,33 @@ class TestParameterized(API1TestCase):
         t.state_pop()
         assert t.param.inspect_value('dyn')==orig
 
+
+    def test_label(self):
+        t = TestPO()
+        assert t.param.params('ro_label').label == 'Ro Label'
+
+    def test_label_set(self):
+        t = TestPO()
+        assert t.param.params('ro_label').label == 'Ro Label'
+        t.param.params('ro_label').label = 'Ro relabeled'
+        assert t.param.params('ro_label').label == 'Ro relabeled'
+
+    def test_label_default_format(self):
+        t = TestPO()
+        assert t.param.params('ro_format').label == 'Ro format'
+
+
+    def test_label_custom_format(self):
+        param.parameterized.label_formatter = default_label_formatter.instance(capitalize=False)
+        t = TestPO()
+        assert t.param.params('ro_format').label == 'ro format'
+        param.parameterized.label_formatter = default_label_formatter
+
+    def test_label_constant_format(self):
+        param.parameterized.label_formatter = lambda x: 'Foo'
+        t = TestPO()
+        assert t.param.params('ro_format').label == 'Foo'
+        param.parameterized.label_formatter = default_label_formatter
 
 
 from param import parameterized
@@ -251,6 +430,25 @@ class TestStringParameter(API1TestCase):
         assert t.c is None
 
 
+@istest
+class TestParameterizedUtilities(API1TestCase):
+
+    def setUp(self):
+        super(TestParameterizedUtilities, self).setUp()
+
+
+    def test_default_label_formatter(self):
+        assert default_label_formatter('a_b_C') == 'A b C'
+
+
+    def test_default_label_formatter_not_capitalized(self):
+        assert default_label_formatter.instance(capitalize=False)('a_b_C') == 'a b C'
+
+
+    def test_default_label_formatter_not_replace_underscores(self):
+        assert default_label_formatter.instance(replace_underscores=False)('a_b_C') == 'A_b_C'
+    def test_default_label_formatter_overrides(self):
+        assert default_label_formatter.instance(overrides={'a': 'b'})('a') == 'b'
 
 @istest
 class TestParamOverrides(API1TestCase):

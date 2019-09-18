@@ -18,19 +18,23 @@ Parameters and Parameterized classes.
 
 import os.path
 import sys
+import copy
 import glob
 import re
 import datetime as dt
+import collections
 
-from .parameterized import Parameterized, Parameter, String, \
-     descendents, ParameterizedFunction, ParamOverrides
+from .parameterized import (
+    Parameterized, Parameter, String, ParameterizedFunction, ParamOverrides,
+    descendents, get_logger, instance_descriptor, basestring)
 
-from .parameterized import depends           # noqa: api import
+from .parameterized import (batch_watch, depends, output, # noqa: api import
+                            discard_events, edit_constant)
 from .parameterized import logging_level     # noqa: api import
 from .parameterized import shared_parameters # noqa: api import
 
 from collections import OrderedDict
-
+from numbers import Real
 
 # Determine up-to-date version information, if possible, but with a
 # safe fallback to ensure that this file and parameterized.py are the
@@ -42,13 +46,19 @@ except:
     __version__ = "0.0.0+unknown"
 
 
-dt_types = (dt.datetime,)
+dt_types = (dt.datetime, dt.date)
 
 try:
     import numpy as np
     dt_types = dt_types + (np.datetime64,)
 except:
     pass
+
+
+try:
+    import collections.abc as collections_abc
+except ImportError:
+    collections_abc = collections
 
 if sys.version_info[0] >= 3:
     unicode = str
@@ -85,14 +95,48 @@ def as_unicode(obj):
     return unicode(obj)
 
 
-def named_objs(objlist):
+def is_ordered_dict(d):
+    """
+    Predicate checking for ordered dictionaries. OrderedDict is always
+    ordered, and vanilla Python dictionaries are ordered for Python 3.6+
+    """
+    py3_ordered_dicts = (sys.version_info.major == 3) and (sys.version_info.minor >= 6)
+    vanilla_odicts = (sys.version_info.major > 3) or py3_ordered_dicts
+    return isinstance(d, (OrderedDict))or (vanilla_odicts and isinstance(d, dict))
+
+
+def hashable(x):
+    """
+    Return a hashable version of the given object x, with lists and
+    dictionaries converted to tuples.  Allows mutable objects to be
+    used as a lookup key in cases where the object has not actually
+    been mutated. Lookup will fail (appropriately) in cases where some
+    part of the object has changed.  Does not (currently) recursively
+    replace mutable subobjects.
+    """
+    if isinstance(x, collections_abc.MutableSequence):
+        return tuple(x)
+    elif isinstance(x, collections_abc.MutableMapping):
+        return tuple([(k,v) for k,v in x.items()])
+    else:
+        return x
+
+def named_objs(objlist, namesdict=None):
     """
     Given a list of objects, returns a dictionary mapping from
-    string name for the object to the object itself.
+    string name for the object to the object itself. Accepts
+    an optional name,obj dictionary, which will override any other
+    name if that item is present in the dictionary.
     """
     objs = OrderedDict()
+
+    if namesdict is not None:
+        objtoname = {hashable(v): k for k, v in namesdict.items()}
+
     for obj in objlist:
-        if hasattr(obj, "name"):
+        if namesdict is not None and hashable(obj) in objtoname:
+            k = objtoname[hashable(obj)]
+        elif hasattr(obj, "name"):
             k = obj.name
         elif hasattr(obj, '__name__'):
             k = obj.__name__
@@ -101,6 +145,141 @@ def named_objs(objlist):
         objs[k] = obj
     return objs
 
+
+def param_union(*parameterizeds, **kwargs):
+    """
+    Given a set of Parameterized objects, returns a dictionary
+    with the union of all param name,value pairs across them.
+    If warn is True (default), warns if the same parameter has
+    been given multiple values; otherwise uses the last value
+    """
+    warn = kwargs.pop('warn', True)
+    if len(kwargs):
+        raise TypeError(
+            "param_union() got an unexpected keyword argument '{}'".format(
+                kwargs.popitem()[0]))
+    d = dict()
+    for o in parameterizeds:
+        for k in o.param:
+            if k != 'name':
+                if k in d and warn:
+                    get_logger().warning("overwriting parameter {}".format(k))
+                d[k] = getattr(o, k)
+    return d
+
+
+def guess_param_types(**kwargs):
+    """
+    Given a set of keyword literals, promote to the appropriate
+    parameter type based on some simple heuristics.
+    """
+    params = {}
+    for k, v in kwargs.items():
+        kws = dict(default=v, constant=True)
+        if isinstance(v, Parameter):
+            params[k] = v
+        elif isinstance(v, dt_types):
+            params[k] = Date(**kws)
+        elif isinstance(v, bool):
+            params[k] = Boolean(**kws)
+        elif isinstance(v, int):
+            params[k] = Integer(**kws)
+        elif isinstance(v, float):
+            params[k] = Number(**kws)
+        elif isinstance(v, str):
+            params[k] = String(**kws)
+        elif isinstance(v, dict):
+            params[k] = Dict(**kws)
+        elif isinstance(v, tuple):
+            if all(_is_number(el) for el in v):
+                params[k] = NumericTuple(**kws)
+            elif all(isinstance(el. dt_types) for el in v) and len(v)==2:
+                params[k] = DateRange(**kws)
+            else:
+                params[k] = Tuple(**kws)
+        elif isinstance(v, list):
+            params[k] = List(**kws)
+        elif isinstance(v, np.ndarray):
+            params[k] = Array(**kws)
+        else:
+            from pandas import DataFrame as pdDFrame
+            from pandas import Series as pdSeries
+
+            if isinstance(v, pdDFrame):
+                params[k] = DataFrame(**kws)
+            elif isinstance(v, pdSeries):
+                params[k] = Series(**kws)
+            else:
+                params[k] = Parameter(**kws)
+
+    return params
+
+
+def parameterized_class(name, params, bases=Parameterized):
+    """
+    Dynamically create a parameterized class with the given name and the
+    supplied parameters, inheriting from the specified base(s).
+    """
+    if not (isinstance(bases, list) or isinstance(bases, tuple)):
+          bases=[bases]
+    return type(name, tuple(bases), params)
+
+
+def guess_bounds(params, **overrides):
+    """
+    Given a dictionary of Parameter instances, return a corresponding
+    set of copies with the bounds appropriately set.
+
+
+    If given a set of override keywords, use those numeric tuple bounds.
+    """
+    guessed = {}
+    for name, p in params.items():
+        new_param = copy.copy(p)
+        if isinstance(p, (Integer, Number)):
+            if name in overrides:
+                minv,maxv = overrides[name]
+            else:
+                minv, maxv, _ = _get_min_max_value(None, None, value=p.default)
+            new_param.bounds = (minv, maxv)
+        guessed[name] = new_param
+    return guessed
+
+
+def _get_min_max_value(min, max, value=None, step=None):
+    """Return min, max, value given input values with possible None."""
+    # Either min and max need to be given, or value needs to be given
+    if value is None:
+        if min is None or max is None:
+            raise ValueError('unable to infer range, value '
+                             'from: ({0}, {1}, {2})'.format(min, max, value))
+        diff = max - min
+        value = min + (diff / 2)
+        # Ensure that value has the same type as diff
+        if not isinstance(value, type(diff)):
+            value = min + (diff // 2)
+    else:  # value is not None
+        if not isinstance(value, Real):
+            raise TypeError('expected a real number, got: %r' % value)
+        # Infer min/max from value
+        if value == 0:
+            # This gives (0, 1) of the correct type
+            vrange = (value, value + 1)
+        elif value > 0:
+            vrange = (-value, 3*value)
+        else:
+            vrange = (3*value, -value)
+        if min is None:
+            min = vrange[0]
+        if max is None:
+            max = vrange[1]
+    if step is not None:
+        # ensure value is on a step
+        tick = int((value - min) / step)
+        value = min + tick * step
+    if not min <= value <= max:
+        raise ValueError('value must be between min and max (min={0}, value={1}, max={2})'.format(min, value, max))
+    return min, max, value
 
 
 class Infinity(object):
@@ -308,7 +487,7 @@ class Time(Parameterized):
         if time_type and val is None:
             raise Exception("Please specify a value for the new time_type.")
         if time_type:
-            type_param = self.param.params('time_type')
+            type_param = self.param.objects('existing').get('time_type')
             type_param.constant = False
             self.time_type = time_type
             type_param.constant = True
@@ -432,6 +611,7 @@ class Dynamic(Parameter):
             return self._produce_value(gen)
 
 
+    @instance_descriptor
     def __set__(self,obj,val):
         """
         Call the superclass's set and keep this parameter's
@@ -570,9 +750,10 @@ class Number(Dynamic):
 
     """
 
-    __slots__ = ['bounds','_softbounds','inclusive_bounds','set_hook']
+    __slots__ = ['bounds','_softbounds','inclusive_bounds','set_hook', 'step']
 
-    def __init__(self,default=0.0,bounds=None,softbounds=None,inclusive_bounds=(True,True),**params):
+    def __init__(self,default=0.0,bounds=None,softbounds=None,
+                 inclusive_bounds=(True,True), step=None, **params):
         """
         Initialize this parameter object and store the bounds.
 
@@ -584,7 +765,8 @@ class Number(Dynamic):
         self.bounds = bounds
         self.inclusive_bounds = inclusive_bounds
         self._softbounds = softbounds
-        if not callable(default): self._check_value(default)
+        self.step = step
+        self._validate(default)
 
 
     def __get__(self,obj,objtype):
@@ -596,21 +778,8 @@ class Number(Dynamic):
         # CEBALERT: results in extra lookups (_value_is_dynamic() is
         # also looking up 'result' - should just pass it in). Note
         # that this method is called often.
-        if self._value_is_dynamic(obj,objtype): self._check_value(result)
+        if self._value_is_dynamic(obj,objtype): self._validate(result)
         return result
-
-
-    def __set__(self,obj,val):
-        """
-        Set to the given value raising an exception if out of bounds.
-        Also applies set_hook, providing support for conversions
-        and transformations of the value.
-        """
-        val = self.set_hook(obj,val)
-
-        if not callable(val): self._check_value(val)
-        super(Number,self).__set__(obj,val)
-
 
     # Allow softbounds to be used like a normal attribute, as it
     # probably should have been already (not _softbounds)
@@ -683,31 +852,37 @@ class Number(Dynamic):
             if vmax is not None:
                 if incmax is True:
                     if not val <= vmax:
-                        raise ValueError("Parameter '%s' must be at most %s"%(self._attrib_name,vmax))
+                        raise ValueError("Parameter '%s' must be at most %s"%(self.name,vmax))
                 else:
                     if not val < vmax:
-                        raise ValueError("Parameter '%s' must be less than %s"%(self._attrib_name,vmax))
+                        raise ValueError("Parameter '%s' must be less than %s"%(self.name,vmax))
 
             if vmin is not None:
                 if incmin is True:
                     if not val >= vmin:
-                        raise ValueError("Parameter '%s' must be at least %s"%(self._attrib_name,vmin))
+                        raise ValueError("Parameter '%s' must be at least %s"%(self.name,vmin))
                 else:
                     if not val > vmin:
-                        raise ValueError("Parameter '%s' must be greater than %s"%(self._attrib_name,vmin))
+                        raise ValueError("Parameter '%s' must be greater than %s"%(self.name,vmin))
 
 
 
-    def _check_value(self,val):
+    def _validate(self, val):
         """
         Checks that the value is numeric and that it is within the hard
         bounds; if not, an exception is raised.
         """
+        if callable(val):
+            return val
+
         if self.allow_None and val is None:
             return
 
         if not _is_number(val):
-            raise ValueError("Parameter '%s' only takes numeric values"%(self._attrib_name))
+            raise ValueError("Parameter '%s' only takes numeric values"%(self.name))
+
+        if self.step is not None and not _is_number(self.step):
+            raise ValueError("Step parameter can only be None or a numeric value")
 
         self._checkBounds(val)
 
@@ -737,6 +912,13 @@ class Number(Dynamic):
         return (l,u)
 
 
+    def __setstate__(self,state):
+        if 'step' not in state:
+            state['step'] = None
+
+        super(Number,self).__setstate__(state)
+
+
 
 class Integer(Number):
     """Numeric Parameter required to be an Integer"""
@@ -744,12 +926,18 @@ class Integer(Number):
     def __init__(self,default=0,**params):
        Number.__init__(self,default=default,**params)
 
-    def _check_value(self,val):
+    def _validate(self, val):
+        if callable(val): return
+
         if self.allow_None and val is None:
             return
 
         if not isinstance(val,int):
-            raise ValueError("Parameter '%s' must be an integer."%self._attrib_name)
+            raise ValueError("Parameter '%s' must be an integer."%self.name)
+
+        if self.step is not None and not isinstance(self.step, int):
+            raise ValueError("Step parameter can only be None or an integer value")
+
 
         self._checkBounds(val)
 
@@ -773,22 +961,22 @@ class Boolean(Parameter):
         self.bounds = bounds
         super(Boolean, self).__init__(default=default,**params)
 
-    def __set__(self,obj,val):
+    def _validate(self, val):
         if self.allow_None:
             if not isinstance(val,bool) and val is not None:
                 raise ValueError("Boolean '%s' only takes a Boolean value or None."
-                                 %self._attrib_name)
+                                 %self.name)
 
             if val is not True and val is not False and val is not None:
-                raise ValueError("Boolean '%s' must be True, False, or None."%self._attrib_name)
+                raise ValueError("Boolean '%s' must be True, False, or None."%self.name)
         else:
             if not isinstance(val,bool):
-                raise ValueError("Boolean '%s' only takes a Boolean value."%self._attrib_name)
+                raise ValueError("Boolean '%s' only takes a Boolean value."%self.name)
 
             if val is not True and val is not False:
-                raise ValueError("Boolean '%s' must be True or False."%self._attrib_name)
+                raise ValueError("Boolean '%s' must be True or False."%self.name)
+        super(Boolean, self)._validate(val)
 
-        super(Boolean,self).__set__(obj,val)
 
 
 class Tuple(Parameter):
@@ -808,41 +996,35 @@ class Tuple(Parameter):
             self.length = len(default)
         elif length is None and default is None:
             raise ValueError("%s: length must be specified if no default is supplied." %
-                             (self._attrib_name))
+                             (self.name))
         else:
             self.length = length
-        self._check(default)
+        self._validate(default)
 
 
-
-    def _check(self,val):
+    def _validate(self, val):
         if val is None and self.allow_None:
             return
 
         if not isinstance(val,tuple):
-            raise ValueError("Tuple '%s' only takes a tuple value."%self._attrib_name)
+            raise ValueError("Tuple '%s' only takes a tuple value."%self.name)
 
         if not len(val)==self.length:
             raise ValueError("%s: tuple is not of the correct length (%d instead of %d)." %
-                             (self._attrib_name,len(val),self.length))
-
-
-    def __set__(self,obj,val):
-        self._check(val)
-        super(Tuple,self).__set__(obj,val)
+                             (self.name,len(val),self.length))
 
 
 
 class NumericTuple(Tuple):
     """A numeric tuple Parameter (e.g. (4.5,7.6,3)) with a fixed tuple length."""
 
-    def _check(self,val):
-        super(NumericTuple, self)._check(val)
+    def _validate(self, val):
+        super(NumericTuple, self)._validate(val)
         if not (self.allow_None and val is None):
             for n in val:
                 if not _is_number(n):
                     raise ValueError("%s: tuple element is not numeric: %s." %
-                                     (self._attrib_name,str(n)))
+                                     (self.name,str(n)))
 
 
 
@@ -864,10 +1046,10 @@ class Callable(Parameter):
     2.4, so instantiate must be False for those values.
     """
 
-    def __set__(self,obj,val):
+    def _validate(self, val):
         if not (self.allow_None and val is None) and (not callable(val)):
-            raise ValueError("Callable '%s' only takes a callable object."%self._attrib_name)
-        super(Callable,self).__set__(obj,val)
+            raise ValueError("Callable '%s' only takes a callable object."%self.name)
+        super(Callable, self)._validate(val)
 
 
 
@@ -915,9 +1097,6 @@ class Composite(Parameter):
     attributes.
     """
 
-    # Note: objtype is same as _owner, but objtype left for backwards
-    # compatibility (I think it's used in places to detect composite
-    # parameter)
     __slots__=['attribs','objtype']
 
     def __init__(self,attribs=None,**kw):
@@ -935,12 +1114,10 @@ class Composite(Parameter):
         else:
             return [getattr(obj,a) for a in self.attribs]
 
-    def __set__(self,obj,val):
-        """
-        Set the values of all the attribs.
-        """
-        assert len(val) == len(self.attribs),"Compound parameter '%s' got the wrong number of values (needed %d, but got %d)." % (self._attrib_name,len(self.attribs),len(val))
+    def _validate(self, val):
+        assert len(val) == len(self.attribs),"Compound parameter '%s' got the wrong number of values (needed %d, but got %d)." % (self.name,len(self.attribs),len(val))
 
+    def _post_setter(self, obj, val):
         if obj is None:
             for a,v in zip(self.attribs,val):
                 setattr(self.objtype,a,v)
@@ -949,7 +1126,7 @@ class Composite(Parameter):
                 setattr(obj,a,v)
 
 
-class Selector(Parameter):
+class SelectorBase(Parameter):
     """
     Parameter whose value must be chosen from a list of possibilities.
 
@@ -962,7 +1139,7 @@ class Selector(Parameter):
         raise NotImplementedError("get_range() must be implemented in subclasses.")
 
 
-class ObjectSelector(Selector):
+class ObjectSelector(SelectorBase):
     """
     Parameter whose value must be one object from a list of possible objects.
 
@@ -976,9 +1153,16 @@ class ObjectSelector(Selector):
     initially, or because it is explicitly specified), the default
     (initial) value must be among the list of objects (unless the
     default value is None).
+
+    The list of objects can be supplied as a list (appropriate for
+    selecting among a set of strings, or among a set of objects with a
+    "name" parameter), or as a (preferably ordered) dictionary from
+    names to objects.  If a dictionary is supplied, the objects
+    will need to be hashable so that their names can be looked
+    up from the object value.
     """
 
-    __slots__ = ['objects','compute_default_fn','check_on_set']
+    __slots__ = ['objects','compute_default_fn','check_on_set','names']
 
     # ObjectSelector is usually used to allow selection from a list of
     # existing objects, therefore instantiate is False by default.
@@ -986,7 +1170,12 @@ class ObjectSelector(Selector):
                  compute_default_fn=None,check_on_set=None,allow_None=None,**params):
         if objects is None:
             objects = []
-        self.objects = objects
+        if isinstance(objects, collections_abc.Mapping):
+            self.names = objects
+            self.objects = list(objects.values())
+        else:
+            self.names = None
+            self.objects = objects
         self.compute_default_fn = compute_default_fn
 
         if check_on_set is not None:
@@ -1001,7 +1190,7 @@ class ObjectSelector(Selector):
         # Required as Parameter sets allow_None=True if default is None
         self.allow_None = allow_None
         if default is not None and self.check_on_set is True:
-            self._check_value(default)
+            self._validate(default)
 
 
     # CBNOTE: if the list of objects is changed, the current value for
@@ -1021,15 +1210,19 @@ class ObjectSelector(Selector):
                 self.objects.append(self.default)
 
 
-    def _check_value(self,val,obj=None):
+    def _validate(self, val):
         """
         val must be None or one of the objects in self.objects.
         """
+        if not self.check_on_set:
+            self._ensure_value_is_in_objects(val)
+            return
+
         if not (val in self.objects or (self.allow_None and val is None)):
             # CEBALERT: can be called before __init__ has called
             # super's __init__, i.e. before attrib_name has been set.
             try:
-                attrib_name = self._attrib_name
+                attrib_name = self.name
             except AttributeError:
                 attrib_name = ""
 
@@ -1054,18 +1247,8 @@ class ObjectSelector(Selector):
         Subclasses can override if they support multiple items on a list,
         to check each item instead.
         """
-
         if not (val in self.objects):
            self.objects.append(val)
-
-    def __set__(self,obj,val):
-        if self.check_on_set:
-            self._check_value(val,obj)
-        else:
-            self._ensure_value_is_in_objects(val)
-
-        super(ObjectSelector,self).__set__(obj,val)
-
 
     def get_range(self):
         """
@@ -1073,10 +1256,41 @@ class ObjectSelector(Selector):
 
         (Returns the dictionary {object.name:object}.)
         """
-        return named_objs(self.objects)
+        return named_objs(self.objects, self.names)
 
 
-class ClassSelector(Selector):
+class Selector(ObjectSelector):
+    """
+    A more user friendly ObjectSelector that picks the first object for
+    the default (by default) given an ordered data collection. As the
+    first argument is now objects, this can be passed in as a positional
+    argument which sufficient in many common use cases.
+    """
+    def __init__(self,objects=None, default=None, instantiate=False,
+                 compute_default_fn=None,check_on_set=None,allow_None=None,**params):
+
+        if is_ordered_dict(objects):
+            autodefault = list(objects.values())[0]
+        elif isinstance(objects, dict):
+            main.param.warning("Parameter default value is arbitrary due to "
+                               "dictionaries prior to Python 3.6 not being "
+                               "ordered; should use an ordered dict or "
+                               "supply an explicit default value.")
+            autodefault = list(objects.values())[0]
+        elif isinstance(objects, list):
+            autodefault = objects[0]
+        else:
+            autodefault = None
+
+        default = autodefault if default is None else default
+
+        super(Selector,self).__init__(default=default, objects=objects,
+                                      instantiate=instantiate,
+                                      compute_default_fn=compute_default_fn,
+                                      check_on_set=check_on_set,
+                                      allow_None=allow_None, **params)
+
+class ClassSelector(SelectorBase):
     """
     Parameter whose value is a specified class or an instance of that class.
     By default, requires an instance, but if is_instance=False, accepts a class instead.
@@ -1090,10 +1304,10 @@ class ClassSelector(Selector):
         self.class_ = class_
         self.is_instance = is_instance
         super(ClassSelector,self).__init__(default=default,instantiate=instantiate,**params)
-        self._check_value(default)
+        self._validate(default)
 
 
-    def _check_value(self,val,obj=None):
+    def _validate(self,val):
         """val must be None, an instance of self.class_ if self.is_instance=True or a subclass of self_class if self.is_instance=False"""
         if isinstance(self.class_, tuple):
             class_name = ('(%s)' % ', '.join(cl.__name__ for cl in self.class_))
@@ -1103,17 +1317,12 @@ class ClassSelector(Selector):
             if not (isinstance(val,self.class_)) and not (val is None and self.allow_None):
                 raise ValueError(
                     "Parameter '%s' value must be an instance of %s, not '%s'" %
-                    (self._attrib_name, class_name, val))
+                    (self.name, class_name, val))
         else:
             if not (val is None and self.allow_None) and not (issubclass(val,self.class_)):
                 raise ValueError(
                     "Parameter '%s' must be a subclass of %s, not '%s'" %
                     (val.__name__, class_name, val.__class__.__name__))
-
-
-    def __set__(self,obj,val):
-        self._check_value(val,obj)
-        super(ClassSelector,self).__set__(obj,val)
 
 
     def get_range(self):
@@ -1150,17 +1359,9 @@ class List(Parameter):
         self.bounds = bounds
         Parameter.__init__(self,default=default,instantiate=instantiate,
                            **params)
-        self._check_bounds(default)
+        self._validate(default)
 
-    # Could add range() method from ClassSelector, to allow
-    # list to be populated in the GUI
-
-    def __set__(self,obj,val):
-        """Set to the given value, raising an exception if out of bounds."""
-        self._check_bounds(val)
-        super(List,self).__set__(obj,val)
-
-    def _check_bounds(self,val):
+    def _validate(self, val):
         """
         Checks that the list is of the right length and has the right contents.
         Otherwise, an exception is raised.
@@ -1169,27 +1370,27 @@ class List(Parameter):
             return
 
         if not isinstance(val, list):
-            raise ValueError("List '%s' must be a list."%(self._attrib_name))
+            raise ValueError("List '%s' must be a list."%(self.name))
 
         if self.bounds is not None:
             min_length,max_length = self.bounds
             l=len(val)
             if min_length is not None and max_length is not None:
                 if not (min_length <= l <= max_length):
-                    raise ValueError("%s: list length must be between %s and %s (inclusive)"%(self._attrib_name,min_length,max_length))
+                    raise ValueError("%s: list length must be between %s and %s (inclusive)"%(self.name,min_length,max_length))
             elif min_length is not None:
                 if not min_length <= l:
-                    raise ValueError("%s: list length must be at least %s."%(self._attrib_name,min_length))
+                    raise ValueError("%s: list length must be at least %s."%(self.name,min_length))
             elif max_length is not None:
                 if not l <= max_length:
-                    raise ValueError("%s: list length must be at most %s."%(self._attrib_name,max_length))
+                    raise ValueError("%s: list length must be at most %s."%(self.name,max_length))
 
         self._check_type(val)
 
     def _check_type(self,val):
         if self.class_ is not None:
             for v in val:
-                assert isinstance(v,self.class_),repr(self._attrib_name)+": "+repr(v)+" is not an instance of " + repr(self.class_) + "."
+                assert isinstance(v,self.class_),repr(self.name)+": "+repr(v)+" is not an instance of " + repr(self.class_) + "."
 
 
 
@@ -1205,7 +1406,7 @@ class HookList(List):
 
     def _check_type(self,val):
         for v in val:
-            assert callable(v),repr(self._attrib_name)+": "+repr(v)+" is not callable."
+            assert callable(v),repr(self.name)+": "+repr(v)+" is not callable."
 
 
 
@@ -1213,8 +1414,8 @@ class Dict(ClassSelector):
     """
     Parameter whose value is a dictionary.
     """
-    def __init__(self,**params):
-        super(Dict,self).__init__(dict,**params)
+    def __init__(self, default=None, **params):
+        super(Dict,self).__init__(dict, default=default, **params)
 
 
 class Array(ClassSelector):
@@ -1222,10 +1423,118 @@ class Array(ClassSelector):
     Parameter whose value is a numpy array.
     """
 
-    def __init__(self, **params):
+    def __init__(self, default=None, **params):
         # CEBALERT: instead use python array as default?
         from numpy import ndarray
-        super(Array,self).__init__(ndarray, allow_None=True, **params)
+        super(Array,self).__init__(ndarray, allow_None=True, default=default, **params)
+
+
+class DataFrame(ClassSelector):
+    """
+    Parameter whose value is a pandas DataFrame.
+
+    The structure of the DataFrame can be constrained by the rows and
+    columns arguments:
+
+    rows: If specified, may be a number or an integer bounds tuple to
+    constrain the allowable number of rows.
+
+    columns: If specified, may be a number, an integer bounds tuple, a
+    list or a set. If the argument is numeric, constrains the number of
+    columns using the same semantics as used for rows. If either a list
+    or set of strings, the column names will be validated. If a set is
+    used, the supplied DataFrame must contain the specified columns and
+    if a list is given, the supplied DataFrame must contain exactly the
+    same columns and in the same order and no other columns.
+    """
+    __slots__ = ['rows','columns', 'ordered']
+
+    def __init__(self, default=None, rows=None, columns=None, ordered=None, **params):
+        from pandas import DataFrame as pdDFrame
+        self.rows = rows
+        self.columns = columns
+        self.ordered = ordered
+        super(DataFrame,self).__init__(pdDFrame, default=default, allow_None=True, **params)
+        self._validate(self.default)
+
+
+    def _length_bounds_check(self, bounds, length, name):
+        message = '{name} length {length} does not match declared bounds of {bounds}'
+        if not isinstance(bounds, tuple):
+            if (bounds != length):
+                raise ValueError(message.format(name=name, length=length, bounds=bounds))
+            else:
+                return
+        (lower, upper) = bounds
+        failure = ((lower is not None and (length < lower))
+                   or (upper is not None and length > upper))
+        if failure:
+            raise ValueError(message.format(name=name,length=length, bounds=bounds))
+
+    def _validate(self, val):
+        super(DataFrame, self)._validate(val)
+
+        if isinstance(self.columns, set) and self.ordered is True:
+            raise ValueError('Columns cannot be ordered when specified as a set')
+
+        if self.columns is None:
+            pass
+        elif (isinstance(self.columns, tuple) and len(self.columns)==2
+              and all(isinstance(v, (type(None), numbers.Number)) for v in self.columns)): # Numeric bounds tuple
+            self._length_bounds_check(self.columns, len(val.columns), 'Columns')
+        elif isinstance(self.columns, (list, set)):
+            self.ordered = isinstance(self.columns, list) if self.ordered is None else self.ordered
+            difference = set(self.columns) - set([str(el) for el in val.columns])
+            if difference:
+                msg = 'Provided DataFrame columns {found} does not contain required columns {expected}'
+                raise ValueError(msg.format(found=list(val.columns), expected=sorted(self.columns)))
+        else:
+            self._length_bounds_check(self.columns, len(val.columns), 'Column')
+
+        if self.ordered:
+            if list(val.columns) != list(self.columns):
+                msg = 'Provided DataFrame columns {found} must exactly match {expected}'
+                raise ValueError(msg.format(found=list(val.columns), expected=self.columns))
+
+        if self.rows is not None:
+            self._length_bounds_check(self.rows, len(val), 'Row')
+
+
+class Series(ClassSelector):
+    """
+    Parameter whose value is a pandas Series.
+
+    The structure of the Series can be constrained by the rows argument
+    which may be a number or an integer bounds tuple to constrain the
+    allowable number of rows.
+    """
+    __slots__ = ['rows']
+
+    def _length_bounds_check(self, bounds, length, name):
+        message = '{name} length {length} does not match declared bounds of {bounds}'
+        if not isinstance(bounds, tuple):
+            if (bounds != length):
+                raise ValueError(message.format(name=name, length=length, bounds=bounds))
+            else:
+                return
+        (lower, upper) = bounds
+        failure = ((lower is not None and (length < lower))
+                   or (upper is not None and length > upper))
+        if failure:
+            raise ValueError(message.format(name=name,length=length, bounds=bounds))
+
+    def __init__(self, default=None, rows=None, **params):
+        from pandas import Series as pdSeries
+        self.rows = rows
+        super(Series,self).__init__(pdSeries, allow_None=True, default=default, **params)
+        self._validate(self.default)
+
+    def _validate(self, val):
+        super(Series, self)._validate(val)
+
+        if self.rows is not None:
+            self._length_bounds_check(self.rows, len(val), 'Row')
+
 
 
 # For portable code:
@@ -1357,19 +1666,15 @@ class Path(Parameter):
         else:
             return resolve_path(path)
 
-    def __set__(self, obj, val):
-        """
-        Call Parameter's __set__, but warn if the file cannot be found.
-        """
+    def _validate(self, val):
         if val is None:
             if not self.allow_None:
-                Parameterized(name="%s.%s"%(obj.name,self._attrib_name)).warning('None is not allowed')
+                Parameterized(name="%s.%s"%(self.owner.name,self.name)).warning('None is not allowed')
         else:
             try:
                 self._resolve(val)
             except IOError as e:
-                Parameterized(name="%s.%s"%(obj.name,self._attrib_name)).warning('%s',e.args[0])
-        super(Path,self).__set__(obj,val)
+                Parameterized(name="%s.%s"%(self.owner.name,self.name)).warning('%s',e.args[0])
 
     def __get__(self, obj, objtype):
         """
@@ -1484,13 +1789,10 @@ class ListSelector(ObjectSelector):
                 if o not in self.objects:
                     self.objects.append(o)
 
-    def _check_value(self, val, obj=None):
+    def _validate(self, val):
         for o in val:
-            super(ListSelector, self)._check_value(o, obj)
+            super(ListSelector, self)._validate(o)
 
-    def _ensure_value_is_in_objects(self,val):
-        for o in val:
-            super(ListSelector, self)._ensure_value_is_in_objects(o)
 
 
 class MultiFileSelector(ListSelector):
@@ -1516,13 +1818,13 @@ class MultiFileSelector(ListSelector):
 
 class Date(Number):
     """
-    Date parameter of datetime type.
+    Date parameter of datetime or date type.
     """
 
     def __init__(self, default=None, **kwargs):
         super(Date, self).__init__(default=default, **kwargs)
 
-    def _check_value(self,val):
+    def _validate(self, val):
         """
         Checks that the value is numeric and that it is within the hard
         bounds; if not, an exception is raised.
@@ -1531,7 +1833,35 @@ class Date(Number):
             return
 
         if not isinstance(val, dt_types) and not (self.allow_None and val is None):
-            raise ValueError("Date '%s' only takes datetime types."%self._attrib_name)
+            raise ValueError("Date '%s' only takes datetime and date types."%self.name)
+
+        if self.step is not None and not isinstance(self.step, dt_types):
+            raise ValueError("Step parameter can only be None, a datetime or datetime type")
+
+        self._checkBounds(val)
+
+
+class CalendarDate(Number):
+    """
+    CalendarDate parameter of date type.
+    """
+
+    def __init__(self, default=None, **kwargs):
+        super(CalendarDate, self).__init__(default=default, **kwargs)
+
+    def _validate(self, val):
+        """
+        Checks that the value is numeric and that it is within the hard
+        bounds; if not, an exception is raised.
+        """
+        if self.allow_None and val is None:
+            return
+
+        if not isinstance(val, dt.date) and not (self.allow_None and val is None):
+            raise ValueError("CalendarDate '%s' only takes datetime types."%self.name)
+
+        if self.step is not None and not isinstance(self.step, dt.date):
+            raise ValueError("Step parameter can only be None or a date type")
 
         self._checkBounds(val)
 
@@ -1544,20 +1874,16 @@ class Color(Parameter):
 
     def __init__(self, default=None, allow_None=False, **kwargs):
         super(Color, self).__init__(default=default, **kwargs)
-        self._check_value(default)
+        self._validate(default)
 
-    def _check_value(self,val):
+    def _validate(self, val):
         if (self.allow_None and val is None):
             return
-        if not isinstance(val, String.basestring):
-            raise ValueError("Color '%s' only takes a string value."%self._attrib_name)
+        if not isinstance(val, basestring):
+            raise ValueError("Color '%s' only takes a string value."%self.name)
         if not re.match('^#?(([0-9a-fA-F]{2}){3}|([0-9a-fA-F]){3})$', val):
             raise ValueError("Color '%s' only accepts valid RGB hex codes."
-                             % self._attrib_name)
-
-    def __set__(self,obj,val):
-        self._check_value(val)
-        super(Color,self).__set__(obj,val)
+                             % self.name)
 
 
 
@@ -1575,14 +1901,14 @@ class Range(NumericTuple):
         super(Range,self).__init__(default=default,length=2,**params)
 
 
-    def _check(self,val):
+    def _validate(self, val):
         """
         Checks that the value is numeric and that it is within the hard
         bounds; if not, an exception is raised.
         """
         if self.allow_None and val is None:
             return
-        super(Range, self)._check(val)
+        super(Range, self)._validate(val)
 
         self._checkBounds(val)
 
@@ -1629,29 +1955,50 @@ class Range(NumericTuple):
                 too_high = (vmax is not None) and (v > vmax if incmax else v >= vmax)
                 if too_low or too_high:
                     raise ValueError("Parameter '%s' %s bound must be in range %s"
-                                     % (self._attrib_name, bound, self.rangestr()))
+                                     % (self.name, bound, self.rangestr()))
 
 
 class DateRange(Range):
     """
-    A date range specified as (start_date, end_date).
+    A datetime or date range specified as (start, end).
 
-    Dates must be specified as datetime-like types (see
-    param.dt_types).
+    Bounds must be specified as datetime or date types (see param.dt_types).
     """
-    def _check(self,val):
+    def _validate(self, val):
         if self.allow_None and val is None:
             return
 
         for n in val:
             if not isinstance(n, dt_types):
-                raise ValueError("DateRange '%s' only takes datetime types: %s"%(self._attrib_name,val))
+                raise ValueError("DateRange '%s' only takes datetime types: %s"%(self.name,val))
 
         start, end = val
         if not end >= start:
-           raise ValueError("DateRange '%s': end date %s is before start date %s."%(self._attrib_name,val[1],val[0]))
+           raise ValueError("DateRange '%s': end datetime %s is before start datetime %s."%(self.name,val[1],val[0]))
 
         # Calling super(DateRange, self)._check(val) would also check
+        # values are numeric, which is redundant, so just call
+        # _checkBounds().
+        self._checkBounds(val)
+
+
+class CalendarDateRange(Range):
+    """
+    A date range specified as (start_date, end_date).
+    """
+    def _validate(self, val):
+        if self.allow_None and val is None:
+            return
+
+        for n in val:
+            if not isinstance(n, dt.date):
+                raise ValueError("CalendarDateRange '%s' only takes date types: %s"%(self.name,val))
+
+        start, end = val
+        if not end >= start:
+           raise ValueError("CalendarDateRange '%s': end date %s is before start date %s."%(self.name,val[1],val[0]))
+
+        # Calling super(CalendarDateRange, self)._check(val) would also check
         # values are numeric, which is redundant, so just call
         # _checkBounds().
         self._checkBounds(val)

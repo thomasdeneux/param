@@ -13,18 +13,18 @@ from collections import OrderedDict
 opts=dict(A=[1,2],B=[3,4],C=dict(a=1,b=2))
 
 
-class TestObjectSelectorParameters(API1TestCase):
+class TestSelectorParameters(API1TestCase):
 
     def setUp(self):
-        super(TestObjectSelectorParameters, self).setUp()
+        super(TestSelectorParameters, self).setUp()
         class P(param.Parameterized):
-            e = param.ObjectSelector(default=5,objects=[5,6,7])
-            f = param.ObjectSelector(default=10)
-            h = param.ObjectSelector(default=None)
-            g = param.ObjectSelector(default=None,objects=[7,8])
-            i = param.ObjectSelector(default=7,objects=[9],check_on_set=False)
-            s = param.ObjectSelector(default=3,objects=OrderedDict(one=1,two=2,three=3))
-            d = param.ObjectSelector(default=opts['B'],objects=opts)
+            e = param.Selector([5,6,7])
+            f = param.Selector(default=10)
+            h = param.Selector(default=None)
+            g = param.Selector([7,8])
+            i = param.Selector([9],default=7, check_on_set=False)
+            s = param.Selector(OrderedDict(one=1,two=2,three=3), default=3)
+            d = param.Selector(opts, default=opts['B'])
 
         self.P = P
 
@@ -98,21 +98,21 @@ class TestObjectSelectorParameters(API1TestCase):
     def test_initialization_out_of_bounds(self):
         try:
             class Q(param.Parameterized):
-                q = param.ObjectSelector(5,objects=[4])
+                q = param.Selector([4], 5)
         except ValueError:
             pass
         else:
-            raise AssertionError("ObjectSelector created outside range.")
+            raise AssertionError("Selector created outside range.")
 
 
     def test_initialization_no_bounds(self):
         try:
             class Q(param.Parameterized):
-                q = param.ObjectSelector(5,objects=10)
+                q = param.Selector(10, default=5)
         except TypeError:
             pass
         else:
-            raise AssertionError("ObjectSelector created without range.")
+            raise AssertionError("Selector created without range.")
 
 
 if __name__ == "__main__":
